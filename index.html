@@ -1025,7 +1025,6 @@
       <span class="glabel">How it works</span>
       <ul class="navlist">
         <li><a href="#loan">How a loan works</a></li>
-        <li><a href="#isolated">Isolated markets</a></li>
         <li><a href="#leagues">Leagues and rank</a></li>
         <li><a href="#lenders">Lenders</a></li>
       </ul>
@@ -1035,31 +1034,14 @@
       <span class="glabel">Mechanics</span>
       <ul class="navlist">
         <li><a href="#oracle">Oracle and listing</a></li>
-        <li><a href="#liquidations">Liquidations and bad debt</a></li>
-        <li><a href="#fees">Fees</a></li>
+        <li><a href="#liquidations">Liquidations</a></li>
       </ul>
     </div>
 
     <div class="navgroup">
       <span class="glabel">Token</span>
       <ul class="navlist">
-        <li><a href="#token">The LOAN MEME token</a></li>
-      </ul>
-    </div>
-
-    <div class="navgroup">
-      <span class="glabel">Before you use it</span>
-      <ul class="navlist">
-        <li><a href="#risks">Risks</a></li>
-        <li><a href="#contracts">Contracts</a></li>
-      </ul>
-    </div>
-
-    <div class="navgroup">
-      <span class="glabel">Reference</span>
-      <ul class="navlist">
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#roadmap">Roadmap of the mechanism</a></li>
+        <li><a href="#token">The $LOAN Flywheel</a></li>
       </ul>
     </div>
 
@@ -1109,7 +1091,7 @@
 
     <article class="page" id="page-start" data-title="Start here" data-group="Start">
       <div class="cover">
-        <img src="https://i.imgur.com/OqnI9N7.png" alt="A crowd of colourful fluffy yetis running through the snow, with a mountain peak behind them">
+        <img src="https://i.imgur.com/byHZzK5.jpg" alt="A crowd of colourful fluffy yetis running through the snow, with a mountain peak behind them">
       </div>
 
       <div class="hero">
@@ -1121,104 +1103,77 @@
 
         <div class="welcome">
           <p>
-            <strong>LOAN MEME is a memecoin that owns a lending protocol.</strong> Not a
-            protocol that rented a mascot.
+            <strong>LOAN MEME is a memecoin that owns a lending protocol</strong>, not a
+            protocol that rented a mascot. You post a meme as collateral in its own book
+            (one market: one meme, one stable), borrow stables against it, and take it
+            back when you repay.
           </p>
           <p>
-            You hold a meme and you do not want to sell it. You post it as collateral,
-            borrow stables against it, and take it back when you repay. These docs say
-            what that costs and how it ends, before you post anything.
-          </p>
-          <p>
-            <strong>Nothing is deployed yet.</strong> No contracts, no markets, no token
-            address.
+            <strong>Nothing is deployed yet</strong> — no contracts, no markets, no token
+            address. Anything circulating today that claims to be LOAN MEME is not ours.
           </p>
         </div>
       </div>
 
-      <h2 id="h-what">What it is</h2>
-      <p>
-        A lending market for memecoins, isolated by design. Every ticker gets its own
-        book: its own lenders, its own borrow cap, its own LTV ceiling. If one meme goes
-        to zero, that book takes the damage and the book next to it keeps running.
-      </p>
-      <p>
-        The Yeti is the face. The lending protocol is the product: it holds the
-        collateral, sets the LTV and runs the liquidations. The claim is one line: the
-        first serious meme that runs a meme-lending market.
-      </p>
-
-      <h2 id="h-sides">Two sides</h2>
+      <h2 id="h-what">What it is, what it is not</h2>
       <div class="cols">
         <div class="panel">
-          <span class="eyebrow">Lender</span>
+          <span class="eyebrow">It is</span>
           <ul class="plain">
-            <li>You put in <strong>stables</strong> and earn the interest borrowers pay.</li>
-            <li>You pick which books you are exposed to. See <a href="#lenders">Lenders</a>.</li>
-            <li>You can lose money. Junior takes the first loss.</li>
+            <li>One book per meme, with its own lenders, borrow cap and LTV ceiling (LTV is the share of your meme's value you can borrow). One meme dying doesn't touch the next book.</li>
+            <li>The Yeti is the face. The protocol holds the collateral, sets the LTV and runs the liquidations.</li>
+            <li>The first serious meme that runs a meme-lending market.</li>
           </ul>
         </div>
         <div class="panel">
-          <span class="eyebrow">Borrower</span>
+          <span class="eyebrow">It is not</span>
           <ul class="plain">
-            <li>You put in <strong>the meme</strong> and take out stables.</li>
-            <li>Your ceiling is the LTV of that ticker's league. See <a href="#leagues">Leagues and rank</a>.</li>
-            <li>You pay interest until you repay. If the meme dumps far enough, you are liquidated.</li>
+            <li>Not a bank or equity: deposits are not insured, and the token is not a share.</li>
+            <li>Not official anything: no exchange, brokerage or chain endorses or partners with it.</li>
+            <li>Not a yield farm or advice: memes are collateral only, and everything here can lose money.</li>
           </ul>
         </div>
       </div>
 
       <h2 id="h-stayout">Who should stay out</h2>
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Any one of these is a reason not to be here</span>
-          <p>
-            You need the meme back on a fixed date. You cannot survive being liquidated
-            at a bad price. You are borrowing to buy more of the same meme you posted.
-            You are lending money you need next month. Read <a href="#risks">Risks</a>
-            first.
-          </p>
+      <p>
+        Borrowers can lose the posted meme, permanently. Lenders can lose part of their
+        deposit. Stay out if:
+      </p>
+      <div class="cols">
+        <div class="panel">
+          <span class="eyebrow">If you borrow</span>
+          <ul class="plain">
+            <li>You need the meme back on a fixed date.</li>
+            <li>You cannot survive being liquidated at a bad price.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <span class="eyebrow">If you lend</span>
+          <ul class="plain">
+            <li>You are lending money you need next month.</li>
+            <li>You expect a backstop that always pays. There is none.</li>
+          </ul>
         </div>
       </div>
 
-      <div class="hint hint-info">        <div class="body">
-          <span class="htitle">About the numbers in these docs</span>
-          <p>
-            Anything not signed off is marked <span class="badge badge-open">TBD</span>.
-            We do not publish an APY that is not coming from a live market.
-          </p>
-        </div>
-      </div>
+      <p>
+        Videos: the Yeti drops a bag (the meme) at the ice window and walks out with a
+        brick (the loan). If they ever disagree with these docs, the docs are right.
+      </p>
 
       <div class="cards c3 foot">
         <a class="card" href="#loan">
-          <span class="cnum">01</span>
           <span class="ct">How a loan works</span>
           <span class="cd">Deposit, borrow, interest, repay. One example end to end.</span>
         </a>
-        <a class="card" href="#isolated">
-          <span class="cnum">02</span>
-          <span class="ct">Isolated markets</span>
-          <span class="cd">Why one dump does not brick the protocol.</span>
-        </a>
         <a class="card" href="#leagues">
-          <span class="cnum">03</span>
           <span class="ct">Leagues and rank</span>
           <span class="cd">What decides your LTV.</span>
         </a>
         <a class="card" href="#lenders">
-          <span class="cnum">04</span>
           <span class="ct">Lenders</span>
           <span class="cd">Where your stables go, and how you lose them.</span>
-        </a>
-        <a class="card" href="#risks">
-          <span class="cnum">09</span>
-          <span class="ct">Risks</span>
-          <span class="cd">Read this one even if you read nothing else.</span>
-        </a>
-        <a class="card" href="#faq">
-          <span class="cnum">11</span>
-          <span class="ct">FAQ</span>
-          <span class="cd">Short answers to the usual questions.</span>
         </a>
       </div>
     </article>
@@ -1226,7 +1181,7 @@
     <!-- ═══════════════════ 1 · HOW A LOAN WORKS ═══════════════════ -->
     <article class="page" id="page-loan" data-title="How a loan works" data-group="How it works">
       <div class="cover cover-art">
-        <img src="https://i.imgur.com/xYTAiEI.jpg" alt="Three stations on the ice: the meme goes in, it sits locked, cash comes out, and an arrow loops back to repay" width="1024" height="434" loading="lazy">
+        <img src="https://i.imgur.com/mp6wfkg.jpg" alt="The Yeti in its lab pours a meme flask and a stables flask together to show how a loan works" width="1456" height="720" loading="lazy">
       </div>
 
       <h1>How a loan works</h1>
@@ -1244,7 +1199,7 @@
 
       <figure class="fig">
         <div class="fig-stage fig-art">
-          <img src="https://i.imgur.com/j38rC3u.jpg" alt="Four stages of one loan, left to right: deposit the meme, borrow stables against it, interest grows the debt, repay to get the meme back. A dashed return path links repay back to deposit: position closed, collateral released." width="1024" height="434" loading="lazy">
+          <img src="https://i.imgur.com/4bHJC2o.jpg" alt="Four flasks in front of the Yeti, left to right: deposit the meme, borrow stables against it, interest grows the debt, repay to get the meme back." width="1024" height="576" loading="lazy">
         </div>
         <figcaption><b>Fig. 1</b> One position, four stages. No due date: it stays open until you repay or get liquidated.</figcaption>
       </figure>
@@ -1252,7 +1207,7 @@
       <ol class="stepcards">
         <li>
           <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">Deposit</span><span class="sc-flow">meme in</span></div>
-          <p>You send a listed meme into its own book. It stays locked there. It is not lent out, not staked and not used to farm anything.</p>
+          <p>You send a listed meme into its own book (its own wallet). It stays locked there. It is not lent out, not staked and not used to farm anything.</p>
           <div class="sc-facts">
             <div><span class="k">You send</span><span class="v">The meme</span></div>
             <div><span class="k">You get</span><span class="v">A borrow limit</span></div>
@@ -1268,7 +1223,7 @@
         </li>
         <li>
           <div class="sc-head"><span class="sc-num">03</span><span class="sc-title">Pay interest</span><span class="sc-flow">debt grows</span></div>
-          <p>Interest is added to your debt as time passes, at that book's borrow rate. Most of it goes to the lenders who funded the book. Nothing is due on a schedule. The debt just grows, and the loan drifts toward liquidation even at a flat price.</p>
+          <p>Interest is added to your debt as time passes, at that book's borrow rate. Nothing is due on a schedule. The debt just grows, and the loan drifts toward liquidation even at a flat price.</p>
           <div class="sc-facts">
             <div><span class="k">Rate</span><span class="v">Variable, per book</span></div>
             <div><span class="k">Due date</span><span class="v">None</span></div>
@@ -1276,7 +1231,7 @@
         </li>
         <li>
           <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Repay</span><span class="sc-flow">meme back</span></div>
-          <p>Pay back the stables plus interest and the meme unlocks. You can also repay part of it at any time, which pushes liquidation further away.</p>
+          <p>Pay back the stables plus interest and the meme unlocks.</p>
           <div class="sc-facts">
             <div><span class="k">You send</span><span class="v">Stables + interest</span></div>
             <div><span class="k">You get</span><span class="v">The meme back</span></div>
@@ -1289,34 +1244,6 @@
           <p>The loan stays open as long as it stays healthy. What ends it early is price and interest, not a calendar. See <a href="#liquidations">Liquidations</a>.</p>
         </div>
       </div>
-
-      <h2 id="h-example">Worked example</h2>
-      <p>
-        These numbers are invented to show the arithmetic. Not a live market, not a quoted
-        rate, not a promise.
-      </p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>&nbsp;</th><th>Step</th><th>Value</th></tr></thead>
-          <tbody>
-            <tr><td class="tag">a</td><td class="k">You deposit</td><td>1,000,000 MEME_A into the MEME_A / USDG book</td></tr>
-            <tr><td class="tag">b</td><td class="k">TWAP price</td><td>$0.010 → collateral worth $10,000</td></tr>
-            <tr><td class="tag">c</td><td class="k">League</td><td>T2 → max LTV 45%</td></tr>
-            <tr><td class="tag">d</td><td class="k">Max borrow</td><td>4,500 USDG</td></tr>
-            <tr><td class="tag">e</td><td class="k">You actually borrow</td><td class="is-us">3,000 USDG, leaving room on purpose</td></tr>
-            <tr><td class="tag">f</td><td class="k">Liquidation threshold</td><td>58% → you can be liquidated once your debt is more than 58% of the collateral's value</td></tr>
-            <tr><td class="tag">g</td><td class="k">Price that liquidates you</td><td>MEME_A's TWAP falls to about $0.0052, roughly −48%</td></tr>
-            <tr><td class="tag">h</td><td class="k">Interest</td><td>Added to the 3,000 USDG over time. No rate shown: no market is live</td></tr>
-            <tr><td class="tag">i</td><td class="k">To close</td><td>Repay 3,000 USDG plus interest, get 1,000,000 MEME_A back</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Look at row (e). Borrow the full 4,500 USDG and a drop of about 22% liquidates
-        you. Borrow 3,000 and it takes about 48%. On a memecoin, that is the difference
-        between surviving a normal Tuesday and not. And interest eats into that gap for
-        as long as the loan stays open.
-      </p>
 
       <h2 id="h-hf">Health factor</h2>
       <p>One number tells you how close you are to liquidation. At 1 or above you are fine. Below 1, anyone can liquidate you.</p>
@@ -1349,76 +1276,8 @@ HF &lt; 1  →  liquidatable</code></pre>
             They repay part of your debt and take that much of your meme, plus a 10–15%
             bonus <span class="badge badge-open">TBD</span>. You keep the stables you
             borrowed. The meme they took does not come back, even if the price recovers an
-            hour later. There is no warning, no grace period and no appeal. Full list on
-            <a href="#risks">Risks</a>.
+            hour later. There is no warning, no grace period and no appeal.
           </p>
-        </div>
-      </div>
-    </article>
-
-    <!-- ═══════════════════ 2 · ISOLATED MARKETS ═══════════════════ -->
-    <article class="page" id="page-isolated" data-title="Isolated markets" data-group="How it works">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/fwRoO3j.jpg" alt="Three separate books in an ice cave: book A is fine, book B is cracked and going to zero, book C is fine. One book each." width="1586" height="672" loading="lazy">
-      </div>
-
-      <h1>Isolated markets</h1>
-      <p class="lede">
-        One market is one meme plus one loan asset. MEME_A / USDG dying does not touch
-        MEME_B / USDG. One dump must not brick the whole protocol.
-      </p>
-
-      <h2 id="h-why">Why this is the whole design</h2>
-      <p>
-        In a shared pool, every lender's stables back every loan. That can work when the
-        collateral is a large, liquid coin. It fails with memecoins: one ticker goes to
-        zero, its loans leave bad debt (debt the collateral can no longer cover), and
-        every lender in the pool pays for it.
-      </p>
-      <p>
-        Memes go to zero all the time. So we do not pool them. Each listed meme gets its
-        own book: lenders put stables into that book, borrowers put that meme in, and if
-        it goes wrong, the loss stays in that book.
-      </p>
-
-      <figure class="fig">
-        <div class="fig-stage fig-art">
-          <img src="https://i.imgur.com/SAb1ZlR.jpg" alt="Two market books side by side. The left book, MEME_A over USDG, is closed with a cross — this book took the loss. The right book, MEME_B over USDG, is open with a check mark — untouched, own lenders, own cap. A broken connector between them reads NO CONTAGION. Caption: Fig. 1 — One book closes. The one next to it does not." width="1024" height="572" loading="lazy">
-        </div>
-      </figure>
-
-      <h2 id="h-rules">The rules that make it hold</h2>
-      <div class="rows">
-        <div><span class="k">One meme per book</span><span class="d">A market is exactly one meme and one loan asset, USDG or the chain stable. No baskets, no "similar tickers" grouped together.</span></div>
-        <div><span class="k">No mixing collateral</span><span class="d">MEME_A posted in MEME_A / USDG gives you nothing to borrow in MEME_B / USDG. Two positions are two positions.</span></div>
-        <div><span class="k">Losses stay local</span><span class="d">If a book ends up with bad debt, the loss lands on the lenders in that book. It is never spread across every lender in the protocol.</span></div>
-        <div><span class="k">A cap per book</span><span class="d">Every book has its own borrow cap, sized to the real liquidity in its main pool. Small for new tickers.</span></div>
-        <div><span class="k">A pause per book</span><span class="d">A book can pause new borrows on its own. An empty pool or a stale price on MEME_A does not stop MEME_B.</span></div>
-      </div>
-
-      <h2 id="h-cost">What isolation costs you</h2>
-      <p>Honest trade-offs, because there are some.</p>
-      <ul class="plain">
-        <li><strong>No combined limit.</strong> You cannot add several memes together into one borrow limit. Each position stands alone.</li>
-        <li><strong>Less liquidity per book.</strong> Lenders are spread across books instead of one deep pool, so a given book can run out of stables to borrow.</li>
-        <li><strong>More positions to watch.</strong> Three memes means three loans and three health factors, not one.</li>
-        <li><strong>Slower listings.</strong> Every new meme is a new book with its own limits, not a line added to a list.</li>
-      </ul>
-      <div class="pull">We take all four. The alternative is one dead meme taking the whole protocol with it.</div>
-
-      <div class="hint hint-warn">        <div class="body">
-          <span class="htitle">Isolation protects the other books, not yours</span>
-          <p>
-            If you lend into the book that dies, you take that book's loss. If you borrow
-            in it, you can still be liquidated. Isolation only means the damage stops at
-            the edge of that book. See <a href="#risks">Risks</a>.
-          </p>
-        </div>
-      </div>
-
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Never ship</span>
-          <p>A shared pool. Not as a "v2", not as an opt-in, not for T1 only. If it exists, one ticker can eventually reach every lender, and the reason to use this protocol is gone.</p>
         </div>
       </div>
     </article>
@@ -1426,7 +1285,7 @@ HF &lt; 1  →  liquidatable</code></pre>
     <!-- ═══════════════════ 3 · LEAGUES ═══════════════════ -->
     <article class="page" id="page-leagues" data-title="Leagues and rank" data-group="How it works">
       <div class="cover cover-art">
-        <img src="https://i.imgur.com/xlvarbt.jpg" alt="A three-step podium: T3 lowest, T2 in the middle, T1 highest, with the maximum LTV rising alongside it" width="1024" height="434" loading="lazy">
+        <img src="https://i.imgur.com/lzzREzr.jpg" alt="The Yeti beside a three-step podium: T3 lowest, T2 in the middle, T1 highest, each with a rising vial" width="1024" height="465" loading="lazy">
       </div>
 
       <h1>Leagues and rank</h1>
@@ -1473,26 +1332,12 @@ HF &lt; 1  →  liquidatable</code></pre>
       </div>
 
       <div class="hint hint-warn">        <div class="body">
-          <span class="htitle">70% is not a day-one number</span>
+          <span class="htitle">Note</span>
           <p>
-            Big lending markets offer 75–80% LTV against large, liquid coins. That is not
-            this, and we do not copy their tables. Those numbers are earned by assets that
-            do not fall 60% in an afternoon. Put them on a memecoin and the book ends up
-            with bad debt it cannot liquidate out of.
+            All these numbers are estimates. Each meme will have its own dedicated
+            numbers and mathematics, shown in our app.
           </p>
         </div>
-      </div>
-
-      <h2 id="h-wallet">Wallet score</h2>
-      <p>
-        A borrower's history can add a small amount of LTV on top of the league. It is a
-        bonus, not a bypass.
-      </p>
-      <div class="rows">
-        <div><span class="k">Range</span><span class="d">+0 to +5 LTV points, maximum. <span class="badge badge-open">TBD</span></span></div>
-        <div><span class="k">Never</span><span class="d">+20. There is no score that turns a T3 ticker into T1 terms.</span></div>
-        <div><span class="k">Applies to</span><span class="d">The borrower, on top of whatever the token already earned. It cannot move the liquidation threshold.</span></div>
-        <div><span class="k">Inputs</span><span class="d">On-chain repayment history in this protocol first. <span class="badge badge-open">TBD</span></span></div>
       </div>
 
       <h2 id="h-moves">What moves a ticker up</h2>
@@ -1530,22 +1375,6 @@ HF &lt; 1  →  liquidatable</code></pre>
         </div>
       </div>
 
-      <h2 id="h-down">What moves a ticker down</h2>
-      <p>
-        Rank moves both ways. A ticker whose pool thins out, whose volume dies, or whose
-        LP lock expires drops a league.
-      </p>
-      <ul class="plain">
-        <li>A demotion lowers max LTV for <strong>new</strong> borrows straight away.</li>
-        <li>Open loans are not closed by the demotion itself, but the tighter liquidation threshold applies to them once it takes effect. A loan that was safe can become liquidatable. <span class="badge badge-open">Notice period TBD</span></li>
-        <li>Demotions are published with the on-chain reason, the same way promotions are.</li>
-      </ul>
-
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Never ship</span>
-          <p>A discretionary whitelist that overrides rank. The moment someone can hand a ticker T1 terms because of who asked, the league table is decoration and lenders are being lied to.</p>
-        </div>
-      </div>
     </article>
 
     <!-- ═══════════════════ 4 · LENDERS ═══════════════════ -->
@@ -1602,8 +1431,7 @@ HF &lt; 1  →  liquidatable</code></pre>
       <h2 id="h-util">Utilisation and getting your money out</h2>
       <p>
         Utilisation is the share of a book's stables that is borrowed right now. It sets
-        the borrow rate (the curve is on <a href="#fees">Fees</a>) and it decides
-        whether you can withdraw right now.
+        the borrow rate and it decides whether you can withdraw right now.
       </p>
       <ul class="plain">
         <li><strong>Low utilisation.</strong> Plenty of free stables, you can withdraw, your rate is low.</li>
@@ -1703,7 +1531,7 @@ HF &lt; 1  →  liquidatable</code></pre>
           <p>
             A reserve may exist and may cover part of a shortfall. It is not a guarantee, it
             is not a backstop for a large event, and we will not describe it as one. See
-            <a href="#liquidations">Liquidations and bad debt</a>.
+            <a href="#liquidations">Liquidations</a>.
           </p>
         </div>
       </div>
@@ -1742,24 +1570,6 @@ HF &lt; 1  →  liquidatable</code></pre>
         <div><span class="k">Trade-off</span><span class="d">A TWAP lags. In a fast dump it shows a price higher than the real one, which delays liquidation and makes bad debt more likely. That is the cost of a price that is expensive to manipulate, and it is one reason the LTVs are low.</span></div>
       </div>
 
-      <h2 id="h-pause">The pause rule</h2>
-      <div class="hint hint-info">        <div class="body">
-          <span class="htitle">Empty pool, no new borrows</span>
-          <p>
-            If the canonical pool's liquidity falls below the book's minimum, or the price
-            stops updating, that book pauses new borrows. Repaying still works. Liquidations
-            still work. Only new debt is blocked, and only in that book.
-          </p>
-        </div>
-      </div>
-      <h3>How the pause behaves</h3>
-      <ul class="plain">
-        <li>The pause is per book. Other markets keep running.</li>
-        <li>It is a rule, not a judgement call. The minimum is set at listing and published.</li>
-        <li>Borrowing resumes on its own when the pool recovers. <span class="badge badge-open">How far above the minimum: TBD</span></li>
-        <li>A paused book can still liquidate into a thin pool, so a pause is a warning sign for that book's lenders, not protection.</li>
-      </ul>
-
       <h2 id="h-listing">Listing checklist</h2>
       <p>A ticker gets a book only if every line is true. Not most of them.</p>
       <div class="checkgroup">
@@ -1789,9 +1599,9 @@ HF &lt; 1  →  liquidatable</code></pre>
 
       <h2 id="h-chains">Chains</h2>
       <p>
-        Memes from Robinhood Chain, Base and BSC can live in the LOAN MEME universe. A
-        market only exists on a chain where we have actually deployed, and this table only
-        lists chains that are live.
+        Memes from Robinhood Chain, Base, BSC and Solana can live in the LOAN MEME
+        universe. A market only exists on a chain where we have actually deployed, and
+        this table only lists chains that are live.
       </p>
       <div class="scroll-x">
         <table>
@@ -1813,49 +1623,17 @@ HF &lt; 1  →  liquidatable</code></pre>
     </article>
 
     <!-- ═══════════════════ 6 · LIQUIDATIONS ═══════════════════ -->
-    <article class="page" id="page-liquidations" data-title="Liquidations and bad debt" data-group="Mechanics">
+    <article class="page" id="page-liquidations" data-title="Liquidations" data-group="Mechanics">
       <div class="cover cover-art">
         <img src="https://i.imgur.com/S5nUopv.jpg" alt="A health track running from healthy to liquidated, with the threshold marked, and a crack in the ice beneath it" width="1024" height="434" loading="lazy">
       </div>
 
-      <h1>Liquidations and bad debt</h1>
+      <h1>Liquidations</h1>
       <p class="lede">
         When your health factor drops below 1, anyone can repay part of your debt and take
         that much of your meme, plus a bonus. If the meme gaps down too fast for that, the
         loss stays in that book.
       </p>
-
-      <h2 id="h-when">When it happens</h2>
-      <p>Your health factor (HF) compares what your meme is worth, cut down by the league's liquidation threshold, with what you owe.</p>
-      <pre><code>health factor = (collateral value × liquidation threshold) / debt
-
-HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
-      <p>Two things push you there:</p>
-      <ul class="plain">
-        <li><strong>The meme falls.</strong> Collateral value drops, measured on the TWAP.</li>
-        <li><strong>Interest adds up.</strong> Debt grows on its own. A loan that is barely healthy and never touched will cross below 1, even at a flat price.</li>
-      </ul>
-
-      <h2 id="h-bonus">The liquidation bonus</h2>
-      <p>
-        A liquidator repays part of your debt and receives that much of your meme, plus a
-        bonus. The bonus is the only reason anyone shows up.
-      </p>
-      <div class="rows">
-        <div><span class="k">Range</span><span class="d">10–15%. <span class="badge badge-open">Per-league values TBD</span></span></div>
-        <div><span class="k">Why not 5%</span><span class="d">Thin meme books do not clear at a 5% tip. The liquidator has to sell the meme they receive, and in a thin pool that sale moves the price more than 5%. They would lose money, so nobody bids, and the loan rots into bad debt.</span></div>
-        <div><span class="k">Who pays it</span><span class="d">The borrower, out of the meme they posted. It is the cost of being liquidated.</span></div>
-        <div><span class="k">Protocol share</span><span class="d">A slice of the bonus may be retained as protocol revenue. <span class="badge badge-open">TBD</span>. See <a href="#fees">Fees</a>.</span></div>
-      </div>
-
-      <h2 id="h-preliq">Pre-liquidation</h2>
-      <p>
-        The plan is a softer path, if we can ship it: as a loan gets close to HF 1, part of
-        it is closed early at a smaller penalty, instead of waiting for a full liquidation
-        at the full bonus. Better for the borrower, and better for the book, because it
-        sells into liquidity that still exists.
-      </p>
-      <p><span class="badge badge-open">TBD, ships only if we can build it safely.</span> If it does not ship, liquidation is the ordinary path and this page says so.</p>
 
       <h2 id="h-flow">What a liquidation looks like</h2>
       <p>
@@ -1898,54 +1676,6 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
         </li>
       </ol>
 
-      <h3>Example</h3>
-      <p>
-        The same loan as on <a href="#loan">How a loan works</a>, with invented numbers.
-        Not a live market. Interest left out to keep it simple.
-      </p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>&nbsp;</th><th>Step</th><th>Value</th></tr></thead>
-          <tbody>
-            <tr><td class="tag">a</td><td class="k">Your loan</td><td>1,000,000 MEME_A locked, 3,000 USDG borrowed, liquidation threshold 58%</td></tr>
-            <tr><td class="tag">b</td><td class="k">TWAP falls to</td><td>$0.0050 → meme worth $5,000 → HF about 0.97, below 1</td></tr>
-            <tr><td class="tag">c</td><td class="k">Liquidator repays</td><td>1,500 USDG of your debt</td></tr>
-            <tr><td class="tag">d</td><td class="k">Liquidator takes</td><td>330,000 MEME_A, worth $1,650: the $1,500 repaid plus a 10% bonus</td></tr>
-            <tr><td class="tag">e</td><td class="k">Your loan after</td><td class="is-us">1,500 USDG debt, 670,000 MEME_A locked → HF about 1.30, so it stops</td></tr>
-            <tr><td class="tag">f</td><td class="k">You</td><td>Lost 330,000 MEME_A. Kept the 3,000 USDG you borrowed. Still owe 1,500 USDG</td></tr>
-            <tr><td class="tag">g</td><td class="k">Liquidator</td><td>Paid 1,500 USDG, got meme worth $1,650. The $150 gap is only profit if they can sell into the pool without moving the price</td></tr>
-            <tr><td class="tag">h</td><td class="k">Lenders in the book</td><td>Got 1,500 USDG back into the book. No loss, because the meme covered the debt</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        If the meme had run out before the debt did, the gap would be bad debt for that
-        book's lenders. That is the next section.
-      </p>
-
-      <h2 id="h-baddebt">Bad debt</h2>
-      <p>
-        Bad debt is what is left when the meme runs out before the debt does. It happens
-        when the price gaps down faster than liquidators can act, which, on a memecoin, is
-        a normal Tuesday, not a rare event.
-      </p>
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">The shortfall stays in that book</span>
-          <p>
-            It is not spread across the protocol. The lenders in that book take it. With
-            the two vaults, that means junior for a T2 or T3 book and senior for a T1 book.
-            Lenders in other books lose nothing. This is the whole reason the markets are
-            isolated.
-          </p>
-        </div>
-      </div>
-      <h3>What that means in practice</h3>
-      <ul class="plain">
-        <li>There is <strong>no insurance that always pays</strong>. A reserve may cover part of a small shortfall. It is not a guarantee and we will never describe it as one.</li>
-        <li>Any bad-debt event is published in full: the book, the loan, the price path, the size, and what the reserve did or did not cover.</li>
-        <li>Buybacks pause while a book has bad debt. Covering the loss comes before buying the token. <span class="badge badge-open">Trigger TBD</span></li>
-      </ul>
-
       <h2 id="h-avoid">How not to get liquidated</h2>
       <ul class="plain">
         <li>Borrow well under the max. The gap between what you borrowed and the liquidation threshold is your whole buffer.</li>
@@ -1956,93 +1686,13 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
       </ul>
     </article>
 
-    <!-- ═══════════════════ 8 · FEES ═══════════════════ -->
-    <article class="page" id="page-fees" data-title="Fees" data-group="Mechanics">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/dZS53gx.jpg" alt="Borrow interest running along a line and dropping into three buckets: lenders, reserve and buyback" width="1024" height="434" loading="lazy">
-      </div>
-
-      <h1>Fees</h1>
-      <p class="lede">
-        Borrowers pay interest. Most of it goes to lenders. The protocol's slice funds the
-        reserve and buys back LOAN MEME.
-      </p>
-
-      <h2 id="h-shape">Borrow rate shape</h2>
-      <p>
-        The borrow rate depends on utilisation: the share of a book's stables that is
-        borrowed right now. Up to a point, called the kink, the rate stays low so borrowing
-        is worth doing. Past the kink it climbs hard, which pays lenders enough to bring
-        new stables in and pushes borrowers to repay before the book runs dry.
-      </p>
-      <figure class="fig">
-        <div class="fig-stage fig-art">
-          <img src="https://i.imgur.com/nBalJyW.jpg" alt="Borrow rate plotted against utilisation. Both the borrow rate and the lender rate start at zero, rise gently up to the kink, then climb steeply to full utilisation. The lender rate tracks below the borrow rate throughout. Neither axis carries values, because none are signed off. Caption: Fig. 1 — Shape only. No axis values, because none are signed off." width="1024" height="434" loading="lazy">
-        </div>
-      </figure>
-      <p>
-        The shape is settled. The slopes, where the kink sits and the rate at 100% are set
-        per league and are <span class="badge badge-open">TBD</span>, which is why the
-        chart above has no values on either axis.
-      </p>
-      <p>
-        Both rates move. A borrower can see the rate spike when a book fills up. A lender
-        can see it fall to almost nothing when borrowers repay.
-      </p>
-
-      <h2 id="h-split">Where the fee goes</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Source</th><th>Paid by</th><th>Split</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Borrow interest</td><td>Borrowers, all the time</td><td>Lenders / reserve / buyback / protocol</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Liquidation bonus slice</td><td>Liquidated borrowers</td><td>Liquidator / reserve / buyback / protocol</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Listing fee, if any</td><td>The ticker applying to be listed</td><td>Buyback</td><td><span class="badge badge-open">TBD, may be zero</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="rows">
-        <div><span class="k">Lenders</span><span class="d">The bulk of borrow interest.</span></div>
-        <div><span class="k">Reserve</span><span class="d">First-loss cover for that book. It may cover part of a small shortfall. It is not insurance that always pays.</span></div>
-        <div><span class="k">Buyback</span><span class="d">Buys the LOAN MEME token on the open market. See <a href="#token">Token</a>.</span></div>
-        <div><span class="k">Protocol</span><span class="d">The protocol's own share, if there is one. If it is not zero, the table says how much. <span class="badge badge-open">TBD</span></span></div>
-      </div>
-      <p>
-        The exact percentages get frozen into the table above before the first market
-        opens. Until then they are placeholders, not numbers.
-      </p>
-
-      <h2 id="h-frozen">Frozen versus governance</h2>
-      <p>Frozen means written into the contracts at deploy, and nobody can change it. Governance means the key holders can change it, with notice first.</p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Parameter</th><th>Frozen at deploy</th><th>Changeable</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Isolation of markets</td><td class="is-us">Frozen</td><td>Never</td></tr>
-            <tr><td class="k">League LTV ceilings</td><td>-</td><td>Yes, with notice and a published reason</td></tr>
-            <tr><td class="k">Fee split</td><td>-</td><td>Yes, with notice <span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Rate curve per league</td><td>-</td><td>Yes, with notice</td></tr>
-            <tr><td class="k">Borrow caps</td><td>-</td><td>Yes, the fastest-moving parameter</td></tr>
-            <tr><td class="k">Ability to move user funds</td><td class="is-us">Does not exist</td><td>Never</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Who holds the keys, how many of them must sign, and how long a change waits before it takes effect (the timelock) are <span class="badge badge-open">TBD</span>. They get published on <a href="#contracts">Contracts</a> before deploy, not after.</p>
-
-      <div class="hint hint-warn">        <div class="body">
-          <span class="htitle">No APY here until there is one</span>
-          <p>Every rate on this page is a shape, not a number. When a market is live, this page shows the rate it actually paid over a stated period, not a yearly number stretched out of one good week.</p>
-        </div>
-      </div>
-    </article>
-
     <!-- ═══════════════════ 7 · TOKEN ═══════════════════ -->
-    <article class="page" id="page-token" data-title="The LOAN MEME token" data-group="Token">
+    <article class="page" id="page-token" data-title="The $LOAN Flywheel" data-group="Token">
       <div class="cover cover-art">
         <img src="https://i.imgur.com/8kyRrat.jpg" alt="Protocol revenue on the left, a coin carrying the Yeti in the middle, and an open-market buy on the right, looping back" width="1024" height="342" loading="lazy">
       </div>
 
-      <h1>The LOAN MEME token</h1>
+      <h1>The $LOAN Flywheel</h1>
       <p class="lede">
         The meme is the culture. The protocol is the engine. Protocol revenue buys back the
         meme. You do not need to hold it to lend or borrow.
@@ -2059,22 +1709,9 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
             <li>Meet the same standard as every listed meme: mint and freeze revoked, contract verified, wallets published.</li>
           </ul>
         </div>
-        <div class="panel panel-no">
-          <span class="eyebrow">It does not</span>
-          <ul class="plain">
-            <li>Gate anything. You lend and borrow without holding it.</li>
-            <li>Work as collateral in the protocol at launch.</li>
-            <li>Pay yield, dividends or any other payout.</li>
-            <li>Make you an owner. It is not equity, not a claim on assets, and not a promise of any kind.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="pull">
-        It benefits through buybacks, or not at all.
-        <small>Forcing the token into borrowing would make the markets worse and the fees smaller.</small>
       </div>
 
-      <h2 id="h-buyback">Buyback source</h2>
+      <h2 id="h-buyback">The Flywheel</h2>
       <ol class="stepcards">
         <li>
           <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">Fees build up</span><span class="sc-flow">stables in</span></div>
@@ -2120,50 +1757,6 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
         </div>
       </div>
 
-      <h2 id="h-supply">Supply and distribution</h2>
-      <p>
-        <span class="badge badge-open">TBD until deploy.</span> This table is empty on
-        purpose. We do not publish a supply we have not frozen.
-      </p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Bucket</th><th>Share</th><th>Unlock</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Total supply</td><td>-</td><td>-</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Liquidity</td><td>-</td><td>-</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Team</td><td>0 at TGE</td><td>Vesting</td><td><span class="badge badge-open">TBD, the rule stands unless this page says otherwise</span></td></tr>
-            <tr><td class="k">Treasury</td><td>-</td><td>-</td><td><span class="badge badge-open">TBD</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-warn">        <div class="body">
-          <span class="htitle">Working rule: team gets 0 at TGE</span>
-          <p>
-            TGE is the day the token launches. The team gets nothing that day. As long as
-            this rule stays, it is the one line in the table above that is not a
-            placeholder. If it changes, it changes here first, before launch, in public.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-vesting">Vesting</h2>
-      <p>Vesting means tokens unlock bit by bit over time, instead of all at once.</p>
-      <div class="rows">
-        <div><span class="k">Team</span><span class="d">0 at TGE. Any team allocation after that vests. <span class="badge badge-open">Schedule TBD</span></span></div>
-        <div><span class="k">Treasury</span><span class="d"><span class="badge badge-open">TBD</span></span></div>
-        <div><span class="k">Where to check</span><span class="d">Every vesting and treasury wallet goes on <a href="#contracts">Contracts</a>, so unlocks can be watched on chain.</span></div>
-      </div>
-
-      <h2 id="h-hygiene">Contract hygiene</h2>
-      <p>We hold our own token to the listing standard we apply to everyone else.</p>
-      <div class="checkgroup">
-        <div class="check">Mint authority revoked at launch.</div>
-        <div class="check">Freeze authority revoked at launch.</div>
-        <div class="check">Contract verified, with the source published.</div>
-        <div class="check">Liquidity position and any lock verifiable on chain.</div>
-        <div class="check">Every team and treasury wallet published on <a href="#contracts">Contracts</a>.</div>
-      </div>
-
       <div class="hint hint-stop">        <div class="body">
           <span class="htitle">The token is a memecoin</span>
           <p>
@@ -2173,383 +1766,6 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
           </p>
         </div>
       </div>
-    </article>
-
-    <!-- ═══════════════════ 9 · RISKS ═══════════════════ -->
-    <article class="page" id="page-risks" data-title="Risks" data-group="Before you use it">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/Z6N3Y4J.jpg" alt="Three warning markers on the ice, largest first, under an axis running from most likely to least likely" width="1024" height="434" loading="lazy">
-      </div>
-
-      <h1>Risks</h1>
-      <p class="lede">
-        Read this before you deposit anything. If a risk here is missing, the page is
-        wrong, tell us.
-      </p>
-
-      <h2 id="h-borrower">If you borrow</h2>
-      <div class="rows">
-        <div><span class="k">Liquidation</span><span class="d">If the TWAP falls far enough, anyone can repay part of your debt and take that much of your meme, plus a 10–15% bonus <span class="badge badge-open">TBD</span>. No warning, no grace period, no appeal.</span></div>
-        <div><span class="k">Zero versus your entry</span><span class="d">The meme can go to zero, and your loss counts from where you bought, not from where you borrowed. Say you bought at $0.04 and got liquidated at $0.005: the loan does not undo that first loss.</span></div>
-        <div><span class="k">Illiquid exit</span><span class="d">The TWAP is not the price you get. Selling a meme into a thin pool pushes the price down as you sell, so you can get far less than the value the book shows.</span></div>
-        <div><span class="k">Interest drift</span><span class="d">Your debt grows all the time. A loan you never touch moves toward liquidation on a flat chart.</span></div>
-        <div><span class="k">Rate spikes</span><span class="d">Borrow rates rise sharply when a book fills up. What you pay is not fixed.</span></div>
-        <div><span class="k">League change</span><span class="d">If your ticker is demoted, the liquidation threshold tightens on the loan you already have. A safe loan can become liquidatable without the price moving. See <a href="#leagues">Leagues</a>.</span></div>
-        <div><span class="k">Borrowing to buy more</span><span class="d">Borrowing stables to buy more of the meme you posted doubles your bet on one price. It is the fastest way to lose the position.</span></div>
-      </div>
-
-      <h2 id="h-lender">If you lend</h2>
-      <div class="rows">
-        <div><span class="k">Bad debt</span><span class="d">A meme can gap below the point where liquidation covers the debt. The loss lands on the lenders in that book, and junior holds the new and thin books, where memes die first. You can lose part of your deposit.</span></div>
-        <div><span class="k">No guaranteed backstop</span><span class="d">A reserve may cover part of a small shortfall. There is no insurance that always pays, and we will not describe one.</span></div>
-        <div><span class="k">Illiquid exit</span><span class="d">When all of a book's stables are borrowed, there is nothing free to withdraw. You wait for repayments or new deposits. Your money is not there on demand.</span></div>
-        <div><span class="k">Rate collapse</span><span class="d">Borrowers repay, fewer stables are borrowed, and you earn close to nothing while your money sits.</span></div>
-        <div><span class="k">Stablecoin risk</span><span class="d">You hold the loan asset. If USDG or the chain stable loses its $1 peg, that is your loss, and nothing in this protocol offsets it.</span></div>
-      </div>
-
-      <h2 id="h-shared">Risks either way</h2>
-      <div class="rows">
-        <div><span class="k">Oracle</span><span class="d">A TWAP lags. In a fast dump it shows a price above the real one, which delays liquidation and makes bad debt more likely. A TWAP can still be manipulated. It is expensive to do, which is not the same as impossible.</span></div>
-        <div><span class="k">Empty pool</span><span class="d">If the canonical pool thins out, new borrows pause in that book. Liquidations still fire, into liquidity that may not be there.</span></div>
-        <div><span class="k">Smart contract failure</span><span class="d">A bug in the market, the locker that holds the memes, the price feed or the fee router can take everything, in any league, in any vault.</span></div>
-        <div><span class="k">Chain and bridge risk</span><span class="d">You take on the risk of the chain a book lives on: outages, halts, bugs in the chain itself. A bridged token carries the bridge's risk on top of its own.</span></div>
-        <div><span class="k">Key and governance risk</span><span class="d">Whoever holds the keys can change parameters. Who they are, how many must sign and how long a change waits all go on <a href="#contracts">Contracts</a>. Read them and decide whether you accept them.</span></div>
-        <div><span class="k">App risk</span><span class="d">An app is a window onto the contracts, and it can be wrong. If the screen and the chain disagree, the chain is right.</span></div>
-        <div><span class="k">Pre-deploy risk</span><span class="d">Nothing is live. Any address, app or "presale" claiming to be this protocol today is not.</span></div>
-      </div>
-
-      <h2 id="h-notwhat">What this is not</h2>
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Plainly</span>
-          <p>
-            <strong>Not a bank.</strong> Deposits are not insured by anyone.
-            <strong>Not equity.</strong> The token is not a share and carries no claim on
-            assets or revenue. <strong>Not official anything.</strong> Not affiliated with,
-            endorsed by or partnered with any exchange, brokerage or chain. Not advice.
-            Every part of this can lose money, and no price only goes one way.
-          </p>
-        </div>
-      </div>
-    </article>
-
-    <!-- ═══════════════════ 10 · CONTRACTS ═══════════════════ -->
-    <article class="page" id="page-contracts" data-title="Contracts" data-group="Before you use it">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/tCsccYM.jpg" alt="Three empty dashed plaques where the core, oracle and token addresses will go, all still blank, marked NOT DEPLOYED" width="1024" height="434" loading="lazy">
-      </div>
-
-      <h1>Contracts</h1>
-      <p class="lede">
-        Addresses go here when they exist. Until then the table stays empty. An empty table
-        is fine. A fake address is not.
-      </p>
-
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Nothing is deployed</span>
-          <p>
-            There are no contracts, no markets and no token address. Any address circulating
-            right now claiming to be LOAN MEME is not ours. We will never publish an address
-            anywhere except this page.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-addresses">Addresses</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Contract</th><th>What it does</th><th>Chain</th><th>Address</th><th>Verified</th></tr></thead>
-          <tbody>
-            <tr><td class="k">LOAN MEME token</td><td>The meme itself</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Market factory</td><td>Creates one book per listed meme</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Collateral locker</td><td>Holds the memes borrowers post</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Oracle adapter</td><td>Reads the TWAP from each canonical pool</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Fee router</td><td>Sends the fee slices where <a href="#fees">Fees</a> says they go</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Buyback route</td><td>Buys LOAN MEME on the open market</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Admin multisig</td><td>A wallet that needs several signatures to act</td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td class="k">Timelock</td><td>Makes changes wait before they take effect</td><td>-</td><td>-</td><td>-</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="h-verify">How to verify, once they exist</h2>
-      <p>
-        Eight checks, in order. Each one takes a block explorer and a few minutes. If any
-        check fails, stop there and do not deposit, whether you lend stables or post a meme.
-      </p>
-
-      <ol class="stepcards">
-        <li>
-          <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">Start here</span><span class="sc-flow">source</span></div>
-          <p>Take addresses from this page only. Not a DM, not a reply, not a search result. Bookmark it.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">This page</span></div>
-            <div><span class="k">Pass if</span><span class="v">The address came from here</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">02</span><span class="sc-title">Open the explorer</span><span class="sc-flow">code</span></div>
-          <p>Open each address in the block explorer for its chain. The source code should be verified, so anyone can read what it does.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">Every address above</span></div>
-            <div><span class="k">Pass if</span><span class="v">Source code is verified</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">03</span><span class="sc-title">Check the token</span><span class="sc-flow">supply</span></div>
-          <p>Mint and freeze authority both revoked. Supply matches what <a href="#token">Token</a> says.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">LOAN MEME token</span></div>
-            <div><span class="k">Pass if</span><span class="v">No mint, no freeze, supply matches</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Check the locker</span><span class="sc-flow">meme in</span></div>
-          <p>Your meme sits in the locker for your book. It moves only on a repayment or a liquidation, never by an admin.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">Collateral locker</span></div>
-            <div><span class="k">Pass if</span><span class="v">It holds your meme, no admin exit</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">05</span><span class="sc-title">Check your book</span><span class="sc-flow">market</span></div>
-          <p>Your book points at the meme you expect, the loan asset you expect, and the oracle adapter listed here.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">Your market</span></div>
-            <div><span class="k">Pass if</span><span class="v">Meme, stable and oracle all match</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">06</span><span class="sc-title">Check the roles</span><span class="sc-flow">keys</span></div>
-          <p>Who can pause, who can change parameters, what sits behind the timelock. No role can move user funds.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">Multisig and timelock</span></div>
-            <div><span class="k">Pass if</span><span class="v">Matches the roles table below</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">07</span><span class="sc-title">Check the router</span><span class="sc-flow">fees</span></div>
-          <p>Fees go where <a href="#fees">Fees</a> says: lenders, reserve, buyback. Nowhere else.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">Fee router</span></div>
-            <div><span class="k">Pass if</span><span class="v">Split matches Fees</span></div>
-          </div>
-        </li>
-        <li>
-          <div class="sc-head"><span class="sc-num">08</span><span class="sc-title">Trust the chain</span><span class="sc-flow">not the app</span></div>
-          <p>If an app shows something different from what you just checked, the chain is right and the app is wrong.</p>
-          <div class="sc-facts">
-            <div><span class="k">Look at</span><span class="v">The app vs. the explorer</span></div>
-            <div><span class="k">Pass if</span><span class="v">They agree</span></div>
-          </div>
-        </li>
-      </ol>
-
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Passing every check is not a guarantee</span>
-          <p>Verified code can still have a bug, and a correct setup can still lose money when a meme goes to zero. These checks tell you the contracts are the ones described here. They do not make it safe. See <a href="#risks">Risks</a>.</p>
-        </div>
-      </div>
-
-      <h2 id="h-roles">Roles we will publish</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Role</th><th>What it can do</th><th>Control</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Pause a book</td><td>Stop new borrows in one market</td><td>Immediate, the only fast power</td></tr>
-            <tr><td class="k">Set league parameters</td><td>LTV ceilings, thresholds, caps</td><td>Timelocked, announced first</td></tr>
-            <tr><td class="k">Set fee split</td><td>Lender / reserve / buyback shares</td><td>Timelocked, with a published reason</td></tr>
-            <tr><td class="k">List or delist a market</td><td>Add or retire a book</td><td>Against the published checklist only</td></tr>
-            <tr><td class="k">Move user funds</td><td class="is-us">Nothing. This role must not exist.</td><td>-</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-info">        <div class="body">
-          <span class="htitle">Keys get published before the first deposit</span>
-          <p>
-            Who signs, how many signatures a change needs, and how long the timelock makes
-            it wait are <span class="badge badge-open">TBD</span>. They land on this page
-            before anyone can deposit, not after. If they are not here, do not deposit.
-          </p>
-        </div>
-      </div>
-    </article>
-
-    <!-- ═══════════════════ 11 · FAQ ═══════════════════ -->
-    <article class="page" id="page-faq" data-title="FAQ" data-group="Reference">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/eHAYslk.jpg" alt="A question bubble and a shorter answer bubble sitting on the ice" width="1024" height="434" loading="lazy">
-      </div>
-
-      <h1>FAQ</h1>
-      <p class="lede">Short answers. Longer ones are linked.</p>
-
-      <details class="exp" open>
-        <summary>Is this just a meme?</summary>
-        <div class="exp-body">
-          <p>Yes, plus a market. The meme is the culture: the brand, the token, the Yeti. The market is isolated lending against memecoins, and it is where the fees come from. Protocol revenue buys back the meme.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I borrow 70% against a two-day-old ticker?</summary>
-        <div class="exp-body">
-          <p>No. A new ticker with a thin book is T3, around 30% max LTV <span class="badge badge-open">TBD</span>. 70% is not a day-one number for anything here. See <a href="#leagues">Leagues and rank</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>If my meme goes to zero, does every lender eat the loss?</summary>
-        <div class="exp-body">
-          <p>No. That market. Only the lenders in that book take the loss. Lenders in other books lose nothing. That is what isolated means. See <a href="#isolated">Isolated markets</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Is the Yeti the protocol?</summary>
-        <div class="exp-body">
-          <p>No. The Yeti is the face. It is in the art and the videos. It holds no key, has no vote and appears in no formula. The protocol is the lending market.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I lose money?</summary>
-        <div class="exp-body">
-          <p>Yes. Borrowers can be liquidated and lose the meme they posted. Lenders can lose part of their deposit when a book ends up with bad debt, and junior is first in line. The token can go to zero. See <a href="#risks">Risks</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What do I actually deposit, and what do I get out?</summary>
-        <div class="exp-body">
-          <p>Borrowers put the meme in and take stables out, USDG or the chain stable. Lenders put stables in and earn the interest. Memes are never lent out. They go in as collateral only.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What price is used to liquidate me?</summary>
-        <div class="exp-body">
-          <p>A TWAP of the canonical pool, not the last tick: the average price in the meme's main pool over a set window. One wick does not liquidate you. It also does not save you if the price stays down. See <a href="#oracle">Oracle and listing</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Do I need to hold LOAN MEME to lend or borrow?</summary>
-        <div class="exp-body">
-          <p>No. The token gates nothing. It receives buybacks funded by protocol fees; it is not a toll on using the market.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I use LOAN MEME as collateral?</summary>
-        <div class="exp-body">
-          <p>Not at launch. A protocol accepting its own token as collateral in its own market is the standard way this category blows up.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>How does a ticker get listed?</summary>
-        <div class="exp-body">
-          <p>It passes the whole checklist or it does not get a book: mint and freeze revoked, a canonical pool with minimum liquidity, minimum age for its league. All of it, not most of it. See <a href="#oracle">the listing checklist</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I pay to get a higher LTV?</summary>
-        <div class="exp-body">
-          <p>No. There is no paid tier and no whitelist that overrides rank. Rank comes from things you can measure on the token. A borrower's wallet score adds +0 to +5 LTV points. Never +20.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Which chains are live?</summary>
-        <div class="exp-body">
-          <p>None. Memes from Robinhood Chain, Base and BSC can live in the LOAN MEME universe, but a market only exists where we have deployed, and we have not deployed anywhere. The chain table on <a href="#oracle">Oracle and listing</a> stays empty until that changes.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What is the APY?</summary>
-        <div class="exp-body">
-          <p>There isn't one, because there is no live market. Once markets exist, we publish the rates they actually paid over a stated period. No projections, and no yearly number stretched out of one good week.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Are you affiliated with Robinhood, or any exchange?</summary>
-        <div class="exp-body">
-          <p>No. Not official, not endorsed, not partnered. Tokens that originate on any chain may end up listed as collateral; that is not a relationship with anyone.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Is there a token address yet?</summary>
-        <div class="exp-body">
-          <p>No. Anything circulating now is not ours. Addresses will only ever appear on <a href="#contracts">Contracts</a>.</p>
-        </div>
-      </details>
-    </article>
-
-    <!-- ═══════════════════ 12 · ROADMAP ═══════════════════ -->
-    <article class="page" id="page-roadmap" data-title="Roadmap of the mechanism" data-group="Reference">
-      <div class="cover cover-art">
-        <img src="https://i.imgur.com/USXD6Fc.jpg" alt="A phase track from T0 to T3 with every milestone still open, and a marker sitting before T0" width="1024" height="434" loading="lazy">
-      </div>
-
-      <h1>Roadmap of the mechanism</h1>
-      <p class="lede">
-        What gets built, in what order, and what does not get built at all.
-      </p>
-
-      <h2 id="h-phases">Phases</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Phase</th><th>What ships</th><th>Done when</th></tr></thead>
-          <tbody>
-            <tr>
-              <td class="k">T0</td>
-              <td>First isolated markets. Tiny caps. A few tickers, on conservative terms.</td>
-              <td>Real borrows, real repayments, and one full liquidation cycle observed on a live book.</td>
-            </tr>
-            <tr>
-              <td class="k">T1</td>
-              <td>Leagues live. Public listing rules, applied the same way to every ticker.</td>
-              <td>A ticker gets promoted and another gets demoted, both on published criteria.</td>
-            </tr>
-            <tr>
-              <td class="k">T2</td>
-              <td>Buyback routing on. Fee split frozen and published. Every transfer and purchase checkable on chain.</td>
-              <td>Fees earned on live markets have bought the token on the open market, with hashes.</td>
-            </tr>
-            <tr>
-              <td class="k">T3</td>
-              <td>More chains.</td>
-              <td class="is-us">Only after the first chain has survived a real dump, not before.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-info">        <div class="body">
-          <span class="htitle">Current phase: pre-T0, <span class="badge badge-open">nothing deployed</span></span>
-          <p>
-            Phases do not have dates. A phase ends when its condition is met, and stating a
-            date we cannot control is the same as making it up.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-never-ship">Never ship</h2>
-      <div class="hint hint-stop">        <div class="body">
-          <span class="htitle">Three things that are off the table permanently</span>
-          <p>
-            <strong>A shared pool.</strong> Not as a v2, not opt-in, not for T1 only.<br>
-            <strong>70% LTV on day one.</strong> Not for any league, for any ticker, for anyone.<br>
-            <strong>A discretionary whitelist that overrides rank.</strong> If someone can hand out terms by hand, the league table is decoration.
-          </p>
-          <p>
-            These are not "current thinking". They are the constraints the protocol is for.
-            If any of them ships, the reason to use this instead of a generic lending
-            market is gone.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-maybe">Wanted, not promised</h2>
-      <p>
-        Anything in this list that has not shipped is described in these docs as not
-        shipped. It never gets written as if it exists.
-      </p>
-      <ul class="plain">
-        <li><strong>Pre-liquidation.</strong> A partial close before full liquidation, at a smaller penalty. Ships only if we can build it safely. See <a href="#liquidations">Liquidations</a>.</li>
-        <li><strong>Senior and junior vaults.</strong> Senior for T1 books, junior for T2 and T3. Ships only if we can build it right. See <a href="#lenders">Lenders</a>.</li>
-        <li><strong>Wallet score.</strong> +0 to +5 LTV points when it arrives. Never +20.</li>
-        <li><strong>A public dashboard</strong> for fees earned and tokens bought, so the buyback claim can be checked, not just stated.</li>
-      </ul>
     </article>
 
     <p class="lastup" id="lastup">Last updated: 11 September 2026</p>
