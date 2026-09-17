@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap">
+<link rel="preload" as="image" href="https://i.imgur.com/OBqEt5N.png">
 
 <style>
   /* ══ Tokens ═══════════════════════════════════════════════════════════ */
@@ -43,6 +44,33 @@
     --wash-1:      rgba(14, 124, 144, .075);
     --wash-2:      rgba(242, 194, 48, .06);
     --ring:        rgba(14, 124, 144, .16);
+    --art:         url("https://i.imgur.com/OBqEt5N.png");
+    --sky:
+      radial-gradient(42% 48% at 10% 20%, rgba(255, 204, 178, .60), transparent 70%),
+      radial-gradient(40% 42% at 90% 4%, rgba(150, 222, 250, .60), transparent 72%),
+      radial-gradient(56% 32% at 50% 70%, rgba(255, 255, 255, .85), transparent 72%),
+      radial-gradient(40% 34% at 82% 78%, rgba(206, 182, 244, .40), transparent 70%),
+      linear-gradient(180deg, #9FC7EA 0%, #C6DFF3 40%, #E6E5F5 72%, #F3E6F0 100%);
+    --haze:
+      radial-gradient(30% 22% at 50% 30%, rgba(255, 255, 255, .45), transparent 70%);
+    --stars:       0;
+    --art-filter:  saturate(1.04);
+    --art-tint:    transparent;
+    --ice-top:     #F4FBFF;
+    --ice-mid:     #D2EAF6;
+    --ice-low:     #A9D2EC;
+    --ice-shine:   rgba(255, 255, 255, .95);
+    --ice-crack:   rgba(255, 255, 255, .85);
+    --ice-seam:    rgba(74, 138, 190, .22);
+    --ice-rim:     rgba(255, 255, 255, .95);
+    --frost:       rgba(236, 246, 252, .70);
+    --glass:       rgba(244, 251, 255, .72);
+    --glass-sheen:
+      radial-gradient(70% 40% at 0% 0%, rgba(255, 255, 255, .75), transparent 70%),
+      radial-gradient(60% 30% at 100% 100%, rgba(170, 222, 246, .35), transparent 70%);
+    --glass-line:  rgba(255, 255, 255, .95);
+    --glass-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(255, 255, 255, .4), inset 0 -24px 40px -34px rgba(90, 170, 225, .6), 0 24px 60px -30px rgba(40, 84, 150, .42), 0 0 48px -18px rgba(140, 205, 240, .5);
+    --glass-solid: rgba(246, 252, 255, .95);
     --topbar-base: 60px;
     --topbar-h:    calc(var(--topbar-base) + env(safe-area-inset-top, 0px));
     --gutter:      20px;
@@ -51,15 +79,15 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:      #0A1115;
-      --surface:     #0F1A20;
-      --surface-2:   #15242B;
-      --surface-3:   #1B2E36;
+      --ground:      #080F1F;
+      --surface:     #0D1729;
+      --surface-2:   #132036;
+      --surface-3:   #1A2A44;
       --ink:         #E7F0F3;
       --ink-2:       #A4B7BF;
       --ink-3:       #7A8E97;
-      --line:        #1E3039;
-      --line-strong: #2C444F;
+      --line:        #1D2B47;
+      --line-strong: #2B3D5F;
       --accent:      #5FC6D8;
       --accent-ink:  #8FDCE9;
       --accent-soft: #10303A;
@@ -82,20 +110,47 @@
       --wash-1:      rgba(95, 198, 216, .10);
       --wash-2:      rgba(245, 204, 70, .05);
       --ring:        rgba(95, 198, 216, .22);
+      --sky:
+        radial-gradient(46% 20% at 28% 12%, rgba(80, 232, 200, .26), transparent 70%),
+        radial-gradient(42% 22% at 62% 7%, rgba(150, 118, 255, .32), transparent 70%),
+        radial-gradient(34% 36% at 92% 24%, rgba(95, 198, 216, .16), transparent 72%),
+        radial-gradient(56% 30% at 50% 72%, rgba(104, 150, 255, .30), transparent 72%),
+        linear-gradient(180deg, #040814 0%, #0A1431 42%, #162050 74%, #242A60 100%);
+      --haze:
+        radial-gradient(60% 14% at 40% 16%, rgba(94, 234, 212, .16), transparent 70%),
+        radial-gradient(50% 12% at 70% 22%, rgba(168, 140, 255, .14), transparent 70%);
+      --stars:       1;
+      --art-filter:  brightness(.92) saturate(.9) drop-shadow(0 0 22px rgba(120, 190, 255, .16));
+      --art-tint:    linear-gradient(180deg, #7383D6 0%, #4452A0 100%);
+      --ice-top:     #2B4A86;
+      --ice-mid:     #16295A;
+      --ice-low:     #0B1633;
+      --ice-shine:   rgba(150, 205, 255, .42);
+      --ice-crack:   rgba(170, 225, 255, .30);
+      --ice-seam:    rgba(0, 0, 0, .30);
+      --ice-rim:     rgba(140, 215, 255, .55);
+      --frost:       rgba(10, 20, 48, .55);
+      --glass:       rgba(9, 20, 42, .74);
+      --glass-sheen:
+        radial-gradient(70% 40% at 0% 0%, rgba(120, 205, 255, .10), transparent 70%),
+        radial-gradient(60% 30% at 100% 100%, rgba(140, 118, 255, .09), transparent 70%);
+      --glass-line:  rgba(150, 210, 255, .16);
+      --glass-shadow: inset 0 1px 0 rgba(190, 235, 255, .12), inset 0 -24px 40px -34px rgba(95, 198, 216, .35), 0 30px 70px -38px rgba(0, 0, 0, .9), 0 0 60px -24px rgba(95, 198, 216, .3);
+      --glass-solid: rgba(10, 19, 40, .95);
       color-scheme: dark;
     }
   }
 
   :root[data-theme="dark"] {
-    --ground:      #0A1115;
-    --surface:     #0F1A20;
-    --surface-2:   #15242B;
-    --surface-3:   #1B2E36;
+    --ground:      #080F1F;
+    --surface:     #0D1729;
+    --surface-2:   #132036;
+    --surface-3:   #1A2A44;
     --ink:         #E7F0F3;
     --ink-2:       #A4B7BF;
     --ink-3:       #7A8E97;
-    --line:        #1E3039;
-    --line-strong: #2C444F;
+    --line:        #1D2B47;
+    --line-strong: #2B3D5F;
     --accent:      #5FC6D8;
     --accent-ink:  #8FDCE9;
     --accent-soft: #10303A;
@@ -118,6 +173,33 @@
     --wash-1:      rgba(95, 198, 216, .10);
     --wash-2:      rgba(245, 204, 70, .05);
     --ring:        rgba(95, 198, 216, .22);
+    --sky:
+      radial-gradient(46% 20% at 28% 12%, rgba(80, 232, 200, .26), transparent 70%),
+      radial-gradient(42% 22% at 62% 7%, rgba(150, 118, 255, .32), transparent 70%),
+      radial-gradient(34% 36% at 92% 24%, rgba(95, 198, 216, .16), transparent 72%),
+      radial-gradient(56% 30% at 50% 72%, rgba(104, 150, 255, .30), transparent 72%),
+      linear-gradient(180deg, #040814 0%, #0A1431 42%, #162050 74%, #242A60 100%);
+    --haze:
+      radial-gradient(60% 14% at 40% 16%, rgba(94, 234, 212, .16), transparent 70%),
+      radial-gradient(50% 12% at 70% 22%, rgba(168, 140, 255, .14), transparent 70%);
+    --stars:       1;
+    --art-filter:  brightness(.92) saturate(.9) drop-shadow(0 0 22px rgba(120, 190, 255, .16));
+    --art-tint:    linear-gradient(180deg, #7383D6 0%, #4452A0 100%);
+    --ice-top:     #2B4A86;
+    --ice-mid:     #16295A;
+    --ice-low:     #0B1633;
+    --ice-shine:   rgba(150, 205, 255, .42);
+    --ice-crack:   rgba(170, 225, 255, .30);
+    --ice-seam:    rgba(0, 0, 0, .30);
+    --ice-rim:     rgba(140, 215, 255, .55);
+    --frost:       rgba(10, 20, 48, .55);
+    --glass:       rgba(9, 20, 42, .74);
+    --glass-sheen:
+      radial-gradient(70% 40% at 0% 0%, rgba(120, 205, 255, .10), transparent 70%),
+      radial-gradient(60% 30% at 100% 100%, rgba(140, 118, 255, .09), transparent 70%);
+    --glass-line:  rgba(150, 210, 255, .16);
+    --glass-shadow: inset 0 1px 0 rgba(190, 235, 255, .12), inset 0 -24px 40px -34px rgba(95, 198, 216, .35), 0 30px 70px -38px rgba(0, 0, 0, .9), 0 0 60px -24px rgba(95, 198, 216, .3);
+    --glass-solid: rgba(10, 19, 40, .95);
     color-scheme: dark;
   }
 
@@ -127,11 +209,6 @@
   body {
     margin: 0;
     background: var(--ground);
-    background-image:
-      radial-gradient(78ch 460px at 18% -60px, var(--wash-1), transparent 70%),
-      radial-gradient(60ch 380px at 96% 120px, var(--wash-2), transparent 72%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     color: var(--ink);
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 15.5px;
@@ -140,6 +217,66 @@
     text-rendering: optimizeLegibility;
     overflow-wrap: break-word;
     -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  }
+
+  /* ══ Scene: snowy cliffs over a frozen lake, fixed behind every page ══ */
+  .scene {
+    /* each cliff is pinned to its own screen edge, sized so the two halves never overlap */
+    --art-w: clamp(85vw, 175vh, 125vw);
+    --art-h: calc(var(--art-w) * 937 / 1678);
+    position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+    background: var(--sky);
+  }
+  .scene::before {
+    content: ""; position: absolute; inset: 0 0 45% 0; opacity: var(--stars);
+    background-image:
+      radial-gradient(1.2px 1.2px at 24px 38px, #fff 50%, transparent),
+      radial-gradient(1px 1px at 160px 22px, rgba(255,255,255,.7) 50%, transparent),
+      radial-gradient(1.4px 1.4px at 212px 150px, #fff 50%, transparent),
+      radial-gradient(1px 1px at 96px 196px, rgba(255,255,255,.6) 50%, transparent),
+      radial-gradient(1.6px 1.6px at 318px 96px, rgba(200,240,250,.95) 50%, transparent),
+      radial-gradient(1px 1px at 58px 300px, rgba(255,255,255,.55) 50%, transparent),
+      radial-gradient(1.2px 1.2px at 380px 270px, #fff 50%, transparent),
+      radial-gradient(1px 1px at 250px 340px, rgba(255,255,255,.65) 50%, transparent);
+    background-size: 290px 250px, 430px 390px;
+    -webkit-mask-image: linear-gradient(#000 30%, transparent);
+    mask-image: linear-gradient(#000 30%, transparent);
+  }
+  .scene::after { content: ""; position: absolute; inset: 0; background: var(--haze); }
+
+  .scene-ice {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: calc(var(--art-h) * .4);
+    -webkit-mask-image: linear-gradient(transparent, #000 14%);
+    mask-image: linear-gradient(transparent, #000 14%);
+  }
+  .ice-top { stop-color: var(--ice-top); }
+  .ice-mid { stop-color: var(--ice-mid); }
+  .ice-low { stop-color: var(--ice-low); }
+  .ice-shine { stop-color: var(--ice-shine); }
+  .ice-rim { stroke: var(--ice-rim); }
+  .ice-crack { fill: none; stroke: var(--ice-crack); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .ice-seam { fill: none; stroke: var(--ice-seam); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+
+  .scene-art {
+    position: absolute; bottom: 0; width: 50%; height: 100%;
+    background: var(--art) no-repeat; background-size: var(--art-w) auto;
+    filter: var(--art-filter);
+  }
+  .scene-art-l { left: 0; background-position: left bottom; }
+  .scene-art-r { right: 0; background-position: right bottom; }
+  /* night: the tint is masked by the artwork itself, so only the snow and trees take the moonlight */
+  .scene-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: var(--art-tint); mix-blend-mode: multiply;
+    -webkit-mask: var(--art) no-repeat; mask: var(--art) no-repeat;
+    -webkit-mask-size: var(--art-w) auto; mask-size: var(--art-w) auto;
+  }
+  .scene-art-l::after { -webkit-mask-position: left bottom; mask-position: left bottom; }
+  .scene-art-r::after { -webkit-mask-position: right bottom; mask-position: right bottom; }
+
+  .scene-frost {
+    position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--art-h) * .12);
+    background: linear-gradient(0deg, var(--frost), transparent);
   }
 
   ::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: var(--ink); }
@@ -302,11 +439,18 @@
 
   /* ══ Sidebar ══════════════════════════════════════════════════════════ */
   .sidenav { padding: 26px 0 60px; }
+  /* Frosted ice panels keep text legible over the scene */
+  main {
+    background: var(--glass-sheen), var(--glass); border: 1px solid var(--glass-line); box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
+  }
   @media (min-width: 1000px) {
     .sidenav {
-      position: sticky; top: var(--topbar-h); align-self: start;
-      max-height: calc(100vh - var(--topbar-h)); max-height: calc(100dvh - var(--topbar-h)); overflow-y: auto;
-      border-right: 1px solid var(--line); padding-right: 18px;
+      position: sticky; top: calc(var(--topbar-h) + 18px); align-self: start; margin-top: 18px;
+      max-height: calc(100vh - var(--topbar-h) - 36px); max-height: calc(100dvh - var(--topbar-h) - 36px); overflow-y: auto;
+      padding: 22px 14px 18px 12px; border-radius: 20px;
+      background: var(--glass-sheen), var(--glass); border: 1px solid var(--glass-line); box-shadow: var(--glass-shadow);
+      -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
       scrollbar-width: thin;
     }
   }
@@ -357,7 +501,10 @@
   .nav-note strong { color: var(--ink-2); font-weight: 600; }
 
   /* ══ Main / pages ═════════════════════════════════════════════════════ */
-  main { padding: 34px 0 90px; min-width: 0; }
+  main {
+    min-width: 0; margin: 18px 0 48px; border-radius: 24px;
+    padding: 34px clamp(18px, 3.4vw, 52px) 40px;
+  }
   .page { display: none; }
   .page.on { display: block; animation: pagein .32s cubic-bezier(.22,.7,.28,1) both; }
   @keyframes pagein {
@@ -838,9 +985,11 @@
   .rail { display: none; }
   @media (min-width: 1280px) {
     .rail {
-      display: block; position: sticky; top: var(--topbar-h); align-self: start;
-      padding: 34px 0 60px; overflow-y: auto;
-      max-height: calc(100vh - var(--topbar-h)); max-height: calc(100dvh - var(--topbar-h));
+      display: block; position: sticky; top: calc(var(--topbar-h) + 18px); align-self: start; margin-top: 18px;
+      padding: 20px 16px 18px 14px; overflow-y: auto; border-radius: 20px;
+      max-height: calc(100vh - var(--topbar-h) - 36px); max-height: calc(100dvh - var(--topbar-h) - 36px);
+      background: var(--glass-sheen), var(--glass); border: 1px solid var(--glass-line); box-shadow: var(--glass-shadow);
+      -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
     }
   }
   .rail .eyebrow { display: block; margin-bottom: 11px; }
@@ -893,7 +1042,7 @@
     .topbar { gap: 10px; }
     .topbar-right { gap: 6px; }
     .chip { padding: 4px 8px; letter-spacing: .03em; }
-    main { padding-top: 24px; }
+    main { margin: 12px 0 28px; padding: 24px 16px 30px; border-radius: 18px; }
     .panel, .hint { padding-left: 16px; padding-right: 16px; }
     ol.stepcards > li, ol.riskrank > li { padding-left: 14px; padding-right: 14px; }
   }
@@ -957,10 +1106,17 @@
     top: calc(env(safe-area-inset-top, 0px) + 12px); right: max(12px, env(safe-area-inset-right, 0px));
   }
 
-  /* Touch screens: no hover lift that sticks after a tap; fixed backgrounds jank on mobile */
+  /* Touch screens: live blur is costly on phones, so the panels go near-opaque instead */
+  @media (pointer: coarse) {
+    main, .rail { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--glass-solid); }
+  }
+  @media (pointer: coarse) and (min-width: 1000px) {
+    .sidenav { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--glass-solid); }
+  }
+
+  /* Touch screens: no hover lift that sticks after a tap */
   @media (hover: none) {
     a.card:hover, a.card:active, .pagenav a:hover { transform: none; }
-    body { background-attachment: scroll; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -968,13 +1124,39 @@
   }
   html { scroll-behavior: smooth; }
   @media print {
-    .topbar, .sidenav, .rail, .pagenav, .scrim { display: none !important; }
+    .topbar, .sidenav, .rail, .pagenav, .scrim, .scene { display: none !important; }
+    main { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
     .page { display: block !important; page-break-after: always; }
     .layout { display: block; }
   }
 </style>
 </head>
 <body>
+
+<div class="scene" aria-hidden="true">
+  <svg class="scene-ice" viewBox="0 0 1600 400" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="ice-body" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" class="ice-top"/>
+        <stop offset=".35" class="ice-mid"/>
+        <stop offset="1" class="ice-low"/>
+      </linearGradient>
+      <radialGradient id="ice-glint" cx=".5" cy=".12" r=".5" gradientTransform="matrix(1 0 0 .45 0 .07)">
+        <stop offset="0" class="ice-shine"/>
+        <stop offset="1" class="ice-shine" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1600" height="400" fill="url(#ice-body)"/>
+    <rect width="1600" height="400" fill="url(#ice-glint)"/>
+    <path class="ice-rim" d="M0 1.5H1600" stroke-width="3" vector-effect="non-scaling-stroke" opacity=".8"/>
+    <path class="ice-seam" vector-effect="non-scaling-stroke" d="M644 62L704 122L694 192L764 262L744 400M704 122L804 152L884 132M764 262L864 302L964 292L1044 400M884 132L964 202L944 262"/>
+    <path class="ice-crack" vector-effect="non-scaling-stroke" d="M642 58L702 118L692 188L762 258L742 398M702 118L802 148L882 128M762 258L862 298L962 288L1042 398M882 128L962 198L942 258M540 150L610 210L580 300L620 400M1060 170L1000 240L1060 320L1030 400"/>
+    <path class="ice-crack" vector-effect="non-scaling-stroke" opacity=".5" d="M380 250L470 290L520 360M1180 260L1110 300L1150 380M820 40L850 80L830 110"/>
+  </svg>
+  <div class="scene-art scene-art-l"></div>
+  <div class="scene-art scene-art-r"></div>
+  <div class="scene-frost"></div>
+</div>
 
 <a class="brand" href="#start" style="position:absolute;left:-9999px">Skip to content</a>
 
@@ -1688,8 +1870,8 @@ HF &lt; 1  →  liquidatable</code></pre>
 
     <!-- ═══════════════════ 7 · TOKEN ═══════════════════ -->
     <article class="page" id="page-token" data-title="The $LOAN Flywheel" data-group="Token">
-      <!-- cover image removed; restore at width="1024" height="342" -->
       <div class="cover cover-art">
+        <img src="https://i.imgur.com/9b3wHx8.jpg" alt="The $LOAN Flywheel" width="1020" height="452" loading="lazy">
       </div>
 
       <h1>The $LOAN Flywheel</h1>
@@ -2141,5 +2323,6 @@ HF &lt; 1  →  liquidatable</code></pre>
   apply();
 })();
 </script>
+
 </body>
 </html>
