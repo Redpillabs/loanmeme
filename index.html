@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Loan Meme Docs</title>
-<meta name="description" content="Loan Meme — isolated lending against memecoins. Park the ticker, walk out with cash. Protocol documentation.">
+<meta name="description" content="Loan Meme, isolated lending against memecoins. Park the ticker, walk out with cash. Protocol documentation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap">
@@ -43,6 +43,9 @@
     --wash-1:      rgba(14, 124, 144, .075);
     --wash-2:      rgba(242, 194, 48, .06);
     --ring:        rgba(14, 124, 144, .16);
+    --topbar-base: 60px;
+    --topbar-h:    calc(var(--topbar-base) + env(safe-area-inset-top, 0px));
+    --gutter:      20px;
     color-scheme: light;
   }
 
@@ -135,6 +138,8 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+    -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
   }
 
   ::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: var(--ink); }
@@ -194,7 +199,8 @@
   .topbar {
     position: sticky; top: 0; z-index: 60;
     display: flex; align-items: center; gap: 14px;
-    padding: 0 20px; height: 60px;
+    height: var(--topbar-h);
+    padding: env(safe-area-inset-top, 0px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
     background: color-mix(in srgb, var(--ground) 85%, transparent);
     backdrop-filter: blur(16px) saturate(165%);
     -webkit-backdrop-filter: blur(16px) saturate(165%);
@@ -221,15 +227,12 @@
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .06em;
-    padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-strong);
+    padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-strong);
     background: color-mix(in srgb, var(--surface) 70%, transparent);
     color: var(--ink-2); white-space: nowrap;
   }
   .chip-live { border-color: var(--gold-line); background: var(--gold-soft); color: var(--gold); }
-  .chip-live::before {
-    content: ""; width: 5px; height: 5px; border-radius: 999px; background: currentColor;
-    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
-  }
+  .chip-live::before { content: none; }
   @media (max-width: 720px) { .chip-hide-sm { display: none; } }
 
   .iconbtn {
@@ -245,11 +248,10 @@
   @media (min-width: 1000px) { #menubtn { display: none; } }
 
   /* ══ Search ═══════════════════════════════════════════════════════════ */
-  .search { position: relative; flex: 1 1 300px; min-width: 0; max-width: 340px; margin-left: 6px; }
-  @media (max-width: 640px) { .search { flex-basis: 0; max-width: none; margin-left: 0; } }
-  @media (max-width: 420px) { .search { display: none; } }
+  .search { position: relative; flex: 0 1 300px; margin-left: 6px; }
+  @media (max-width: 860px) { .search { display: none; } }
   .search input {
-    width: 100%; height: 35px; padding: 0 12px 0 32px;
+    width: 100%; height: 35px; padding: 0 34px 0 32px;
     border: 1px solid var(--line); border-radius: 9px;
     background: var(--surface); color: var(--ink);
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 13.5px;
@@ -262,6 +264,15 @@
     position: absolute; left: 10px; top: 9px; width: 15px; height: 15px;
     fill: none; stroke: var(--ink-3); stroke-width: 1.8; pointer-events: none;
   }
+  kbd {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px;
+    line-height: 1; display: inline-block; min-width: 17px; text-align: center;
+    padding: 3px 5px; border-radius: 5px; color: var(--ink-3);
+    background: var(--surface-2); border: 1px solid var(--line-strong); border-bottom-width: 2px;
+  }
+  .search .skey { position: absolute; right: 8px; top: 8px; pointer-events: none; transition: opacity .14s ease; }
+  .search input:focus ~ .skey, .search input:not(:placeholder-shown) ~ .skey { opacity: 0; }
+
   .results {
     position: absolute; top: 42px; left: 0; right: 0; z-index: 70;
     background: var(--surface); border: 1px solid var(--line-strong);
@@ -283,7 +294,8 @@
   /* ══ Shell ════════════════════════════════════════════════════════════ */
   .layout {
     display: grid; grid-template-columns: 1fr; gap: 0;
-    max-width: 1440px; margin: 0 auto; padding: 0 20px;
+    max-width: 1440px; margin: 0 auto;
+    padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
   }
   @media (min-width: 1000px) { .layout { grid-template-columns: 252px minmax(0, 1fr); gap: 44px; } }
   @media (min-width: 1280px) { .layout { grid-template-columns: 252px minmax(0, 1fr) 210px; gap: 48px; } }
@@ -292,22 +304,25 @@
   .sidenav { padding: 26px 0 60px; }
   @media (min-width: 1000px) {
     .sidenav {
-      position: sticky; top: 60px; align-self: start;
-      max-height: calc(100vh - 60px); overflow-y: auto;
+      position: sticky; top: var(--topbar-h); align-self: start;
+      max-height: calc(100vh - var(--topbar-h)); max-height: calc(100dvh - var(--topbar-h)); overflow-y: auto;
       border-right: 1px solid var(--line); padding-right: 18px;
       scrollbar-width: thin;
     }
   }
   @media (max-width: 999px) {
     .sidenav {
-      position: fixed; inset: 60px auto 0 0; z-index: 55;
+      position: fixed; inset: var(--topbar-h) auto 0 0; z-index: 55;
       width: min(302px, 86vw); background: var(--surface);
       border-right: 1px solid var(--line-strong); box-shadow: var(--shadow-lg);
-      overflow-y: auto; padding: 20px 20px 60px;
-      transform: translateX(-102%); transition: transform .18s ease;
+      overflow-y: auto; overscroll-behavior: contain;
+      padding: 20px 20px calc(60px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+      transform: translateX(-102%); visibility: hidden;
+      transition: transform .18s ease, visibility 0s linear .18s;
     }
-    .sidenav.open { transform: none; }
-    .scrim { position: fixed; inset: 60px 0 0; z-index: 50; background: rgba(10,17,21,.4); }
+    .sidenav.open { transform: none; visibility: visible; transition: transform .18s ease; }
+    .scrim { position: fixed; inset: var(--topbar-h) 0 0; z-index: 50; background: rgba(10,17,21,.4); }
+    body.menu-open { overflow: hidden; }
   }
 
   .navgroup { margin-bottom: 20px; }
@@ -371,13 +386,13 @@
   }
   .page h2 {
     font-size: clamp(21px, 2.8vw, 25px); font-weight: 600; line-height: 1.2;
-    margin-top: 48px; padding-bottom: 10px; scroll-margin-top: 78px;
+    margin-top: 48px; padding-bottom: 10px; scroll-margin-top: calc(var(--topbar-h) + 18px);
     background-image: linear-gradient(90deg,
       var(--line-strong) 0%, var(--line) 44%, transparent 100%);
     background-repeat: no-repeat; background-size: 100% 1px; background-position: 0 100%;
   }
   .page h2 + * { margin-top: 16px; }
-  .page h3 { font-size: 16.5px; font-weight: 600; letter-spacing: -.008em; margin-top: 30px; scroll-margin-top: 78px; }
+  .page h3 { font-size: 16.5px; font-weight: 600; letter-spacing: -.008em; margin-top: 30px; scroll-margin-top: calc(var(--topbar-h) + 18px); }
   .page h3 + * { margin-top: 11px; }
   .page h4 { font-size: 14px; font-weight: 600; margin-top: 22px; color: var(--ink); }
 
@@ -387,13 +402,15 @@
     border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
     background: var(--surface-2); box-shadow: var(--shadow-lg);
   }
-  .cover svg { display: block; width: 100%; height: 100%; }
-  .cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 720px) { .cover { aspect-ratio: 16 / 9; } }
+  .cover svg, .cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* phones keep the desktop framing: the same crop, just smaller */
 
-  /* Section banner — the cover's ice field, one motif per page */
+  /* Section banner, the cover's ice field, one motif per page */
   .cover-band { aspect-ratio: 1120 / 230; }
-  @media (max-width: 720px) { .cover-band { aspect-ratio: 20 / 9; } }
+  /* section banners keep their desktop ratio on phones too */
+  /* Banner as a finished image: keep its own ratio so the labels baked into it are never cropped */
+  .cover-art { aspect-ratio: auto; }
+  .cover-art img { height: auto; }
   .cover-band text {
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-weight: 500;
@@ -413,12 +430,6 @@
   .hero .titleline {
     display: flex; align-items: center; gap: 14px; margin: 22px 0 0;
   }
-  .hero .titlemark {
-    flex: none; width: clamp(38px, 5.4vw, 52px); height: clamp(38px, 5.4vw, 52px);
-    display: grid; place-items: center; border-radius: 50%;
-    background: radial-gradient(closest-side, var(--wash-1), transparent 78%);
-  }
-  .hero .titlemark svg { display: block; width: 100%; height: 100%; }
   .hero h1 { font-size: clamp(34px, 5.8vw, 54px); letter-spacing: -.038em; margin: 0; }
   .hero .lede {
     font-size: clamp(17px, 2.1vw, 20px); line-height: 1.45; color: var(--ink-2);
@@ -450,31 +461,37 @@
     margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;
     gap: 14px; counter-reset: s; max-width: 70ch;
   }
+  /* number is positioned, not a grid cell, so loose text in the li cannot spill into its column */
   ol.steps > li {
-    counter-increment: s; display: grid; grid-template-columns: 26px 1fr;
-    gap: 14px; color: var(--ink-2);
+    counter-increment: s; position: relative; padding-left: 40px;
+    color: var(--ink-2);
   }
   ol.steps > li::before {
     content: counter(s, decimal-leading-zero);
+    position: absolute; left: 0; top: 2px; width: 26px;
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; color: var(--accent);
     border: 1px solid var(--line-strong); border-radius: 4px; height: 22px;
-    display: grid; place-items: center; margin-top: 2px; font-variant-numeric: tabular-nums;
+    display: grid; place-items: center; font-variant-numeric: tabular-nums;
   }
   ol.steps > li strong { color: var(--ink); font-weight: 600; }
 
-  /* Step cards — a lifecycle broken into discrete, scannable stages */
+  /* Step cards, a lifecycle broken into discrete, scannable stages */
   ol.stepcards {
     list-style: none; margin: 0; padding: 0;
     display: grid; gap: 12px; grid-template-columns: 1fr; counter-reset: sc;
   }
-  @media (min-width: 760px) { ol.stepcards { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 760px) {
+    ol.stepcards { grid-template-columns: 1fr 1fr; }
+    /* an odd last stage takes the full row instead of sitting alone in half of it */
+    ol.stepcards > li.sc-wide { grid-column: 1 / -1; }
+  }
   ol.stepcards > li {
     border: 1px solid var(--line); border-radius: 11px; background: var(--surface);
     padding: 15px 17px 15px; display: flex; flex-direction: column; gap: 10px;
     transition: border-color .16s ease, box-shadow .16s ease;
   }
   ol.stepcards > li:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
-  .sc-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .sc-head { display: flex; align-items: baseline; gap: 10px; }
   .sc-num {
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px; letter-spacing: .08em;
     color: var(--accent); border: 1px solid var(--line-strong); border-radius: 4px;
@@ -504,7 +521,7 @@
   .sc-facts.f3 { grid-template-columns: 1fr; }
   @media (min-width: 620px) { .sc-facts.f3 { grid-template-columns: repeat(3, 1fr); } }
 
-  /* Ranked list — order carries meaning, so it stays a single column */
+  /* Ranked list. Order carries meaning, so it stays a single column */
   .rankaxis {
     display: flex; align-items: center; gap: 12px;
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10px; letter-spacing: .14em;
@@ -565,40 +582,33 @@
 
   /* Status badges */
   .badge {
-    display: inline-block; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px;
-    letter-spacing: .08em; text-transform: uppercase; padding: 2.5px 8px; font-weight: 500;
-    border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink-3);
-    white-space: nowrap; vertical-align: middle;
+    display: inline; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: .92em;
+    font-weight: 600; color: var(--ink-3);
   }
-  .badge-ok   { border-color: var(--moss-line); background: var(--moss-soft); color: var(--moss); }
-  .badge-open { border-color: var(--gold-line); background: var(--gold-soft); color: var(--gold); }
-  .badge-risk { border-color: var(--rose-line); background: var(--rose-soft); color: var(--rose); }
-  .badge-draft{ border-color: var(--line-strong); background: var(--surface-2); color: var(--ink-3); }
+  .badge-ok   { color: var(--moss); }
+  .badge-open { color: var(--gold); }
+  .badge-risk { color: var(--rose); }
+  .badge-draft{ color: var(--ink-3); }
 
   .badgerow { display: flex; flex-wrap: wrap; gap: 7px; }
 
-  /* Hint / callout boxes — GitBook style */
+  /* Hint / callout boxes, GitBook style */
   .hint {
-    display: grid; grid-template-columns: 20px 1fr; gap: 13px;
+    display: grid; grid-template-columns: 1fr; gap: 13px;
     border: 1px solid var(--line); border-left-width: 3px;
     background: var(--surface); border-radius: 10px; padding: 16px 19px;
     max-width: 74ch; box-shadow: var(--shadow);
   }
-  .hint > .ico { width: 18px; height: 18px; margin-top: 3px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .hint .body { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
   .hint p { font-size: 14.6px; color: var(--ink-2); max-width: none; }
   .hint strong { color: var(--ink); font-weight: 600; }
   .hint .htitle { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 14.5px; color: var(--ink); }
   .hint-info { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface)); }
-  .hint-info > .ico { stroke: var(--accent); }
   .hint-warn { border-left-color: var(--gold-line); background: color-mix(in srgb, var(--gold-soft) 42%, var(--surface)); }
-  .hint-warn > .ico { stroke: var(--gold); }
   .hint-ok   { border-left-color: var(--moss-line); background: color-mix(in srgb, var(--moss-soft) 42%, var(--surface)); }
-  .hint-ok > .ico { stroke: var(--moss); }
   .hint-stop { border-left-color: var(--rose-line); background: color-mix(in srgb, var(--rose-soft) 42%, var(--surface)); }
-  .hint-stop > .ico { stroke: var(--rose); }
 
-  /* Expandable — GitBook <details> */
+  /* Expandable, GitBook <details> */
   details.exp {
     border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
     max-width: 74ch; overflow: hidden;
@@ -629,6 +639,7 @@
   .cards { display: grid; gap: 13px; grid-template-columns: 1fr; }
   @media (min-width: 620px) { .cards { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1120px) { .cards.c3 { grid-template-columns: repeat(3, 1fr); } }
+  .cards.foot { margin-top: 44px; }
   .card {
     position: relative; isolation: isolate;
     display: flex; flex-direction: column; gap: 6px;
@@ -697,13 +708,15 @@
   /* Checklist */
   .checkgroup { display: flex; flex-direction: column; gap: 10px; max-width: 74ch; }
   .check {
-    display: grid; grid-template-columns: 15px 1fr; gap: 12px; align-items: start;
-    font-size: 14.5px; color: var(--ink-2);
+    position: relative; padding-left: 27px;
+    font-size: 14.5px; line-height: 1.55; color: var(--ink-2);
   }
   .check::before {
-    content: ""; width: 14px; height: 14px; margin-top: 5px;
+    content: ""; position: absolute; left: 0; top: 6px;
+    width: 14px; height: 14px; box-sizing: border-box;
     border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface);
   }
+  .check strong { color: var(--ink); font-weight: 600; }
   .check.done { color: var(--ink-3); }
   .check.done::before {
     background: var(--moss-soft); border-color: var(--moss-line);
@@ -714,15 +727,41 @@
   .checkboard > section { display: flex; flex-direction: column; gap: 12px; }
   .checkboard h3 { margin-top: 0; }
 
-  /* Figures */
+  /* Figures — the section banners' drawing language, at body scale */
   figure.fig {
-    margin: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
-    padding: 12px 10px 4px; box-shadow: var(--shadow);
+    margin: 0; border: 1px solid var(--line); border-radius: 14px;
+    background: var(--surface); box-shadow: var(--shadow); overflow: hidden;
   }
-  figure.fig svg { display: block; width: 100%; height: auto; }
+  figure.fig .fig-stage {
+    padding: 20px 18px 18px; border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(130% 100% at 50% 0%, var(--wash-2), transparent 64%),
+      linear-gradient(180deg, var(--wash-1), transparent 72%),
+      var(--surface);
+  }
+  figure.fig svg, figure.fig img { display: block; width: 100%; height: auto; }
+  figure.fig .fig-stage.fig-art { padding: 0; }
   figure.fig figcaption {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .06em;
-    color: var(--ink-3); padding: 10px 12px 12px; border-top: 1px solid var(--line); margin-top: 4px;
+    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12px; line-height: 1.5; color: var(--ink-3); padding: 11px 16px 13px;
+  }
+  figure.fig figcaption b {
+    color: var(--accent-ink); font-weight: 600; font-size: 10.5px;
+    letter-spacing: .14em; text-transform: uppercase; margin-right: 9px;
+  }
+  /* Type inside a figure, matched to .bn-lbl / .bn-key on the banners */
+  figure.fig text {
+    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 500;
+  }
+  .fg-key  { font-size: 14px; font-weight: 600; fill: var(--ink); }
+  .fg-lbl  { font-size: 11px; letter-spacing: 1.5px; fill: var(--ink-3); }
+  .fg-num  { font-size: 11px; font-weight: 600; letter-spacing: .6px; }
+  .fg-note { font-size: 11.5px; fill: var(--ink-2); }
+  @media (max-width: 640px) {
+    figure.fig .fig-stage { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 16px 14px 14px; }
+    /* drawn diagrams keep a readable width and scroll; finished images fit the screen and open full size on tap */
+    figure.fig svg { min-width: 540px; }
   }
 
   /* Code block */
@@ -758,7 +797,10 @@
     display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 60px;
     padding-top: 26px; border-top: 1px solid var(--line);
   }
-  @media (min-width: 620px) { .pagenav { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 620px) {
+    .pagenav { grid-template-columns: 1fr 1fr; }
+    .pagenav .nx { grid-column: 2; }
+  }
   .pagenav a {
     display: flex; flex-direction: column; gap: 3px; text-decoration: none;
     border: 1px solid var(--line); border-radius: 11px; padding: 14px 17px;
@@ -775,8 +817,17 @@
     text-transform: uppercase; color: var(--ink-3);
   }
   .pagenav .ttl { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .pagenav .dir { display: flex; align-items: center; gap: 6px; }
+  .pagenav .nx .dir { justify-content: flex-end; }
+  .pagenav .arw {
+    width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    transition: stroke .16s ease, transform .16s cubic-bezier(.2,.8,.3,1);
+  }
+  .pagenav a:hover .arw { stroke: var(--accent); }
+  .pagenav a:hover .pv-arw { transform: translateX(-2px); }
+  .pagenav a:hover .nx-arw { transform: translateX(2px); }
   .pagenav .nx { text-align: right; }
-  @media (min-width: 620px) { .pagenav .nx { grid-column: 2; } }
 
   .lastup {
     margin-top: 26px; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px;
@@ -787,8 +838,9 @@
   .rail { display: none; }
   @media (min-width: 1280px) {
     .rail {
-      display: block; position: sticky; top: 60px; align-self: start;
-      padding: 34px 0 60px; max-height: calc(100vh - 60px); overflow-y: auto;
+      display: block; position: sticky; top: var(--topbar-h); align-self: start;
+      padding: 34px 0 60px; overflow-y: auto;
+      max-height: calc(100vh - var(--topbar-h)); max-height: calc(100dvh - var(--topbar-h));
     }
   }
   .rail .eyebrow { display: block; margin-bottom: 11px; }
@@ -802,10 +854,113 @@
   .rail a:hover { color: var(--ink-2); border-left-color: var(--line-strong); }
   .rail a.active { color: var(--accent-ink); border-left-color: var(--accent); font-weight: 500; }
 
+  footer.sitefoot .fkeys { display: none; align-items: center; gap: 5px; margin-left: auto; }
+  @media (min-width: 900px) { footer.sitefoot .fkeys { display: flex; } }
+
   footer.sitefoot {
     margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line);
     display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center;
     font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .06em; color: var(--ink-3);
+  }
+
+  /* ══ Responsive ═══════════════════════════════════════════════════════ */
+  code { overflow-wrap: anywhere; }
+
+  /* Search on narrow screens: an icon that swaps the top bar for the search field */
+  #searchbtn, #searchclose { display: none; }
+  @media (max-width: 860px) {
+    #searchbtn { display: grid; }
+    .topbar.searching > :not(.search):not(#searchclose) { display: none; }
+    .topbar.searching .search { display: block; flex: 1 1 auto; margin-left: 0; }
+    .topbar.searching #searchclose { display: grid; flex: none; }
+    .search input { height: 40px; font-size: 16px; }   /* under 16px, iOS zooms the page on focus */
+    .search .mag { top: 12px; }
+    .search .skey { display: none; }
+    .results { top: 46px; max-height: 60vh; max-height: 60dvh; }
+  }
+
+  /* Touch-sized controls */
+  @media (max-width: 999px), (pointer: coarse) {
+    .iconbtn { width: 40px; height: 40px; border-radius: 10px; }
+    .iconbtn svg { width: 18px; height: 18px; }
+    .navlist a { padding-top: 9px; padding-bottom: 9px; }
+    .results a { padding-top: 11px; padding-bottom: 11px; }
+  }
+
+  /* Small phones: tighter gutters, compact top bar */
+  @media (max-width: 480px) {
+    :root { --gutter: 14px; }
+    .topbar { gap: 10px; }
+    .topbar-right { gap: 6px; }
+    .chip { padding: 4px 8px; letter-spacing: .03em; }
+    main { padding-top: 24px; }
+    .panel, .hint { padding-left: 16px; padding-right: 16px; }
+    ol.stepcards > li, ol.riskrank > li { padding-left: 14px; padding-right: 14px; }
+  }
+  /* the status stays in the menu note and the footer */
+  @media (max-width: 359px) { .chip-live { display: none; } }
+
+  /* Phones held sideways: a shorter bar leaves room to read */
+  @media (orientation: landscape) and (max-height: 500px) {
+    :root { --topbar-base: 52px; }
+  }
+
+  /* Phones: tables become one card per row, labelled from the header (data-label is set in the script) */
+  @media (max-width: 640px) {
+    .scroll-x { overflow: visible; }
+    .scroll-x table { min-width: 0; }
+    .scroll-x thead {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap;
+    }
+    .scroll-x table, .scroll-x tbody, .scroll-x td { display: block; }
+    .scroll-x tbody { display: flex; flex-direction: column; gap: 10px; }
+    .scroll-x tbody tr {
+      display: grid; grid-template-columns: auto 1fr; column-gap: 10px;
+      border: 1px solid var(--line); border-radius: 11px; background: var(--surface);
+      padding: 3px 15px;
+    }
+    .scroll-x tbody td { grid-column: 1 / -1; padding: 9px 0; border-bottom: 0; }
+    .scroll-x tbody td + td { border-top: 1px solid var(--line); }
+    .scroll-x tbody tr:hover td { background: none; }
+    .scroll-x tbody td:first-child {
+      color: var(--ink); font-weight: 600; font-size: 14.6px; white-space: normal;
+    }
+    .scroll-x tbody td[data-label]::before {
+      content: attr(data-label); display: block; margin-bottom: 1px;
+      font-size: 10px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    }
+    .scroll-x tbody td:first-child::before { content: none; }
+    /* a one-letter row tag sits beside the row's name instead of taking a line of its own */
+    .scroll-x tbody tr.row-tag > td:first-child { grid-column: 1; font-size: 12.3px; font-weight: 500; color: var(--accent); align-self: baseline; }
+    .scroll-x tbody tr.row-tag > td:nth-child(2) { grid-column: 2; border-top: 0; align-self: baseline; }
+    .scroll-x tbody tr.row-tag > td:nth-child(2)::before { content: none; }
+
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  }
+
+  /* Full-size view for finished images on small screens */
+  .zoomable { cursor: zoom-in; }
+  body.no-scroll { overflow: hidden; }
+  .zoom {
+    position: fixed; inset: 0; z-index: 90; display: flex;
+    overflow: auto; overscroll-behavior: contain;
+    background: color-mix(in srgb, var(--ground) 95%, transparent);
+    padding: calc(env(safe-area-inset-top, 0px) + 64px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 16px) max(16px, env(safe-area-inset-left, 0px));
+  }
+  .zoom img {
+    margin: auto; width: 1024px; max-width: none; height: auto; flex: none;
+    border-radius: 10px; border: 1px solid var(--line); box-shadow: var(--shadow-lg);
+  }
+  .zoom .iconbtn {
+    position: fixed; z-index: 1;
+    top: calc(env(safe-area-inset-top, 0px) + 12px); right: max(12px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Touch screens: no hover lift that sticks after a tap; fixed backgrounds jank on mobile */
+  @media (hover: none) {
+    a.card:hover, a.card:active, .pagenav a:hover { transform: none; }
+    body { background-attachment: scroll; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -817,343 +972,6 @@
     .page { display: block !important; page-break-after: always; }
     .layout { display: block; }
   }
-
-  /* ══ Responsive hardening ═════════════════════════════════════════════ */
-  html { -webkit-text-size-adjust: 100%; }
-  html, body { max-width: 100%; overflow-x: hidden; }
-  body { overflow-wrap: break-word; }
-
-  /* Long unbreakable strings (addresses, hashes, URLs) must not push width */
-  p, li, td, .d, .cd, .copyblock, .rows .d, .gloss .d, dd { overflow-wrap: anywhere; }
-  code { overflow-wrap: anywhere; }
-  pre { white-space: pre-wrap; word-break: break-word; }
-
-  /* Media never overflows its container */
-  img, svg, video, canvas, table { max-width: 100%; }
-  figure.fig svg, .cover svg { max-width: 100%; height: auto; }
-
-  /* Comfortable gutters on small screens, edge-to-edge safe-area aware */
-  @media (max-width: 999px) {
-    .layout { padding-left: max(14px, env(safe-area-inset-left));
-              padding-right: max(14px, env(safe-area-inset-right)); }
-    .topbar { padding-left: max(12px, env(safe-area-inset-left));
-              padding-right: max(12px, env(safe-area-inset-right)); gap: 10px; }
-  }
-  @media (max-width: 420px) {
-    .layout { padding-left: 11px; padding-right: 11px; }
-    body { font-size: 15px; }
-  }
-
-  /* Top bar: let the wordmark shrink before anything clips */
-  .brand-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .topbar-right { gap: 6px; flex: none; }
-  @media (max-width: 380px) {
-    .topbar { height: 56px; }
-    .chip { padding: 4px 8px; }
-  }
-
-  /* Comfortable tap targets for pointer-coarse devices */
-  @media (pointer: coarse) {
-    .navlist a { padding-top: 9px; padding-bottom: 9px; }
-    .rail a { padding-top: 7px; padding-bottom: 7px; }
-    .iconbtn { width: 36px; height: 36px; }
-    .results a { padding-top: 11px; padding-bottom: 11px; }
-  }
-
-  /* Mobile nav drawer: keep it within the viewport and scrollable */
-  @media (max-width: 999px) {
-    .sidenav { width: min(320px, 88vw); max-width: 88vw; -webkit-overflow-scrolling: touch; }
-  }
-
-  /* Wide flex/gap rows that can crowd narrow screens */
-  .hero .titleline { flex-wrap: wrap; }
-  .rr-head, .sc-facts, .badgerow, .crumbs { min-width: 0; }
-  .sc-flow { margin-left: 0; }
-  @media (min-width: 480px) { .sc-flow { margin-left: auto; } }
-
-  /* Tables: hint that they scroll horizontally on touch */
-  .scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
-
-  /* ══════════════════════════════════════════════════════════════════════
-     PUDGY LAYER — chunky, squishy, bobbing.
-     Tokens lifted from pudgypenguins.com: the hard un-blurred offset shadow
-     (2.6px 3px 0 rgba(9,50,78,.23)), the inset bevel, pill radii, and the
-     float / wobble / nudge idles plus the 30s marquee.
-     Everything below is additive: delete this block to get the flat docs back.
-     ══════════════════════════════════════════════════════════════════════ */
-
-  :root {
-    --pop:     2.6px 3px 0 0 rgba(9, 50, 78, .23);
-    --pop-2:   4px 5px 0 0 rgba(9, 50, 78, .22);
-    --pop-3:   7px 9px 0 0 rgba(9, 50, 78, .19);
-    --pop-in:  inset -5.2px -5.2px 0 0 rgba(9, 50, 78, .07);
-    --squish:  cubic-bezier(.16, 1, .3, 1);
-    --boing:   cubic-bezier(.34, 1.56, .64, 1);
-    --swim:    cubic-bezier(.7, 0, .2, 1);
-    --sky:     #477DFD;
-    --dot:     rgba(9, 50, 78, .055);
-    --ground:  #F3FBFF;
-    --ink:     #00142D;
-    --yeti-ink:#00142D;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --pop:    2.6px 3px 0 0 rgba(0, 0, 0, .55);
-      --pop-2:  4px 5px 0 0 rgba(0, 0, 0, .55);
-      --pop-3:  7px 9px 0 0 rgba(0, 0, 0, .5);
-      --pop-in: inset -5.2px -5.2px 0 0 rgba(0, 0, 0, .22);
-      --dot:    rgba(160, 220, 240, .05);
-      --ground: #071016;
-      --ink:    #E9F4F9;
-      --yeti-ink:#071016;
-    }
-  }
-  :root[data-theme="dark"] {
-    --pop:    2.6px 3px 0 0 rgba(0, 0, 0, .55);
-    --pop-2:  4px 5px 0 0 rgba(0, 0, 0, .55);
-    --pop-3:  7px 9px 0 0 rgba(0, 0, 0, .5);
-    --pop-in: inset -5.2px -5.2px 0 0 rgba(0, 0, 0, .22);
-    --dot:    rgba(160, 220, 240, .05);
-    --ground: #071016;
-    --ink:    #E9F4F9;
-    --yeti-ink:#071016;
-  }
-
-  /* ── Idles, taken 1:1 from the Pudgy stylesheet ───────────────────── */
-  @keyframes pg-float-up   { from { transform: translateY(.55rem);  } to { transform: translateY(-.55rem); } }
-  @keyframes pg-float-down { from { transform: translateY(-.45rem); } to { transform: translateY(.45rem);  } }
-  @keyframes pg-wobble {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    25%      { transform: rotate(-5deg) scale(1.03); }
-    65%      { transform: rotate(4deg) scale(1.03); }
-  }
-  @keyframes pg-idle {
-    0%, 70%, 100% { transform: rotate(0deg); }
-    76% { transform: rotate(-4deg); }
-    82% { transform: rotate(3.5deg); }
-    88% { transform: rotate(-2.5deg); }
-    94% { transform: rotate(1.5deg); }
-  }
-  @keyframes pg-nudge {
-    0%, 86%, 100% { transform: translateX(0) rotate(0deg); }
-    89% { transform: translateX(-.55rem) rotate(-4deg); }
-    92% { transform: translateX(.18rem) rotate(1deg); }
-    95% { transform: translateX(-.28rem) rotate(-2deg); }
-    98% { transform: translateX(0); }
-  }
-  @keyframes pg-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
-  @keyframes pg-twinkle {
-    0%, 100% { transform: scale(.45) rotate(0deg);  opacity: .18; }
-    50%      { transform: scale(1)   rotate(90deg); opacity: 1; }
-  }
-  @keyframes pg-dotscale { 50% { transform: scale3d(.85, .85, .85); } }
-  @keyframes pg-pagein {
-    from { opacity: 0; transform: translateY(15px) scale(.985); }
-    to   { opacity: 1; transform: none; }
-  }
-  @keyframes pg-pop {
-    from { opacity: 0; transform: translateY(-8px) scale(.97); }
-    to   { opacity: 1; transform: none; }
-  }
-  @keyframes pg-unroll {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* ── Polka ground ─────────────────────────────────────────────────── */
-  body {
-    background-image:
-      radial-gradient(var(--dot) 1.5px, transparent 1.6px),
-      radial-gradient(78ch 460px at 18% -60px, var(--wash-1), transparent 70%),
-      radial-gradient(60ch 380px at 96% 120px, var(--wash-2), transparent 72%);
-    background-size: 22px 22px, auto, auto;
-    background-repeat: repeat, no-repeat, no-repeat;
-    background-attachment: fixed, fixed, fixed;
-  }
-
-  .page.on { animation: pg-pagein .5s var(--squish) both; }
-
-  /* ── The chunky-shadow family ─────────────────────────────────────── */
-  .card,
-  ol.stepcards > li,
-  .panel,
-  details.exp,
-  .hint,
-  .copyblock,
-  .sw,
-  figure.fig,
-  .results,
-  .pagenav a {
-    border-width: 1.5px;
-    border-radius: 16px;
-    box-shadow: var(--pop);
-    transition: transform .28s var(--squish), box-shadow .28s var(--squish),
-                border-color .18s ease, background .18s ease;
-  }
-
-  .cover {
-    border-width: 2px; border-radius: 22px;
-    box-shadow: var(--pop-3);
-    transition: transform .5s var(--squish), box-shadow .5s var(--squish);
-  }
-  .cover:hover {
-    transform: translateY(-3px) rotate(-.25deg);
-    box-shadow: var(--pop-3), 0 26px 50px -34px rgba(9, 50, 78, .5);
-  }
-
-  a.card:hover,
-  ol.stepcards > li:hover,
-  details.exp:hover,
-  .copyblock:hover,
-  .sw:hover,
-  .pagenav a:hover {
-    transform: translate(-2px, -3px);
-    box-shadow: var(--pop-3);
-  }
-  a.card:hover { border-color: var(--accent); }
-  a.card:active,
-  .pagenav a:active { transform: translate(2.6px, 3px); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-
-  details.exp[open] { box-shadow: var(--pop-2); }
-  .hint { border-left-width: 5px; }
-  .hint:hover { transform: translate(-1px, -2px); box-shadow: var(--pop-2); }
-
-  /* ── Squishy pill controls ────────────────────────────────────────── */
-  .iconbtn {
-    border-width: 1.5px; border-radius: 999px;
-    box-shadow: var(--pop), var(--pop-in);
-    transition: transform .18s var(--boing), box-shadow .18s var(--squish),
-                border-color .15s ease, color .15s ease, background .15s ease;
-  }
-  .iconbtn:hover  { transform: translate(-1px, -2px) rotate(-4deg); box-shadow: var(--pop-2), var(--pop-in); }
-  .iconbtn:active { transform: translate(2.6px, 3px) rotate(0deg); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), var(--pop-in); }
-  #themebtn.spun svg { animation: pg-wobble .5s var(--boing); }
-
-  .chip, .badge {
-    border-width: 1.5px;
-    box-shadow: var(--pop);
-    transition: transform .2s var(--boing), box-shadow .2s var(--squish);
-  }
-  .chip:hover, .badge:hover { transform: translate(-1px, -2px) rotate(-2deg); box-shadow: var(--pop-2); }
-  .chip-live::before { animation: pg-dotscale 1.6s ease-in-out infinite; }
-
-  .search input {
-    border-width: 1.5px; border-radius: 999px;
-    box-shadow: var(--pop);
-    transition: box-shadow .22s var(--squish), border-color .15s ease, transform .22s var(--squish);
-  }
-  .search input:hover { transform: translateY(-1px); box-shadow: var(--pop-2); }
-  .search input:focus { box-shadow: var(--pop-2), 0 0 0 4px var(--ring); }
-  .results { border-radius: 18px; animation: pg-pop .28s var(--boing) both; }
-  .results a { border-radius: 11px; transition: transform .18s var(--boing), background .14s ease; }
-  .results a:hover, .results a.sel { transform: translateX(4px); }
-
-  /* ── Mascots bob, and jiggle when you are not looking ─────────────── */
-  .brand svg { animation: pg-idle 11s ease-in-out infinite; transform-origin: 50% 70%; }
-  .brand:hover svg { animation: pg-wobble .6s var(--boing); }
-
-  .hero .titlemark {
-    background: radial-gradient(closest-side, var(--wash-1), transparent 78%);
-    animation: pg-dotscale 6s ease-in-out infinite;
-  }
-  .hero .titlemark svg { animation: pg-float-up 2.6s ease-in-out infinite alternate; }
-  .hero .titlemark:hover svg { animation: pg-wobble .6s var(--boing); }
-
-  /* ── Twinkles ─────────────────────────────────────────────────────── */
-  .pg-sparks { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-  .pg-spark {
-    position: absolute; width: 15px; height: 15px; color: var(--gold);
-    animation: pg-twinkle 2.6s ease-in-out infinite;
-  }
-  .pg-spark svg { display: block; width: 100%; height: 100%; fill: currentColor; }
-  .pg-spark.s2 { color: var(--accent); }
-  .pg-spark.s3 { color: var(--sky); }
-
-  /* ── Marquee band ─────────────────────────────────────────────────── */
-  .pg-ticker {
-    position: relative; margin-top: 18px; overflow: hidden;
-    padding: 10px 0; border: 2px solid var(--line-strong); border-radius: 999px;
-    background: color-mix(in srgb, var(--accent-soft) 62%, var(--surface));
-    box-shadow: var(--pop-2);
-  }
-  /* The fade lives on an inner window so the pill keeps its border and fill */
-  .pg-ticker-win {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-  }
-  .pg-ticker-track { display: flex; width: max-content; animation: pg-marquee 30s linear infinite; }
-  .pg-ticker:hover .pg-ticker-track { animation-play-state: paused; }
-  .pg-ticker-seq { display: flex; align-items: center; flex: none; }
-  .pg-ticker-seq b {
-    font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--accent-ink); white-space: nowrap; padding: 0 18px;
-  }
-  .pg-ticker-seq i { color: var(--gold); font-style: normal; font-size: 13px; }
-
-  /* ── Sidebar: links slide, the live one gets a chunky pill ────────── */
-  .navlist a {
-    border-radius: 999px;
-    transition: transform .24s var(--boing), background .16s ease, color .16s ease,
-                box-shadow .2s var(--squish);
-  }
-  .navlist a:hover { transform: translateX(5px); }
-  .navlist a.active {
-    background: var(--accent-soft); color: var(--accent-ink); font-weight: 600;
-    border: 1.5px solid color-mix(in srgb, var(--accent) 34%, var(--line-strong));
-    box-shadow: var(--pop);
-  }
-  .navlist a.active:hover { transform: translate(4px, -2px); box-shadow: var(--pop-2); }
-  .nav-note { border-radius: 14px; }
-
-  .rail a { transition: transform .22s var(--boing), color .14s ease, border-color .14s ease; }
-  .rail a:hover { transform: translateX(3px); }
-
-  /* ── Headings get a bouncing bullet ───────────────────────────────── */
-  .page h2::after {
-    content: ""; display: inline-block; width: 7px; height: 7px; margin-left: 9px;
-    border-radius: 999px; background: var(--gold); vertical-align: middle;
-    animation: pg-dotscale 3.4s ease-in-out infinite;
-  }
-
-  /* ── Steps and numbers: rounder, chunkier ─────────────────────────── */
-  ol.steps > li::before, .sc-num, .rr-num, .card .cnum { border-radius: 999px; }
-  ol.steps > li::before {
-    border-width: 1.5px; min-width: 26px; box-shadow: var(--pop);
-    transition: transform .22s var(--boing);
-  }
-  ol.steps > li:hover::before { transform: rotate(-8deg) scale(1.08); }
-
-  code { border-radius: 999px; border-width: 1.5px; padding: .12em .55em; }
-  .pull { border-left-width: 5px; border-radius: 0 14px 14px 0; }
-  .sw { border-radius: 14px; }
-
-  /* ── Accordion body unrolls ───────────────────────────────────────── */
-  details.exp[open] > .exp-body { animation: pg-unroll .38s var(--squish) both; }
-  details.exp > summary::before { transition: transform .3s var(--boing), border-color .16s ease; }
-
-  /* ── Scroll reveal ────────────────────────────────────────────────── */
-  .pg-rev {
-    opacity: 0; transform: translateY(20px) scale(.978);
-    transition: opacity .6s var(--squish), transform .6s var(--squish);
-    transition-delay: var(--rd, 0ms);
-  }
-  .pg-rev.in { opacity: 1; transform: none; }
-
-  /* ── Top bar sits on a real edge once it lifts ────────────────────── */
-  .topbar.stuck { box-shadow: inset 0 -1.5px 0 var(--line-strong), 0 6px 0 -4px rgba(9, 50, 78, .10); }
-
-  footer.sitefoot { border-top-width: 1.5px; }
-
-  @media (max-width: 720px) {
-    .pg-ticker-seq b { font-size: 11px; padding: 0 13px; }
-    .pg-spark { width: 11px; height: 11px; }
-  }
-
-  /* Motion-sensitive visitors keep the chunky look and lose the bouncing:
-     the global prefers-reduced-motion rule above already kills every
-     animation and transition declared here. */
 </style>
 </head>
 <body>
@@ -1166,28 +984,6 @@
   </button>
 
   <a class="brand" href="#start">
-    <!-- Yeti mark: ice-blue fur, yellow horns, yellow arms -->
-    <svg viewBox="0 0 64 64" role="img" aria-label="Loan Meme Yeti mark">
-      <g fill="var(--yeti-horn)">
-        <path d="M20 18 C 15 12, 13 8, 15 5 C 18 7, 21 11, 23 16 Z"/>
-        <path d="M44 18 C 49 12, 51 8, 49 5 C 46 7, 43 11, 41 16 Z"/>
-        <circle cx="10" cy="44" r="6.5"/>
-        <circle cx="54" cy="44" r="6.5"/>
-      </g>
-      <g fill="var(--yeti-fur)">
-        <circle cx="32" cy="35" r="19"/>
-        <circle cx="19" cy="22" r="8"/>
-        <circle cx="32" cy="18" r="9"/>
-        <circle cx="45" cy="22" r="8"/>
-        <circle cx="14" cy="32" r="7.5"/>
-        <circle cx="50" cy="32" r="7.5"/>
-      </g>
-      <ellipse cx="32" cy="40" rx="11" ry="9" fill="var(--yeti-face)"/>
-      <circle cx="25" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-      <circle cx="39" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-      <ellipse cx="32" cy="39" rx="2.6" ry="2" fill="var(--yeti-ink)"/>
-      <path d="M 27 44 Q 32 48 37 44" fill="none" stroke="var(--yeti-ink)" stroke-width="1.8" stroke-linecap="round"/>
-    </svg>
     <span class="brand-name">Loan Meme</span>
   </a>
   <span class="brand-sub">Docs</span>
@@ -1195,10 +991,17 @@
   <div class="search">
     <svg class="mag" viewBox="0 0 20 20"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4"/></svg>
     <input id="q" type="search" placeholder="Search the docs…" autocomplete="off" aria-label="Search documentation">
+    <kbd class="skey" id="skey" aria-hidden="true">/</kbd>
     <div class="results" id="results" hidden></div>
   </div>
+  <button class="iconbtn" id="searchclose" aria-label="Close search">
+    <svg viewBox="0 0 20 20"><path d="M5 5l10 10M15 5 5 15"/></svg>
+  </button>
 
   <div class="topbar-right">
+    <button class="iconbtn" id="searchbtn" aria-label="Search the docs" aria-expanded="false" aria-controls="q">
+      <svg viewBox="0 0 20 20"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4"/></svg>
+    </button>
     <span class="chip chip-live">Not deployed</span>
     <button class="iconbtn" id="themebtn" aria-label="Toggle colour theme">
       <svg viewBox="0 0 20 20" id="themeicon"><path d="M16 11.5A6.5 6.5 0 0 1 8.5 4a6.5 6.5 0 1 0 7.5 7.5z"/></svg>
@@ -1231,38 +1034,20 @@
       <span class="glabel">Mechanics</span>
       <ul class="navlist">
         <li><a href="#oracle">Oracle and listing</a></li>
-        <li><a href="#liquidations">Liquidations and bad debt</a></li>
-        <li><a href="#fees">Fees</a></li>
+        <li><a href="#liquidations">Liquidations</a></li>
       </ul>
     </div>
 
     <div class="navgroup">
       <span class="glabel">Token</span>
       <ul class="navlist">
-        <li><a href="#token">The LOAN MEME token</a></li>
-      </ul>
-    </div>
-
-    <div class="navgroup">
-      <span class="glabel">Before you use it</span>
-      <ul class="navlist">
-        <li><a href="#risks">Risks</a></li>
-        <li><a href="#contracts">Contracts</a></li>
-      </ul>
-    </div>
-
-    <div class="navgroup">
-      <span class="glabel">Reference</span>
-      <ul class="navlist">
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#roadmap">Roadmap of the mechanism</a></li>
+        <li><a href="#token">The $LOAN Flywheel</a></li>
       </ul>
     </div>
 
     <p class="nav-note">
       <strong>Nothing is deployed.</strong> Every number marked
-      <span class="badge badge-open">TBD</span> is not signed off. Worked examples are
-      labelled <span class="badge badge-draft">dummy</span> and are not live rates.
+      <span class="badge badge-open">TBD</span> is not signed off.
     </p>
   </nav>
 
@@ -1301,349 +1086,152 @@
           </g>
         </g>
 
-      <g id="bn-yeti">
-        <g fill="var(--yeti-horn)">
-          <path d="M20 18 C 15 12, 13 8, 15 5 C 18 7, 21 11, 23 16 Z"/>
-          <path d="M44 18 C 49 12, 51 8, 49 5 C 46 7, 43 11, 41 16 Z"/>
-          <circle cx="10" cy="44" r="6.5"/>
-          <circle cx="54" cy="44" r="6.5"/>
-        </g>
-        <g fill="var(--yeti-fur)">
-          <circle cx="32" cy="35" r="19"/>
-          <circle cx="19" cy="22" r="8"/>
-          <circle cx="32" cy="18" r="9"/>
-          <circle cx="45" cy="22" r="8"/>
-          <circle cx="14" cy="32" r="7.5"/>
-          <circle cx="50" cy="32" r="7.5"/>
-        </g>
-        <ellipse cx="32" cy="40" rx="11" ry="9" fill="var(--yeti-face)"/>
-        <circle cx="25" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-        <circle cx="39" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-        <ellipse cx="32" cy="39" rx="2.6" ry="2" fill="var(--yeti-ink)"/>
-        <path d="M 27 44 Q 32 48 37 44" fill="none" stroke="var(--yeti-ink)" stroke-width="1.8" stroke-linecap="round"/>
-      </g>
       </defs>
     </svg>
 
-    <!-- ═══════════════════ 0 · START HERE ═══════════════════ -->
     <article class="page" id="page-start" data-title="Start here" data-group="Start">
-      <!-- Cover banner: pudgy meme mob on the island -->
       <div class="cover">
-        <img src="assets/start-here-cover.jpg" alt="A crowd of colourful pudgy meme creatures running across the island toward the volcano." loading="eager">
+        <img src="https://i.imgur.com/bNMyt2V.jpg" alt="The Yeti looks out over a snowy mountain range at a glowing portal on the peak, under the aurora">
       </div>
 
       <div class="hero">
         <div class="titleline">
-          <span class="titlemark" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <g fill="var(--yeti-horn)">
-                <path d="M20 18 C 15 12, 13 8, 15 5 C 18 7, 21 11, 23 16 Z"/>
-                <path d="M44 18 C 49 12, 51 8, 49 5 C 46 7, 43 11, 41 16 Z"/>
-                <circle cx="10" cy="44" r="6.5"/>
-                <circle cx="54" cy="44" r="6.5"/>
-              </g>
-              <g fill="var(--yeti-fur)">
-                <circle cx="32" cy="35" r="19"/>
-                <circle cx="19" cy="22" r="8"/>
-                <circle cx="32" cy="18" r="9"/>
-                <circle cx="45" cy="22" r="8"/>
-                <circle cx="14" cy="32" r="7.5"/>
-                <circle cx="50" cy="32" r="7.5"/>
-              </g>
-              <ellipse cx="32" cy="40" rx="11" ry="9" fill="var(--yeti-face)"/>
-              <circle cx="25" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-              <circle cx="39" cy="33" r="2.7" fill="var(--yeti-ink)"/>
-              <ellipse cx="32" cy="39" rx="2.6" ry="2" fill="var(--yeti-ink)"/>
-              <path d="M 27 44 Q 32 48 37 44" fill="none" stroke="var(--yeti-ink)"
-                    stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <h1>Start here</h1>
         </div>
 
-        <p class="lede">Park the ticker. <b>Walk out with cash.</b></p>
+        <p class="lede"><b>Park the ticker. Walk out with cash.</b> Isolated books. Ranked LTVs. Revenue buys the meme.</p>
 
         <div class="welcome">
           <p>
-            Whether you are holding your first meme or you have been rotating tickers for
-            years, these docs exist to tell you exactly what happens to your bag when you
-            post it as collateral — before you post it.
+            <strong>LOAN MEME is a memecoin that owns a lending protocol</strong>, not a
+            protocol that rented a mascot. You post a meme as collateral in its own book
+            (one market: one meme, one stable), borrow stables against it, and take it
+            back when you repay.
           </p>
           <p>
-            Loan Meme is <strong>isolated lending against memecoins</strong>. Every ticker
-            gets its own book, your LTV comes from that ticker's league, and protocol
-            revenue buys the meme back. No shared pool, no discretionary whitelist.
-          </p>
-          <p>
-            Read the four pages that matter, then go as deep as you want.
             <strong>Nothing is deployed yet</strong> — no contracts, no markets, no token
-            address.
+            address. Anything circulating today that claims to be LOAN MEME is not ours.
           </p>
         </div>
-
-        <p class="signoff">Park the ticker.</p>
       </div>
 
-      <div class="copyblock">
-        <span class="lbl">The whole thing in one line</span>
-        Park the ticker. Walk out with cash. Isolated books. Ranked LTVs. Revenue buys the meme.
-      </div>
-
-      <h2 id="h-what">What it is</h2>
-      <p>
-        Loan Meme is a lending market for memecoins, and it is isolated by design.
-      </p>
-      <p>
-        You hold a meme. You do not want to sell it. You deposit it into that meme's
-        market and borrow stables against it. Later you repay the stables plus interest
-        and take your meme back. On the other side, lenders put stables in and earn the
-        interest borrowers pay.
-      </p>
-      <p>
-        Every meme gets its own book. What varies on the position is the LTV, depending
-        on that book's liquidity, volatility and how it is trading. A riskier meme gets
-        its LTV cut, so one wick doesn't wipe the vault.
-      </p>
-
-      <h2 id="h-sides">Two sides, two things you put in</h2>
+      <h2 id="h-what">What it is, what it is not</h2>
       <div class="cols">
         <div class="panel">
-          <span class="eyebrow">Lender</span>
+          <span class="eyebrow">It is</span>
           <ul class="plain">
-            <li>You put in <strong>stables</strong>.</li>
-            <li>You earn interest paid by borrowers.</li>
-            <li>You choose which books you are exposed to. See <a href="#lenders">Lenders</a>.</li>
-            <li>You can lose money. Junior takes the first loss.</li>
+            <li>One book per meme, with its own lenders, borrow cap and LTV ceiling (LTV is the share of your meme's value you can borrow). One meme dying doesn't touch the next book.</li>
+            <li>The Yeti is the face. The protocol holds the collateral, sets the LTV and runs the liquidations.</li>
+            <li>The first serious meme that runs a meme-lending market.</li>
           </ul>
         </div>
         <div class="panel">
-          <span class="eyebrow">Borrower</span>
+          <span class="eyebrow">It is not</span>
           <ul class="plain">
-            <li>You put in <strong>the meme</strong>.</li>
-            <li>You take out stables, up to the LTV your ticker's league allows.</li>
-            <li>You pay interest until you repay.</li>
-            <li>If the meme dumps far enough, you get liquidated.</li>
+            <li>Not a bank or equity: deposits are not insured, and the token is not a share.</li>
+            <li>Not official anything: no exchange, brokerage or chain endorses or partners with it.</li>
+            <li>Not a yield farm or advice: memes are collateral only, and everything here can lose money.</li>
           </ul>
         </div>
       </div>
 
-      <h2 id="h-isnot">What it is not</h2>
-      <ul class="plain">
-        <li>Not a shared pool. There is no single pot where one bad ticker drains everyone.</li>
-        <li>Not a place to lend your meme out. Memes are collateral, never the withdrawal asset.</li>
-        <li>Not a bank, not equity, not affiliated with any exchange or chain operator.</li>
-        <li>Not a way to borrow 70% against a two-day-old ticker. See <a href="#leagues">Leagues and rank</a>.</li>
-        <li>Not deployed. Nothing on this site is live yet.</li>
-      </ul>
-
-      <h2 id="h-yeti">The Yeti is the face, not the protocol</h2>
-      <p>
-        The ice-blue Yeti is the brand. It is in the art and the videos. It has no role
-        in the contracts, no vote, no key, and it does not appear in any formula in these
-        docs. If you came from the videos: the window the Yeti walks up to is a market,
-        the bag is your meme, the ice brick is the loan. That is the only crossover.
-      </p>
-
       <h2 id="h-stayout">Who should stay out</h2>
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Do not use this if any of these are true</span>
-          <p>
-            You need the deposited meme back on a fixed date. You cannot survive being
-            liquidated at a bad price. You are borrowing to buy more of the same meme you
-            posted. You do not know what a TWAP is and have not read
-            <a href="#risks">Risks</a>. You are lending money you need next month.
-          </p>
+      <p>
+        Borrowers can lose the posted meme, permanently. Lenders can lose part of their
+        deposit. Stay out if:
+      </p>
+      <div class="cols">
+        <div class="panel">
+          <span class="eyebrow">If you borrow</span>
+          <ul class="plain">
+            <li>You need the meme back on a fixed date.</li>
+            <li>You cannot survive being liquidated at a bad price.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <span class="eyebrow">If you lend</span>
+          <ul class="plain">
+            <li>You are lending money you need next month.</li>
+            <li>You expect a backstop that always pays. There is none.</li>
+          </ul>
         </div>
       </div>
 
-      <h2 id="h-read">What to read next</h2>
-      <div class="cards c3">
+      <p>
+        Videos: the Yeti drops a bag (the meme) at the ice window and walks out with a
+        brick (the loan). If they ever disagree with these docs, the docs are right.
+      </p>
+
+      <div class="cards c3 foot">
         <a class="card" href="#loan">
-          <span class="cnum">01</span>
           <span class="ct">How a loan works</span>
-          <span class="cd">Deposit, borrow, interest, repay. One dummy example end to end.</span>
+          <span class="cd">Deposit, borrow, interest, repay. One example end to end.</span>
         </a>
         <a class="card" href="#leagues">
-          <span class="cnum">02</span>
           <span class="ct">Leagues and rank</span>
-          <span class="cd">What decides your LTV. It is the token, not the influencer.</span>
+          <span class="cd">What decides your LTV.</span>
         </a>
         <a class="card" href="#lenders">
-          <span class="cnum">03</span>
           <span class="ct">Lenders</span>
-          <span class="cd">Where your stables go, senior versus junior, how you lose money.</span>
+          <span class="cd">Where your stables go, and how you lose them.</span>
         </a>
-        <a class="card" href="#risks">
-          <span class="cnum">09</span>
-          <span class="ct">Risks</span>
-          <span class="cd">Read this one even if you read nothing else.</span>
-        </a>
-        <a class="card" href="#faq">
-          <span class="cnum">11</span>
-          <span class="ct">FAQ</span>
-          <span class="cd">Short answers to the questions people actually ask.</span>
-        </a>
-      </div>
-
-      <h2 id="h-claim">The claim we make</h2>
-      <p>
-        The first serious meme that runs a meme-lending market. That is it. We do not
-        claim to be the first lending protocol, we are not affiliated with any exchange
-        or brokerage, and nothing here is risk-free.
-      </p>
-
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
-          <span class="htitle">Numbers policy</span>
-          <p>
-            Anything not signed off is marked <span class="badge badge-open">TBD</span>.
-            Every worked example is labelled <span class="badge badge-draft">dummy</span>.
-            We do not publish an APY that is not coming from a live market, and we do not
-            list a chain we have not deployed on.
-          </p>
-        </div>
       </div>
     </article>
 
     <!-- ═══════════════════ 1 · HOW A LOAN WORKS ═══════════════════ -->
     <article class="page" id="page-loan" data-title="How a loan works" data-group="How it works">
-      <div class="cover cover-band" role="img" aria-label="Three stations on the ice: the meme goes in, it sits locked, cash comes out, and a dashed line loops back to repay">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
-            <path d="M718 86 C 718 34, 240 34, 240 86" stroke-dasharray="8 8"/>
-            <path d="M233 78 l 7 9 l 7 -9"/>
-          </g>
-          <text x="479" y="40" text-anchor="middle" class="bn-lbl" fill="var(--accent)">REPAY · TAKE IT BACK</text>
-
-          <g fill="none" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M324 128 H 380"/><path d="M370 121 l 10 7 l -10 7"/>
-            <path d="M564 128 H 620"/><path d="M610 121 l 10 7 l -10 7"/>
-          </g>
-
-          <g transform="translate(166 88)">
-            <rect width="158" height="80" rx="11" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <circle cx="79" cy="33" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-            <circle cx="73" cy="30" r="2.3" fill="var(--accent)"/>
-            <circle cx="85" cy="30" r="2.3" fill="var(--accent)"/>
-            <path d="M72 38 q7 5 14 0" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
-            <text x="79" y="66" text-anchor="middle" class="bn-lbl">MEME IN</text>
-          </g>
-
-          <g transform="translate(406 88)">
-            <rect width="158" height="80" rx="11" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <rect x="59" y="17" width="41" height="32" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-            <path d="M70 17 v-6 a 9.5 9.5 0 0 1 19 0 v6" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
-            <circle cx="79.5" cy="32" r="4.5" fill="var(--accent)"/>
-            <text x="79" y="66" text-anchor="middle" class="bn-lbl">LOCKED</text>
-          </g>
-
-          <g transform="translate(646 88)">
-            <rect width="158" height="80" rx="11" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <rect x="52" y="16" width="55" height="34" rx="7" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="2.5"/>
-            <rect x="61" y="25" width="37" height="6" rx="3" fill="var(--yeti-horn)"/>
-            <rect x="61" y="36" width="24" height="5" rx="2.5" fill="var(--gold-line)"/>
-            <text x="79" y="66" text-anchor="middle" class="bn-lbl">CASH OUT</text>
-          </g>
-
-          <g transform="translate(886 110)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">THE LOOP</text>
-        </svg>
+      <div class="cover cover-art">
+        <img src="https://i.imgur.com/mp6wfkg.jpg" alt="The Yeti in its lab pours a meme flask and a stables flask together to show how a loan works" width="1456" height="720" loading="lazy">
       </div>
 
       <h1>How a loan works</h1>
       <p class="lede">
-        Deposit a listed meme. Borrow stables against it. Pay interest. Repay and take
-        the meme back.
+        Deposit a listed meme. Borrow stables against it, up to what its league allows.
+        Interest runs while the loan is open. Repay and get the meme back.
       </p>
 
       <h2 id="h-steps">The four steps</h2>
       <p>
-        One position, start to finish. Steps 1 and 2 happen in the same transaction. Step
-        3 runs on its own until you choose to do step 4.
+        One position, start to finish. Every book has two sides: lenders put stables in,
+        you put the meme in and take stables out. Steps 1 and 2 happen in the same
+        transaction. Step 3 runs on its own until you do step 4.
       </p>
 
       <figure class="fig">
-        <svg viewBox="0 0 640 172" role="img" aria-label="Four stages of a loan: deposit the meme, borrow stables, interest grows the debt, repay to unlock the meme. A return path from repay back to the start shows the collateral being released.">
-          <g font-family="Fredoka, ui-rounded, sans-serif">
-            <g transform="translate(12 30)">
-              <rect width="130" height="52" rx="8" fill="var(--surface-2)" stroke="var(--line-strong)"/>
-              <circle cx="21" cy="26" r="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
-              <text x="21" y="29.5" text-anchor="middle" font-size="9.5" fill="var(--accent)">1</text>
-              <text x="39" y="30" font-size="12.5" fill="var(--ink)" font-family="Fredoka, ui-rounded, sans-serif" font-weight="600">Deposit</text>
-            </g>
-            <text x="77" y="102" text-anchor="middle" font-size="10" fill="var(--ink-3)">MEME IN</text>
-
-            <g transform="translate(174 30)">
-              <rect width="130" height="52" rx="8" fill="var(--surface-2)" stroke="var(--line-strong)"/>
-              <circle cx="21" cy="26" r="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
-              <text x="21" y="29.5" text-anchor="middle" font-size="9.5" fill="var(--accent)">2</text>
-              <text x="39" y="30" font-size="12.5" fill="var(--ink)" font-family="Fredoka, ui-rounded, sans-serif" font-weight="600">Borrow</text>
-            </g>
-            <text x="239" y="102" text-anchor="middle" font-size="10" fill="var(--ink-3)">STABLES OUT</text>
-
-            <g transform="translate(336 30)">
-              <rect width="130" height="52" rx="8" fill="var(--surface-2)" stroke="var(--line-strong)"/>
-              <circle cx="21" cy="26" r="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
-              <text x="21" y="29.5" text-anchor="middle" font-size="9.5" fill="var(--accent)">3</text>
-              <text x="39" y="30" font-size="12.5" fill="var(--ink)" font-family="Fredoka, ui-rounded, sans-serif" font-weight="600">Interest</text>
-            </g>
-            <text x="401" y="102" text-anchor="middle" font-size="10" fill="var(--ink-3)">DEBT GROWS</text>
-
-            <g transform="translate(498 30)">
-              <rect width="130" height="52" rx="8" fill="var(--surface-2)" stroke="var(--line-strong)"/>
-              <circle cx="21" cy="26" r="9" fill="var(--moss-soft)" stroke="var(--moss)"/>
-              <text x="21" y="29.5" text-anchor="middle" font-size="9.5" fill="var(--moss)">4</text>
-              <text x="39" y="30" font-size="12.5" fill="var(--ink)" font-family="Fredoka, ui-rounded, sans-serif" font-weight="600">Repay</text>
-            </g>
-            <text x="563" y="102" text-anchor="middle" font-size="10" fill="var(--ink-3)">MEME BACK</text>
-          </g>
-
-          <g fill="none" stroke="var(--line-strong)" stroke-width="1.4">
-            <path d="M142 56 H166"/><path d="M304 56 H328"/><path d="M466 56 H490"/>
-          </g>
-          <g fill="var(--line-strong)">
-            <path d="M172 56 l-7 -4 v8 z"/><path d="M334 56 l-7 -4 v8 z"/><path d="M496 56 l-7 -4 v8 z"/>
-          </g>
-
-          <path d="M563 82 V134 H77 V92" fill="none" stroke="var(--moss)" stroke-width="1.4" stroke-dasharray="5 4"/>
-          <path d="M77 86 l-4 7 h8 z" fill="var(--moss)"/>
-          <text x="320" y="152" text-anchor="middle" font-family="Fredoka, ui-rounded, sans-serif" font-size="10" fill="var(--moss)">POSITION CLOSED — COLLATERAL RELEASED</text>
-        </svg>
-        <figcaption>Fig. 1 — One position, four stages. Nothing forces you past stage 3 except price.</figcaption>
+        <div class="fig-stage fig-art">
+          <img src="https://i.imgur.com/4bHJC2o.jpg" alt="Four flasks in front of the Yeti, left to right: deposit the meme, borrow stables against it, interest grows the debt, repay to get the meme back." width="1024" height="576" loading="lazy">
+        </div>
+        <figcaption><b>Fig. 1</b> One position, four stages. No due date: it stays open until you repay or get liquidated.</figcaption>
       </figure>
 
       <ol class="stepcards">
         <li>
           <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">Deposit</span><span class="sc-flow">meme in</span></div>
-          <p>You send a listed meme into its market. It is locked as collateral — not lent to anyone, not staked anywhere, not rehypothecated.</p>
+          <p>You send a listed meme into its own book (its own wallet). It stays locked there. It is not lent out, not staked and not used to farm anything.</p>
           <div class="sc-facts">
             <div><span class="k">You send</span><span class="v">The meme</span></div>
-            <div><span class="k">You get</span><span class="v">Borrowing power</span></div>
+            <div><span class="k">You get</span><span class="v">A borrow limit</span></div>
           </div>
         </li>
         <li>
           <div class="sc-head"><span class="sc-num">02</span><span class="sc-title">Borrow</span><span class="sc-flow">stables out</span></div>
-          <p>The market prices your collateral off the TWAP of its canonical pool, then applies the max LTV for that ticker's league. You draw stables up to that limit — usually less, if you want room to breathe.</p>
+          <p>The book values your meme at its TWAP: the average price in its main pool over a time window, not the last trade. You can borrow up to a set share of that value, the max LTV of the ticker's league. Borrow less and the meme has room to drop.</p>
           <div class="sc-facts">
-            <div><span class="k">Limit set by</span><span class="v">TWAP × league LTV</span></div>
-            <div><span class="k">You get</span><span class="v">Stables</span></div>
+            <div><span class="k">Your limit</span><span class="v">Meme value × league max LTV</span></div>
+            <div><span class="k">You get</span><span class="v">USDG or the chain stable</span></div>
           </div>
         </li>
         <li>
           <div class="sc-head"><span class="sc-num">03</span><span class="sc-title">Pay interest</span><span class="sc-flow">debt grows</span></div>
-          <p>Interest accrues on what you borrowed, per block, at the market's borrow rate. Nothing is due on a schedule — it just grows your debt, and your health factor falls with it.</p>
+          <p>Interest is added to your debt as time passes, at that book's borrow rate. Nothing is due on a schedule. The debt just grows, and the loan drifts toward liquidation even at a flat price.</p>
           <div class="sc-facts">
-            <div><span class="k">Charged</span><span class="v">Per block, variable rate</span></div>
+            <div><span class="k">Rate</span><span class="v">Variable, per book</span></div>
             <div><span class="k">Due date</span><span class="v">None</span></div>
           </div>
         </li>
         <li>
           <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Repay</span><span class="sc-flow">meme back</span></div>
-          <p>You repay the stables plus accrued interest and your meme is unlocked. Partial repayments work and improve your health factor immediately.</p>
+          <p>Pay back the stables plus interest and the meme unlocks.</p>
           <div class="sc-facts">
             <div><span class="k">You send</span><span class="v">Stables + interest</span></div>
             <div><span class="k">You get</span><span class="v">The meme back</span></div>
@@ -1651,70 +1239,44 @@
         </li>
       </ol>
 
-      <div class="hint hint-info">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.2v4.3M10 6.6v.1"/></svg>
-        <div class="body">
+      <div class="hint hint-info">        <div class="body">
           <span class="htitle">There is no repayment date</span>
-          <p>The loan stays open as long as your position is healthy. What ends it early is price, not time — see <a href="#liquidations">Liquidations</a>.</p>
+          <p>The loan stays open as long as it stays healthy. What ends it early is price and interest, not a calendar. See <a href="#liquidations">Liquidations</a>.</p>
         </div>
       </div>
 
-      <h2 id="h-example">Worked example</h2>
-      <p>
-        <span class="badge badge-draft">Dummy numbers</span> — invented to show the
-        arithmetic. Not a live market, not a quoted rate, not a promise.
-      </p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>&nbsp;</th><th>Step</th><th>Dummy value</th></tr></thead>
-          <tbody>
-            <tr><td class="tag">a</td><td class="k">You deposit</td><td>1,000,000 MEME_A</td></tr>
-            <tr><td class="tag">b</td><td class="k">TWAP price</td><td>$0.010 → collateral worth $10,000</td></tr>
-            <tr><td class="tag">c</td><td class="k">League</td><td>T2 → max LTV 45%</td></tr>
-            <tr><td class="tag">d</td><td class="k">Max borrow</td><td>$4,500 in stables</td></tr>
-            <tr><td class="tag">e</td><td class="k">You actually borrow</td><td class="is-us">$3,000 — leaving headroom on purpose</td></tr>
-            <tr><td class="tag">f</td><td class="k">Liquidation threshold</td><td>58% → you are liquidatable if debt exceeds 58% of collateral value</td></tr>
-            <tr><td class="tag">g</td><td class="k">Price that liquidates you</td><td>MEME_A falls to about $0.0052, roughly −48%</td></tr>
-            <tr><td class="tag">h</td><td class="k">Interest</td><td>Accrues on the $3,000 at the market borrow rate</td></tr>
-            <tr><td class="tag">i</td><td class="k">To close</td><td>Repay $3,000 plus accrued interest, get 1,000,000 MEME_A back</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Note what row (e) buys you. Borrowing the maximum at 45% puts liquidation about
-        22% away. Borrowing $3,000 instead puts it about 48% away. On a memecoin that is
-        the difference between surviving a normal Tuesday and not.
-      </p>
-
       <h2 id="h-hf">Health factor</h2>
+      <p>One number tells you how close you are to liquidation. At 1 or above you are fine. Below 1, anyone can liquidate you.</p>
       <pre><code>health factor = (collateral value × liquidation threshold) / debt
 
 HF ≥ 1  →  fine
 HF &lt; 1  →  liquidatable</code></pre>
       <ul class="plain">
-        <li>Collateral value uses the <strong>TWAP</strong>, not the last tick. A one-block wick does not liquidate you, and it does not save you either.</li>
-        <li>Your debt grows with interest, so a position left alone drifts toward liquidation even at a flat price.</li>
-        <li>You improve HF two ways: repay debt, or add collateral.</li>
+        <li>Collateral value uses the <strong>TWAP</strong>, not the last trade. A one-block wick does not liquidate you, and it does not save you either.</li>
+        <li>Your debt grows with interest, so a loan you never touch drifts toward liquidation even at a flat price.</li>
+        <li>The liquidation threshold comes from the league. If the ticker drops a league, the tighter threshold applies to your open loan once the change takes effect. <span class="badge badge-open">Notice period TBD</span></li>
+        <li>You raise HF two ways: repay some debt, or add more of the same meme.</li>
       </ul>
 
       <h2 id="h-cannot">What you cannot do</h2>
       <ul class="plain">
-        <li>Borrow the meme. Memes go in as collateral only. The withdrawal asset is stables.</li>
+        <li>Borrow memes. Memes only go in as collateral. What comes out is stables.</li>
         <li>Borrow against a ticker that is not listed. See <a href="#oracle">listing checklist</a>.</li>
+        <li>Borrow 70% against a two-day-old ticker. New tickers start in T3, the lowest limit. A good wallet score adds +5 LTV points at most, never +20.</li>
         <li>Get a higher LTV because of who is promoting the token. Rank is set on the token. See <a href="#leagues">Leagues</a>.</li>
-        <li>Use collateral in one market to back a borrow in another. Books are isolated.</li>
+        <li>Open a new borrow while the ticker's pool is too thin. That book pauses new borrows until the pool recovers. Repaying still works. See the <a href="#oracle">pause rule</a>.</li>
+        <li>Use MEME_A to back a borrow in the MEME_B book. Every book stands alone.</li>
       </ul>
 
       <h2 id="h-risk-here">The risk, on this page</h2>
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
+      <div class="hint hint-stop">        <div class="body">
           <span class="htitle">You can lose the deposited meme</span>
           <p>
-            If the price falls far enough, a liquidator repays part of your debt and takes
-            your collateral at a discount. You keep the stables you borrowed. You do not
-            keep the meme. There is no warning, no grace period and no appeal. Full list on
-            <a href="#risks">Risks</a>.
+            If the price falls far enough, or interest piles up, anyone can liquidate you.
+            They repay part of your debt and take that much of your meme, plus a 10–15%
+            bonus <span class="badge badge-open">TBD</span>. You keep the stables you
+            borrowed. The meme they took does not come back, even if the price recovers an
+            hour later. There is no warning, no grace period and no appeal.
           </p>
         </div>
       </div>
@@ -1722,46 +1284,27 @@ HF &lt; 1  →  liquidatable</code></pre>
 
     <!-- ═══════════════════ 3 · LEAGUES ═══════════════════ -->
     <article class="page" id="page-leagues" data-title="Leagues and rank" data-group="How it works">
-      <div class="cover cover-band" role="img" aria-label="A three-step podium: T3 lowest, T2 in the middle, T1 highest, with the maximum LTV rising alongside it">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="5 7" opacity=".75" fill="none">
-            <path d="M292 176 V 44"/><path d="M286 52 l 6 -8 l 6 8"/>
-          </g>
-          <text x="292" y="34" text-anchor="middle" class="bn-lbl">MAX LTV</text>
-
-          <rect x="330" y="120" width="122" height="56" rx="9" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-          <text x="391" y="155" text-anchor="middle" font-size="21" font-weight="600" fill="var(--ink-2)">T3</text>
-          <text x="391" y="108" text-anchor="middle" class="bn-lbl">~30%</text>
-
-          <rect x="470" y="92" width="122" height="84" rx="9" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-          <text x="531" y="141" text-anchor="middle" font-size="21" font-weight="600" fill="var(--ink-2)">T2</text>
-          <text x="531" y="80" text-anchor="middle" class="bn-lbl">~45–50%</text>
-
-          <rect x="610" y="60" width="122" height="116" rx="9" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-          <text x="671" y="126" text-anchor="middle" font-size="21" font-weight="600" fill="var(--accent-ink)">T1</text>
-          <text x="671" y="48" text-anchor="middle" class="bn-lbl" fill="var(--accent)">~55–60%</text>
-
-          <g transform="translate(166 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">T3 · T2 · T1</text>
-        </svg>
+      <div class="cover cover-art">
+        <img src="https://i.imgur.com/lzzREzr.jpg" alt="The Yeti beside a three-step podium: T3 lowest, T2 in the middle, T1 highest, each with a rising vial" width="1024" height="465" loading="lazy">
       </div>
 
       <h1>Leagues and rank</h1>
       <p class="lede">
-        Your LTV comes from the token, not from the person promoting it.
+        Your LTV is ranked on the token first, not on the influencer promoting it.
       </p>
 
       <p>
-        Every listed meme sits in a league. The league sets the max LTV and the
-        liquidation threshold for that book. A ticker with a two-day-old chart and a thin
-        pool does not get the same terms as one that has survived a year and has real
-        depth. That is the entire idea.
+        LTV is the share of your meme's value you can borrow. Every listed meme sits in a
+        league, and the league sets two numbers for its book: the max LTV, and the
+        liquidation threshold, the level where your loan can be liquidated. A two-day-old
+        ticker with a thin pool does not get the terms of one that has survived a year
+        with real depth.
       </p>
+      <p>A higher league means better terms, not a safer meme. T1 tickers dump too.</p>
 
       <h2 id="h-table">The three leagues</h2>
       <p>
-        <span class="badge badge-open">TBD</span> — the ranges below are the working
+        <span class="badge badge-open">TBD</span>, the ranges below are the working
         shape, not signed-off parameters. Final values land here before the first market
         opens.
       </p>
@@ -1788,41 +1331,25 @@ HF &lt; 1  →  liquidatable</code></pre>
         </table>
       </div>
 
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
-          <span class="htitle">70% is not a day-one number</span>
+      <div class="hint hint-warn">        <div class="body">
+          <span class="htitle">Note</span>
           <p>
-            You will see 75–80% LTV on major lending markets against blue-chip collateral.
-            That is not this. Those numbers are earned by assets that do not fall 60% in an
-            afternoon. Copying them onto a memecoin is how a book ends up with bad debt it
-            cannot liquidate out of.
+            All these numbers are estimates. Each meme will have its own dedicated
+            numbers and mathematics, shown in our app.
           </p>
         </div>
       </div>
 
-      <h2 id="h-wallet">Wallet score</h2>
-      <p>
-        A borrower's history can add a small amount of LTV on top of the league. It is a
-        bonus, not a bypass.
-      </p>
-      <div class="rows">
-        <div><span class="k">Range</span><span class="d">+0 to +5 LTV points, maximum. <span class="badge badge-open">TBD</span></span></div>
-        <div><span class="k">Never</span><span class="d">+20. There is no score that turns a T3 ticker into T1 terms.</span></div>
-        <div><span class="k">Applies to</span><span class="d">The borrower, on top of whatever the token already earned. It cannot move the liquidation threshold.</span></div>
-        <div><span class="k">Inputs</span><span class="d">On-chain repayment history in this protocol first. <span class="badge badge-open">TBD</span></span></div>
-      </div>
-
       <h2 id="h-moves">What moves a ticker up</h2>
       <ul class="plain">
-        <li><strong>Age.</strong> Time on chain without an incident. There is no substitute and no way to accelerate it.</li>
-        <li><strong>Depth in the canonical pool.</strong> Enough liquidity that a full liquidation at the book's borrow cap clears without eating the bonus.</li>
-        <li><strong>Sustained real volume</strong>, not a single day of wash prints.</li>
+        <li><strong>Age.</strong> Time on chain without an incident. There is no shortcut.</li>
+        <li><strong>Depth in its main pool.</strong> Enough liquidity that liquidating the book's full borrow cap does not crash the price.</li>
+        <li><strong>Real volume</strong>, held over time. Not one day of fake trades.</li>
         <li><strong>LP locked</strong>, verifiably, for a meaningful term.</li>
-        <li><strong>Mint and freeze authority revoked.</strong> Required for T1, and required for listing at all.</li>
+        <li><strong>Mint and freeze authority revoked.</strong> Required to be listed at all. Nothing moves up without it.</li>
       </ul>
 
-      <h2 id="h-never">What never moves a ticker</h2>
+      <h2 id="h-never">What never moves LTV</h2>
       <div class="cols">
         <div class="panel panel-no">
           <span class="eyebrow">Does not count</span>
@@ -1848,129 +1375,74 @@ HF &lt; 1  →  liquidatable</code></pre>
         </div>
       </div>
 
-      <h2 id="h-down">Demotion</h2>
-      <p>
-        Rank moves both ways. A ticker whose pool thins out, whose volume dies, or whose
-        LP lock expires drops a league.
-      </p>
-      <ul class="plain">
-        <li>A demotion lowers max LTV for <strong>new</strong> borrows immediately.</li>
-        <li>Existing positions are not force-closed by the demotion itself, but the tighter liquidation threshold applies once it takes effect. <span class="badge badge-open">Notice period TBD</span></li>
-        <li>Demotions are published with the on-chain reason, the same way promotions are.</li>
-      </ul>
-
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Never ship</span>
-          <p>A discretionary whitelist that overrides rank. The moment someone can hand a ticker T1 terms because of who asked, the league table is decoration and lenders are being lied to.</p>
-        </div>
-      </div>
     </article>
 
     <!-- ═══════════════════ 4 · LENDERS ═══════════════════ -->
     <article class="page" id="page-lenders" data-title="Lenders" data-group="How it works">
-      <div class="cover cover-band" role="img" aria-label="A stack of stablecoins flowing into a book, with interest coming back out the other side">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g fill="none" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M300 124 H 356"/><path d="M346 117 l 10 7 l -10 7"/>
-            <path d="M606 124 H 662"/><path d="M652 117 l 10 7 l -10 7"/>
-          </g>
-
-          <g>
-            <path d="M170 108 V 148 a 58 16 0 0 0 116 0 V 108 Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
-            <g fill="none" stroke="var(--accent)" stroke-width="1.8" opacity=".55">
-              <path d="M170 122 a 58 16 0 0 0 116 0"/>
-              <path d="M170 136 a 58 16 0 0 0 116 0"/>
-            </g>
-            <ellipse cx="228" cy="108" rx="58" ry="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2"/>
-            <text x="228" y="194" text-anchor="middle" class="bn-lbl">STABLES IN</text>
-          </g>
-
-          <g transform="translate(376 76)">
-            <rect width="216" height="100" rx="12" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <rect x="26" y="24" width="164" height="11" rx="5.5" fill="var(--accent-soft)"/>
-            <rect x="26" y="45" width="122" height="11" rx="5.5" fill="var(--surface-3)"/>
-            <text x="108" y="84" text-anchor="middle" class="bn-key">ONE BOOK</text>
-          </g>
-
-          <g>
-            <rect x="682" y="92" width="150" height="68" rx="11" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="2.5"/>
-            <path d="M708 138 L 736 112 L 758 126 L 806 108" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M796 106 l 12 0 l 0 12" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <text x="757" y="186" text-anchor="middle" class="bn-lbl" fill="var(--gold)">INTEREST OUT</text>
-          </g>
-
-          <g transform="translate(908 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">YOU FUND THE BOOK</text>
-        </svg>
+      <div class="cover cover-art">
+        <img src="https://i.imgur.com/hNJDHHB.jpg" alt="The Yeti beside a chalkboard: stables in, memes locked, you earn interest, senior vs junior, utilisation, and how you lose money" width="1024" height="434" loading="lazy">
       </div>
 
       <h1>Lenders</h1>
       <p class="lede">
-        You put stables in. Borrowers pay you interest. You can lose money — this page
-        says exactly how.
+        You put stables in. Borrowers put memes in and pay you interest. You can lose
+        money, junior most of all, and this page says how.
       </p>
 
-      <h2 id="h-where">Where your stables go</h2>
+      <h2 id="h-where">Where your USDG goes</h2>
       <p>
-        You deposit the loan asset — USDG or the chain stable, depending on the
-        deployment. It sits in a book and is lent to borrowers who have locked a meme
-        against it. Your return is the interest those borrowers pay, minus the protocol's
-        share.
+        You deposit the loan asset: USDG or the chain stable, depending on the
+        deployment. It sits in a book and is lent to borrowers who have locked that book's
+        meme against it. Your return is the interest they pay, minus the protocol's share.
       </p>
       <p>
-        You are never exposed to a meme you did not choose exposure to. A book you are not
-        in cannot cost you anything.
+        You are only exposed to the books you lend into. A book you are not in cannot cost
+        you anything.
       </p>
 
       <h2 id="h-vaults">Senior and junior</h2>
       <p>
-        The intended shape is two vaults over the same set of books.
-        <span class="badge badge-open">TBD — ships only if we can build it properly</span>
+        The plan is two vaults, split by league.
+        <span class="badge badge-open">TBD, ships only if we can build it right</span>
       </p>
       <div class="scroll-x">
         <table>
           <thead><tr><th>&nbsp;</th><th>Senior</th><th>Junior</th></tr></thead>
           <tbody>
-            <tr><td class="tag">Exposure</td><td>T1 books only</td><td>T2 and T3 books</td></tr>
-            <tr><td class="tag">Loss order</td><td class="is-us">Paid after junior is wiped</td><td class="is-us">Eats the first rug</td></tr>
-            <tr><td class="tag">Rate</td><td>Lower</td><td>Higher</td></tr>
-            <tr><td class="tag">Who it is for</td><td>You want yield on stables and can tolerate smart-contract risk, not much else.</td><td>You understand you are underwriting thin memecoin books and can lose principal.</td></tr>
+            <tr><td class="tag">Lends into</td><td>T1 books only</td><td>T2 and T3 books</td></tr>
+            <tr><td class="tag">Losses</td><td>A T1 book going bad. Rarer, not impossible.</td><td class="is-us">Takes the first loss. New and thin books are where memes die.</td></tr>
+            <tr><td class="tag">Rate</td><td>Expected lower</td><td>Expected higher</td></tr>
+            <tr><td class="tag">Who it is for</td><td>You want interest on stables and accept smart-contract risk and the odd bad T1 book.</td><td>You accept being first in line when a thin meme book goes bad, and that you can lose part of your deposit.</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Junior can lose principal</span>
+      <div class="hint hint-stop">        <div class="body">
+          <span class="htitle">You can lose money in junior</span>
           <p>
-            That is what junior <em>is</em>. If a T3 book ends up with bad debt after
-            liquidation, junior absorbs it before senior sees anything. A higher rate is the
-            payment for that. If you are not comfortable being the first loss on a thin
-            memecoin book, be in senior or be somewhere else.
+            That is what junior <em>is</em>. If a T2 or T3 book ends up with bad debt after
+            liquidation, junior lenders take that loss. The higher rate is the payment for
+            it. If you are not comfortable being first in line on thin memecoin books, lend
+            in senior or somewhere else.
           </p>
         </div>
       </div>
 
       <h2 id="h-util">Utilisation and getting your money out</h2>
       <p>
-        Utilisation is the share of a book's stables that is currently borrowed. It sets
-        the borrow rate — the curve is on <a href="#fees">Fees</a> — and it decides
-        whether you can withdraw right now.
+        Utilisation is the share of a book's stables that is borrowed right now. It sets
+        the borrow rate and it decides whether you can withdraw right now.
       </p>
       <ul class="plain">
-        <li><strong>Low utilisation.</strong> Plenty of free liquidity, you can withdraw, your rate is low.</li>
+        <li><strong>Low utilisation.</strong> Plenty of free stables, you can withdraw, your rate is low.</li>
         <li><strong>High utilisation.</strong> Rates rise, which pays you more and pushes borrowers to repay.</li>
-        <li><strong>At 100%.</strong> There is nothing free to withdraw. You wait for a repayment or for new deposits. This is not a bug and it is not insolvency — but it is a real constraint on your money.</li>
+        <li><strong>At 100%.</strong> There is nothing free to withdraw. You wait for a repayment or for new deposits. The book is not broke and nothing is bugged, but your money is stuck until then.</li>
       </ul>
 
       <h2 id="h-lose">How you lose money, in order of likelihood</h2>
       <p>
-        Ordered by how often it happens, not by how much it costs. The two do not line up
-        — the most likely loss is not the largest, and the largest sits near the bottom.
+        Ordered by how often it happens, not by how much it costs. The two do not line up:
+        the most likely loss is not the largest, and the largest sits near the bottom.
         The badge on each row says what is actually at stake.
       </p>
 
@@ -1980,13 +1452,13 @@ HF &lt; 1  →  liquidatable</code></pre>
           <div class="rr-num">01</div>
           <div class="rr-body">
             <div class="rr-head">
-              <span class="rr-title">Bad debt in a book you are exposed to</span>
-              <span class="badge badge-risk">Principal</span>
+              <span class="rr-title">Bad debt in a book you lend into</span>
+              <span class="badge badge-risk">Deposit</span>
             </div>
-            <p>A meme gaps down, liquidation does not fully clear the debt, and the shortfall lands on that book's lenders. Junior absorbs it first. Lenders in other books lose nothing.</p>
+            <p>A meme gaps down faster than liquidations can keep up, the collateral no longer covers the debt, and the gap lands on that book's lenders. Lenders in other books lose nothing.</p>
             <div class="sc-facts f3">
               <div><span class="k">Trigger</span><span class="v">A price gap through the liquidation point</span></div>
-              <div><span class="k">Hits</span><span class="v">Junior, then senior</span></div>
+              <div><span class="k">Hits</span><span class="v">The vault lending to that book: junior for T2 and T3, senior for T1</span></div>
               <div><span class="k">You lose</span><span class="v">Part of your deposit</span></div>
             </div>
           </div>
@@ -1998,11 +1470,11 @@ HF &lt; 1  →  liquidatable</code></pre>
               <span class="rr-title">You cannot withdraw when you want to</span>
               <span class="badge badge-draft">Access</span>
             </div>
-            <p>Utilisation is pinned at 100% and you are locked in at exactly the moment you want out. Your balance is intact — you just cannot reach it until a borrower repays or new deposits arrive.</p>
+            <p>Utilisation is pinned at 100% and you are locked in at exactly the moment you want out. Your balance is intact. You just cannot reach it until a borrower repays or new deposits arrive.</p>
             <div class="sc-facts f3">
               <div><span class="k">Trigger</span><span class="v">Utilisation at 100%</span></div>
               <div><span class="k">Hits</span><span class="v">Every lender in that book</span></div>
-              <div><span class="k">You lose</span><span class="v">Access, not principal</span></div>
+              <div><span class="k">You lose</span><span class="v">Access, not your deposit</span></div>
             </div>
           </div>
         </li>
@@ -2013,11 +1485,11 @@ HF &lt; 1  →  liquidatable</code></pre>
               <span class="rr-title">Rate collapse</span>
               <span class="badge badge-draft">Yield</span>
             </div>
-            <p>Borrowers repay, utilisation drops, and you earn close to nothing while your stables sit idle. Nothing has gone wrong — the book is simply not being used.</p>
+            <p>Borrowers repay, utilisation drops, and you earn close to nothing while your stables sit idle. Nothing has gone wrong. The book is simply not being used.</p>
             <div class="sc-facts f3">
               <div><span class="k">Trigger</span><span class="v">Borrow demand dries up</span></div>
               <div><span class="k">Hits</span><span class="v">Every lender in that book</span></div>
-              <div><span class="k">You lose</span><span class="v">Yield, not principal</span></div>
+              <div><span class="k">You lose</span><span class="v">Yield, not your deposit</span></div>
             </div>
           </div>
         </li>
@@ -2026,9 +1498,9 @@ HF &lt; 1  →  liquidatable</code></pre>
           <div class="rr-body">
             <div class="rr-head">
               <span class="rr-title">Smart-contract failure</span>
-              <span class="badge badge-risk">Principal</span>
+              <span class="badge badge-risk">Deposit</span>
             </div>
-            <p>A bug in the market, the collateral locker, the oracle adapter or the fee router. The least likely of these and by far the worst: it can take everything, and it does not care which vault you are in or which league the book was.</p>
+            <p>A bug in the market, the locker that holds the memes, the price feed or the fee router. Unlikely, and by far the worst: it can take everything, and it does not care which vault you are in or which league the book was.</p>
             <div class="sc-facts f3">
               <div><span class="k">Trigger</span><span class="v">A bug or an exploit</span></div>
               <div><span class="k">Hits</span><span class="v">Senior and junior alike</span></div>
@@ -2040,10 +1512,10 @@ HF &lt; 1  →  liquidatable</code></pre>
           <div class="rr-num">05</div>
           <div class="rr-body">
             <div class="rr-head">
-              <span class="rr-title">The stable itself depegs</span>
-              <span class="badge badge-risk">Principal</span>
+              <span class="rr-title">The stable loses its peg</span>
+              <span class="badge badge-risk">Deposit</span>
             </div>
-            <p>You hold the loan asset. If it loses its peg, that is your loss, and nothing in this protocol offsets it — the book stays solvent in units of a token that is worth less.</p>
+            <p>You hold the loan asset. If USDG or the chain stable stops being worth $1, that is your loss, and nothing in this protocol offsets it. The book still balances, in a token that is worth less.</p>
             <div class="sc-facts f3">
               <div><span class="k">Trigger</span><span class="v">Loan asset loses its peg</span></div>
               <div><span class="k">Hits</span><span class="v">Every lender, every book</span></div>
@@ -2054,14 +1526,12 @@ HF &lt; 1  →  liquidatable</code></pre>
       </ol>
       <div class="rankaxis end">Least likely</div>
 
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
+      <div class="hint hint-warn">        <div class="body">
           <span class="htitle">There is no insurance fund that always pays</span>
           <p>
             A reserve may exist and may cover part of a shortfall. It is not a guarantee, it
             is not a backstop for a large event, and we will not describe it as one. See
-            <a href="#liquidations">Liquidations and bad debt</a>.
+            <a href="#liquidations">Liquidations</a>.
           </p>
         </div>
       </div>
@@ -2069,120 +1539,79 @@ HF &lt; 1  →  liquidatable</code></pre>
 
     <!-- ═══════════════════ 5 · ORACLE AND LISTING ═══════════════════ -->
     <article class="page" id="page-oracle" data-title="Oracle and listing" data-group="Mechanics">
-      <div class="cover cover-band" role="img" aria-label="A listing gate with a beacon on top, and a panel showing a jagged spot price with a smooth time-weighted average through it">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g>
-            <rect x="228" y="96" width="26" height="80" rx="7" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <rect x="418" y="96" width="26" height="80" rx="7" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <rect x="214" y="70" width="244" height="28" rx="9" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <text x="336" y="89" text-anchor="middle" class="bn-key">LISTING BAR</text>
-            <circle cx="336" cy="42" r="12" fill="var(--yeti-horn)" stroke="var(--gold-line)" stroke-width="2"/>
-            <g stroke="var(--gold-line)" stroke-width="2.5" stroke-linecap="round" opacity=".85">
-              <path d="M336 22 v-8"/><path d="M314 30 l -7 -5"/><path d="M358 30 l 7 -5"/>
-            </g>
-          </g>
-
-          <g transform="translate(540 70)">
-            <rect width="290" height="106" rx="12" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <path d="M22 92 H 268" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M22 68 L 52 40 L 76 74 L 108 30 L 140 66 L 172 26 L 206 60 L 238 34 L 268 48"
-                  fill="none" stroke="var(--line-strong)" stroke-width="2.2" stroke-linejoin="round" opacity=".85"/>
-            <path d="M22 62 C 76 54, 128 50, 172 46 S 238 42, 268 44"
-                  fill="none" stroke="var(--accent)" stroke-width="3.2" stroke-linecap="round"/>
-            <text x="145" y="20" text-anchor="middle" class="bn-lbl" fill="var(--accent)">TWAP, NOT LAST TICK</text>
-          </g>
-
-          <g transform="translate(898 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">PRICE, THEN A BOOK</text>
-        </svg>
+      <!-- cover image removed; restore at width="1584" height="672" -->
+      <div class="cover cover-art">
       </div>
 
       <h1>Oracle and listing</h1>
       <p class="lede">
-        Price comes from a TWAP of the canonical pool. If the pool is empty, new borrows
-        stop.
+        Price comes from a TWAP of the canonical pool, not the last tick. If the pool is
+        empty, new borrows pause. A ticker only gets a book if it passes every listing
+        check.
       </p>
 
       <h2 id="h-twap">Why TWAP, not last tick</h2>
       <p>
-        A memecoin's last trade is trivially cheap to move. If collateral were priced off
-        the last tick, anyone could push the price up, borrow against the inflated value
-        and walk, or push it down and liquidate someone else's position for the bonus.
+        The last tick is the price of the last trade in the pool. On a memecoin it is cheap
+        to move. If collateral were priced off it, anyone could pump the price, borrow
+        against the fake value and walk, or dump it and liquidate someone else for the
+        bonus.
       </p>
       <p>
-        So every market prices its collateral as a time-weighted average over a window.
-        Moving a TWAP means holding the price away from the market for the whole window,
-        which costs real money and gives everyone else time to trade against you.
+        So every book prices its meme with a TWAP, a time-weighted average price: the
+        average price in the pool over a set window. To move a TWAP you have to hold the
+        price away from the market for the whole window, which costs real money and gives
+        everyone else time to trade against you.
       </p>
       <div class="rows">
-        <div><span class="k">Source</span><span class="d">The canonical pool for that token on the deployment chain. One pool, declared at listing.</span></div>
+        <div><span class="k">Source</span><span class="d">The canonical pool: the one main pool for that token on the chain where the book lives, named at listing.</span></div>
         <div><span class="k">Method</span><span class="d">Time-weighted average price over a fixed window. <span class="badge badge-open">Window length TBD</span></span></div>
-        <div><span class="k">Not used</span><span class="d">Last tick. Spot. Aggregated off-chain quotes. Any feed we cannot reconstruct from chain data.</span></div>
-        <div><span class="k">Trade-off</span><span class="d">A TWAP lags. In a fast dump it reports a price higher than reality, which delays liquidation and makes bad debt more likely. That is the cost of not being manipulable, and it is priced into the LTVs.</span></div>
+        <div><span class="k">Not used</span><span class="d">The last tick. Prices from other pools or exchanges. Any price we cannot rebuild from chain data.</span></div>
+        <div><span class="k">Trade-off</span><span class="d">A TWAP lags. In a fast dump it shows a price higher than the real one, which delays liquidation and makes bad debt more likely. That is the cost of a price that is expensive to manipulate, and it is one reason the LTVs are low.</span></div>
       </div>
-
-      <h2 id="h-pause">The pause rule</h2>
-      <div class="hint hint-info">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.2v4.3M10 6.6v.1"/></svg>
-        <div class="body">
-          <span class="htitle">Empty pool, no new borrows</span>
-          <p>
-            If the canonical pool's liquidity falls below the book's floor, or the feed goes
-            stale, that book stops issuing new borrows. Repayments still work. Liquidations
-            still work. Only new debt is blocked, and only in that book.
-          </p>
-        </div>
-      </div>
-      <h3>How the pause behaves</h3>
-      <ul class="plain">
-        <li>The pause is per book. Other markets are unaffected.</li>
-        <li>It is a rule, not a judgement call — the threshold is set at listing and published.</li>
-        <li>Borrowing resumes automatically when the pool recovers above the floor. <span class="badge badge-open">Hysteresis TBD</span></li>
-      </ul>
 
       <h2 id="h-listing">Listing checklist</h2>
-      <p>A ticker gets a market only if every line is true. Not most of them.</p>
+      <p>A ticker gets a book only if every line is true. Not most of them.</p>
       <div class="checkgroup">
-        <div class="check"><strong>Mint authority revoked.</strong> If someone can print more supply, we do not list it. No exceptions.</div>
-        <div class="check"><strong>Freeze authority revoked.</strong> Collateral that a third party can freeze is not collateral.</div>
-        <div class="check"><strong>A canonical pool exists</strong> and is nominated at listing, with enough depth to clear a liquidation at the book's borrow cap.</div>
-        <div class="check"><strong>Minimum liquidity</strong> in that pool, measured over a window, not at a single moment.</div>
-        <div class="check"><strong>Minimum age</strong> for the league being applied for.</div>
-        <div class="check"><strong>Standard token behaviour.</strong> No rebasing, no fee on transfer, no transfer hooks that can block a liquidation.</div>
+        <div class="check"><strong>Mint authority revoked.</strong> If someone can still print more supply, we do not list it. No exceptions.</div>
+        <div class="check"><strong>Freeze authority revoked.</strong> A meme someone else can freeze is not collateral.</div>
+        <div class="check"><strong>A canonical pool</strong> named at listing, deep enough to absorb a liquidation of the book's full borrow cap.</div>
+        <div class="check"><strong>Minimum liquidity</strong> in that pool, measured over a window, not at a single moment. <span class="badge badge-open">TBD</span></div>
+        <div class="check"><strong>Minimum age</strong> for the league it enters. <span class="badge badge-open">TBD</span></div>
+        <div class="check"><strong>A normal token.</strong> No balances that change on their own, no tax on transfers, nothing that can block a transfer during a liquidation.</div>
         <div class="check"><strong>A borrow cap</strong> set from the pool's real depth, low at first.</div>
       </div>
+      <p>Listed means the meme can be used as collateral. It does not mean the meme is safe to hold.</p>
 
       <h2 id="h-auth">Authorities, and what we check</h2>
       <div class="scroll-x">
         <table>
           <thead><tr><th>Check</th><th>Why it matters</th><th>If it fails</th></tr></thead>
           <tbody>
-            <tr><td class="k">Mint authority</td><td>New supply dilutes every lender holding that book's collateral.</td><td>Not listed</td></tr>
-            <tr><td class="k">Freeze authority</td><td>A frozen token cannot be seized in a liquidation, so the debt becomes unrecoverable.</td><td>Not listed</td></tr>
-            <tr><td class="k">LP lock</td><td>An unlocked pool can be pulled mid-liquidation.</td><td>Capped at T3, or not listed</td></tr>
-            <tr><td class="k">Update authority / upgradeability</td><td>Token behaviour that can change after listing invalidates everything we tested.</td><td>Not listed</td></tr>
-            <tr><td class="k">Holder concentration</td><td>One wallet able to dump through the pool defines the real worst case.</td><td>Lower league, lower cap</td></tr>
+            <tr><td class="k">Mint authority</td><td>Whoever holds it can print new supply and crash the price of every meme locked in the book.</td><td>Not listed</td></tr>
+            <tr><td class="k">Freeze authority</td><td>A frozen token cannot be taken in a liquidation, so the debt can never be recovered.</td><td>Not listed</td></tr>
+            <tr><td class="k">LP lock</td><td>Unlocked liquidity can be pulled out of the pool in the middle of a liquidation.</td><td>Capped at T3, or not listed</td></tr>
+            <tr><td class="k">Upgradeable token</td><td>If someone can change how the token works after listing, every check we ran means nothing.</td><td>Not listed</td></tr>
+            <tr><td class="k">Big holders</td><td>One wallet large enough to dump through the pool sets the real worst case.</td><td>Lower league, lower cap</td></tr>
           </tbody>
         </table>
       </div>
 
       <h2 id="h-chains">Chains</h2>
       <p>
-        Memes from Robinhood Chain, Base and BSC all live in the Loan Meme universe. A
-        market only exists where we have actually deployed.
+        Memes from Robinhood Chain, Base, BSC and Solana can live in the LOAN MEME
+        universe. A market only exists on a chain where we have actually deployed, and
+        this table only lists chains that are live.
       </p>
       <div class="scroll-x">
         <table>
           <thead><tr><th>Chain</th><th>Markets live</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td class="k">—</td><td>None</td><td><span class="badge badge-open">Nothing deployed yet</span></td></tr>
+            <tr><td class="k">-</td><td>None</td><td><span class="badge badge-open">Nothing deployed yet</span></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
+      <div class="hint hint-warn">        <div class="body">
           <span class="htitle">The table above stays empty until a deployment exists</span>
           <p>
             We do not list a chain we have not shipped on, and we are not affiliated with
@@ -2194,273 +1623,79 @@ HF &lt; 1  →  liquidatable</code></pre>
     </article>
 
     <!-- ═══════════════════ 6 · LIQUIDATIONS ═══════════════════ -->
-    <article class="page" id="page-liquidations" data-title="Liquidations and bad debt" data-group="Mechanics">
-      <div class="cover cover-band" role="img" aria-label="A health track running from healthy to liquidated, with the threshold marked, and a crack in the ice beneath it">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g transform="translate(200 104)">
-            <rect width="580" height="34" rx="17" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <path d="M3 17 a 14 14 0 0 1 14 -14 H 262 V 31 H 17 a 14 14 0 0 1 -14 -14 Z" fill="var(--moss-soft)"/>
-            <rect x="262" y="3" width="146" height="28" fill="var(--gold-soft)"/>
-            <path d="M408 3 H 563 a 14 14 0 0 1 14 14 a 14 14 0 0 1 -14 14 H 408 Z" fill="var(--rose-soft)"/>
-            <rect width="580" height="34" rx="17" fill="none" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <path d="M408 -16 V 50" stroke="var(--rose)" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="408" cy="-16" r="4.5" fill="var(--rose)"/>
-            <text x="408" y="-28" text-anchor="middle" class="bn-lbl" fill="var(--rose)">THRESHOLD</text>
-            <text x="0" y="66" class="bn-lbl" fill="var(--moss)">HEALTHY</text>
-            <text x="580" y="66" text-anchor="end" class="bn-lbl" fill="var(--rose)">LIQUIDATED</text>
-          </g>
-
-          <g fill="none" stroke="var(--rose)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
-            <path d="M608 176 l -13 20 l 15 12 l -9 22"/>
-            <path d="M610 208 l 22 -14"/>
-          </g>
-
-          <g transform="translate(858 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">THE LINE THAT MATTERS</text>
-        </svg>
+    <article class="page" id="page-liquidations" data-title="Liquidations" data-group="Mechanics">
+      <!-- cover image removed; restore at width="1024" height="434" -->
+      <div class="cover cover-art">
       </div>
 
-      <h1>Liquidations and bad debt</h1>
+      <h1>Liquidations</h1>
       <p class="lede">
-        When health factor drops below 1, someone else repays your debt and takes your
-        collateral at a discount.
+        When your health factor drops below 1, anyone can repay part of your debt and take
+        that much of your meme, plus a bonus. If the meme gaps down too fast for that, the
+        loss stays in that book.
       </p>
-
-      <h2 id="h-when">When it happens</h2>
-      <pre><code>health factor = (collateral value × liquidation threshold) / debt
-
-HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
-      <p>Two things push you there:</p>
-      <ul class="plain">
-        <li><strong>The meme falls.</strong> Collateral value drops, measured on the TWAP.</li>
-        <li><strong>Interest accrues.</strong> Debt grows on its own. A position at HF 1.05 that you never touch will eventually cross, even at a flat price.</li>
-      </ul>
-
-      <h2 id="h-bonus">The liquidation bonus</h2>
-      <p>
-        A liquidator repays part of your debt and receives your collateral at a discount.
-        That discount is the bonus, and it is the only reason anyone shows up.
-      </p>
-      <div class="rows">
-        <div><span class="k">Range</span><span class="d">10–15%. <span class="badge badge-open">Per-league values TBD</span></span></div>
-        <div><span class="k">Why not 5%</span><span class="d">A 5% tip works on deep blue-chip collateral. On a thin meme book, the liquidator's own sell moves the price more than 5%, so they lose money and simply do not bid — and the position rots into bad debt.</span></div>
-        <div><span class="k">Who pays it</span><span class="d">The borrower, out of collateral. It is the cost of having been liquidated.</span></div>
-        <div><span class="k">Protocol share</span><span class="d">A slice of the bonus may be retained as protocol revenue. <span class="badge badge-open">TBD</span> — see <a href="#fees">Fees</a>.</span></div>
-      </div>
-
-      <h2 id="h-preliq">Pre-liquidation</h2>
-      <p>
-        The intent is to ship a softer path: as a position approaches HF 1, it can be
-        partially unwound early at a smaller penalty instead of waiting for a full
-        liquidation at the full bonus. Better for the borrower, and better for the book,
-        because it sells into liquidity that still exists.
-      </p>
-      <p><span class="badge badge-open">TBD — ships only if we can build it safely.</span> If it does not ship, liquidation is the ordinary path and this page says so.</p>
 
       <h2 id="h-flow">What a liquidation looks like</h2>
-      <ol class="steps">
-        <li><strong>TWAP updates.</strong> Collateral value falls, HF crosses below 1.</li>
-        <li><strong>A liquidator calls the market.</strong> Anyone can. It is permissionless and there is no queue.</li>
-        <li><strong>They repay up to the close factor</strong> of your debt in stables.</li>
-        <li><strong>They take collateral</strong> equal to what they repaid plus the bonus.</li>
-        <li><strong>Position updates.</strong> If HF is back above 1 it stops. If not, it can be liquidated again.</li>
-        <li><strong>You keep the borrowed stables.</strong> You do not keep the collateral that was taken.</li>
-      </ol>
-
-      <h2 id="h-baddebt">Bad debt</h2>
       <p>
-        Bad debt is what is left when collateral runs out before the debt does. It happens
-        when price gaps faster than liquidators can act — which, on a memecoin, is a
-        normal Tuesday, not a black swan.
+        Three sides are involved: you, the liquidator, and the lenders in that book. Anyone
+        can be the liquidator. No permission, no queue.
       </p>
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">The shortfall stays in that book</span>
-          <p>
-            It is not socialised across the protocol. Lenders exposed to that market absorb
-            it — junior first, then senior if junior is wiped. Lenders in other books lose
-            nothing. This is the whole reason the markets are isolated.
-          </p>
-        </div>
-      </div>
-      <h3>What that means in practice</h3>
-      <ul class="plain">
-        <li>There is <strong>no insurance fund that always pays</strong>. A reserve may cover part of a small shortfall. It is not a guarantee and we will never describe it as one.</li>
-        <li>Any bad-debt event is published in full: the book, the position, the price path, the size, and what the reserve did or did not cover.</li>
-        <li>Buyback routing pauses while a book is in shortfall. Solvency before the loop. <span class="badge badge-open">Trigger TBD</span></li>
-      </ul>
+
+      <ol class="stepcards">
+        <li>
+          <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">HF drops below 1</span><span class="sc-flow">price falls</span></div>
+          <p>The TWAP updates and your meme is worth less, or interest has pushed your debt up. Your health factor crosses below 1, and from that moment anyone can liquidate the loan.</p>
+          <div class="sc-facts">
+            <div><span class="k">Measured on</span><span class="v">The TWAP, not the last tick</span></div>
+            <div><span class="k">Warning</span><span class="v">None</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">02</span><span class="sc-title">Debt repaid</span><span class="sc-flow">stables in</span></div>
+          <p>A liquidator repays part of your debt in stables. Those stables go back into the book, to its lenders.</p>
+          <div class="sc-facts">
+            <div><span class="k">Who</span><span class="v">Anyone</span></div>
+            <div><span class="k">Per call</span><span class="v">Part of the debt <span class="badge badge-open">TBD</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">03</span><span class="sc-title">Meme taken</span><span class="sc-flow">meme out</span></div>
+          <p>In return, the liquidator takes your meme: the value they repaid, plus the bonus. That meme does not come back to you.</p>
+          <div class="sc-facts">
+            <div><span class="k">They take</span><span class="v">Repaid value + bonus</span></div>
+            <div><span class="k">Bonus</span><span class="v">10–15% <span class="badge badge-open">TBD</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Loan re-checked</span><span class="sc-flow">stop or repeat</span></div>
+          <p>If your health factor is back at 1 or above, it stops there. If not, the loan can be liquidated again, straight away.</p>
+          <div class="sc-facts">
+            <div><span class="k">HF 1 or above</span><span class="v">It stops</span></div>
+            <div><span class="k">HF still below 1</span><span class="v">Liquidated again</span></div>
+          </div>
+        </li>
+      </ol>
 
       <h2 id="h-avoid">How not to get liquidated</h2>
       <ul class="plain">
-        <li>Borrow well under the max. The gap between your LTV and the liquidation threshold is your entire buffer.</li>
+        <li>Borrow well under the max. The gap between what you borrowed and the liquidation threshold is your whole buffer.</li>
         <li>Watch the debt, not just the price. Interest moves your HF on a flat chart.</li>
-        <li>Repay early. Partial repayments work and take effect immediately.</li>
-        <li>Do not borrow to buy more of the collateral you posted. That position liquidates twice as fast in both directions.</li>
+        <li>Repay early. Partial repayments work and count straight away.</li>
+        <li>Watch the league. A demotion tightens the threshold on your open loan. See <a href="#leagues">Leagues</a>.</li>
+        <li>Do not borrow to buy more of the meme you posted. When it drops, you lose on the extra meme and get liquidated sooner on the loan.</li>
       </ul>
     </article>
 
-    <!-- ═══════════════════ 8 · FEES ═══════════════════ -->
-    <article class="page" id="page-fees" data-title="Fees" data-group="Mechanics">
-      <div class="cover cover-band" role="img" aria-label="Borrow interest running along a line and dropping into three buckets: lenders, reserve and buyback">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round">
-            <path d="M196 76 H 786"/>
-            <path d="M266 76 V 112"/><path d="M486 76 V 112"/><path d="M706 76 V 112"/>
-          </g>
-          <circle cx="196" cy="76" r="13" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="2.5"/>
-          <text x="196" y="50" text-anchor="middle" class="bn-lbl" fill="var(--gold)">INTEREST</text>
-
-          <g transform="translate(192 112)">
-            <rect width="148" height="60" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <text x="74" y="37" text-anchor="middle" class="bn-key">LENDERS</text>
-            <text x="74" y="86" text-anchor="middle" class="bn-lbl">THE BULK</text>
-          </g>
-          <g transform="translate(412 112)">
-            <rect width="148" height="60" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <text x="74" y="37" text-anchor="middle" class="bn-key">RESERVE</text>
-            <text x="74" y="86" text-anchor="middle" class="bn-lbl">FIRST LOSS</text>
-          </g>
-          <g transform="translate(632 112)">
-            <rect width="148" height="60" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-            <text x="74" y="37" text-anchor="middle" class="bn-key" fill="var(--accent-ink)">BUYBACK</text>
-            <text x="74" y="86" text-anchor="middle" class="bn-lbl" fill="var(--accent)">BUYS THE MEME</text>
-          </g>
-
-          <g transform="translate(898 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">WHERE THE FEE GOES</text>
-        </svg>
-      </div>
-
-      <h1>Fees</h1>
-      <p class="lede">
-        Borrowers pay interest. Most of it goes to lenders. A slice is protocol revenue,
-        and that slice buys the meme.
-      </p>
-
-      <h2 id="h-shape">Borrow rate shape</h2>
-      <p>
-        The borrow rate is a function of utilisation, with a kink. Below the kink the rate
-        stays low so borrowing is worth doing. Above it the rate climbs hard, which pays
-        lenders enough to bring new stables in and pushes borrowers to repay before the
-        book runs dry.
-      </p>
-      <figure class="fig">
-        <svg viewBox="0 0 600 250" role="img" aria-label="Borrow rate against utilisation. The rate rises gently to the kink, then steeply after it. Supply rate tracks below.">
-          <g stroke="var(--line)" stroke-width="1"><path d="M60 200 H570"/><path d="M60 26 V200"/></g>
-          <g stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"><path d="M60 142 H570"/><path d="M60 84 H570"/></g>
-          <path d="M468 26 V200" stroke="var(--gold-line)" stroke-width="1" stroke-dasharray="4 4"/>
-          <path d="M60 200 L468 176 L570 30" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
-          <path d="M60 200 L468 184 L570 58" fill="none" stroke="var(--moss)" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>
-          <g font-family="Fredoka, ui-rounded, sans-serif" font-size="10.5" fill="var(--ink-3)">
-            <text x="60" y="218" text-anchor="middle">0%</text>
-            <text x="468" y="218" text-anchor="middle">kink</text>
-            <text x="570" y="218" text-anchor="middle">100%</text>
-            <text x="315" y="238" text-anchor="middle" fill="var(--ink-2)">UTILISATION</text>
-            <text x="52" y="204" text-anchor="end">0</text>
-            <text x="60" y="18" text-anchor="start" fill="var(--ink-2)">RATE</text>
-          </g>
-          <g font-family="Fredoka, ui-rounded, sans-serif" font-size="11">
-            <rect x="320" y="108" width="14" height="3" fill="var(--accent)"/>
-            <text x="342" y="113" fill="var(--ink-2)">Borrow rate</text>
-            <rect x="320" y="130" width="14" height="3" fill="var(--moss)"/>
-            <text x="342" y="135" fill="var(--ink-2)">Lender rate</text>
-          </g>
-        </svg>
-        <figcaption>Fig. 1 — Shape only. No axis values, because none are signed off.</figcaption>
-      </figure>
-      <p>
-        The shape is settled. The slopes, the kink position and the rate at 100% are
-        per-league and <span class="badge badge-open">TBD</span>, which is why the chart
-        above carries no values on either axis.
-      </p>
-
-      <h2 id="h-split">Where the fee goes</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Source</th><th>Paid by</th><th>Split</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Borrow interest</td><td>Borrowers, continuously</td><td>Lenders / reserve / buyback</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Liquidation bonus slice</td><td>Liquidated borrowers</td><td>Liquidator / reserve / buyback</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Listing fee, if any</td><td>The listing applicant</td><td>Buyback</td><td><span class="badge badge-open">TBD — may be zero</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        The three destinations are <strong>lenders</strong> (the bulk of interest),
-        <strong>reserve</strong> (first loss cover for that book) and
-        <strong>buyback</strong> (open-market purchase of the LOAN MEME token). The exact
-        percentages get frozen into a table on this page before the first market opens.
-        Until then they are not numbers, they are placeholders.
-      </p>
-
-      <h2 id="h-frozen">Frozen versus governed</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Parameter</th><th>Frozen at deploy</th><th>Changeable</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Isolation of markets</td><td class="is-us">Frozen</td><td>Never</td></tr>
-            <tr><td class="k">League LTV ceilings</td><td>—</td><td>Yes, with notice and a published reason</td></tr>
-            <tr><td class="k">Fee split</td><td>—</td><td>Yes, with notice <span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Rate curve per league</td><td>—</td><td>Yes, with notice</td></tr>
-            <tr><td class="k">Borrow caps</td><td>—</td><td>Yes — the fastest-moving parameter</td></tr>
-            <tr><td class="k">Ability to move user funds</td><td class="is-us">Does not exist</td><td>Never</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Who holds the keys, the threshold and the timelock length are <span class="badge badge-open">TBD</span> and get published on <a href="#contracts">Contracts</a> before deploy, not after.</p>
-
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
-          <span class="htitle">No APY here until there is one</span>
-          <p>Every rate on this page is a shape, not a number. When a market is live, this page carries the realised figure for a stated period — not an annualised projection from a good week.</p>
-        </div>
-      </div>
-    </article>
-
     <!-- ═══════════════════ 7 · TOKEN ═══════════════════ -->
-    <article class="page" id="page-token" data-title="The LOAN MEME token" data-group="Token">
-      <div class="cover cover-band" role="img" aria-label="Protocol revenue on the left, a coin carrying the Yeti in the middle, and an open-market buy on the right, looping back">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M214 176 C 214 214, 906 214, 906 176" stroke-dasharray="8 8" opacity=".8"/>
-          </g>
-
-          <g fill="none" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M344 116 H 400"/><path d="M390 109 l 10 7 l -10 7"/>
-            <path d="M580 116 H 636"/><path d="M626 109 l 10 7 l -10 7"/>
-          </g>
-
-          <g transform="translate(146 82)">
-            <rect width="198" height="68" rx="11" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <text x="99" y="34" text-anchor="middle" class="bn-key">PROTOCOL</text>
-            <text x="99" y="53" text-anchor="middle" class="bn-key">REVENUE</text>
-          </g>
-
-          <g transform="translate(430 56)">
-            <circle cx="60" cy="60" r="58" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="3"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="var(--gold-line)" stroke-width="1.6" opacity=".7"/>
-            <g transform="translate(33 33) scale(.85)"><use href="#bn-yeti"/></g>
-          </g>
-
-          <g transform="translate(636 82)">
-            <rect width="198" height="68" rx="11" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-            <text x="99" y="34" text-anchor="middle" class="bn-key" fill="var(--accent-ink)">OPEN MARKET</text>
-            <text x="99" y="53" text-anchor="middle" class="bn-key" fill="var(--accent-ink)">BUY</text>
-          </g>
-
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">REVENUE BUYS THE MEME</text>
-        </svg>
+    <article class="page" id="page-token" data-title="The $LOAN Flywheel" data-group="Token">
+      <!-- cover image removed; restore at width="1024" height="342" -->
+      <div class="cover cover-art">
       </div>
 
-      <h1>The LOAN MEME token</h1>
+      <h1>The $LOAN Flywheel</h1>
       <p class="lede">
-        The meme is the culture layer. Protocol revenue buys it back. It is not required
-        to use the protocol.
+        The meme is the culture. The protocol is the engine. Protocol revenue buys back the
+        meme. You do not need to hold it to lend or borrow.
       </p>
 
       <h2 id="h-does">What the token does</h2>
@@ -2468,516 +1703,79 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
         <div class="panel panel-yes">
           <span class="eyebrow">It does</span>
           <ul class="plain">
-            <li>Carry the brand. It is the thing people hold and post.</li>
-            <li>Receive protocol fee revenue through open-market buybacks.</li>
-            <li>Stay outside the lending risk. It is not collateral, so no book can liquidate it.</li>
-            <li>Hold itself to the listing standard: authorities revoked, contract verified, wallets published.</li>
+            <li>Carry the brand. It is the thing people hold and post, with the Yeti as its face.</li>
+            <li>Get bought on the open market with protocol fees.</li>
+            <li>Stay out of the lending books. It is not collateral, so no book can liquidate it.</li>
+            <li>Meet the same standard as every listed meme: mint and freeze revoked, contract verified, wallets published.</li>
           </ul>
         </div>
-        <div class="panel panel-no">
-          <span class="eyebrow">It does not</span>
-          <ul class="plain">
-            <li>Gate anything. You lend and borrow without holding it.</li>
-            <li>Act as collateral in the protocol at launch.</li>
-            <li>Pay a yield, a dividend or a distribution.</li>
-            <li>Represent equity, a claim on assets, or a promise of any kind.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="pull">
-        It captures value on the buyback side or not at all.
-        <small>Forcing the token into the borrow flow would make the markets worse and the revenue smaller.</small>
       </div>
 
-      <h2 id="h-buyback">Buyback source</h2>
-      <ol class="steps">
-        <li><strong>Fees accrue</strong> in stables inside each book — the interest slice, the liquidation bonus slice, and a listing fee if one exists.</li>
-        <li><strong>Reserve is served first.</strong> A book in shortfall does not route to buyback.</li>
-        <li><strong>The remainder is swept</strong> on a schedule to the buyback route.</li>
-        <li><strong>It buys LOAN MEME on the open market.</strong> No OTC, no private fills.</li>
-        <li><strong>Every step is published</strong> with transaction hashes.</li>
+      <h2 id="h-buyback">The Flywheel</h2>
+      <ol class="stepcards">
+        <li>
+          <div class="sc-head"><span class="sc-num">01</span><span class="sc-title">Fees build up</span><span class="sc-flow">stables in</span></div>
+          <p>Fees collect in stables inside each book: the borrow interest slice, the liquidation bonus slice, and a listing fee if one exists.</p>
+          <div class="sc-facts">
+            <div><span class="k">From</span><span class="v">Interest, liquidations, listings</span></div>
+            <div><span class="k">Held in</span><span class="v">Stables, per book</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">02</span><span class="sc-title">The reserve comes first</span><span class="sc-flow">reserve</span></div>
+          <p>The book's reserve is served before anything else. A book with bad debt sends nothing to buybacks.</p>
+          <div class="sc-facts">
+            <div><span class="k">Paid first</span><span class="v">The book's reserve</span></div>
+            <div><span class="k">Bad debt</span><span class="v">Nothing to buybacks</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">03</span><span class="sc-title">The rest is moved</span><span class="sc-flow">to buyback</span></div>
+          <p>What is left goes, on a schedule, to the buyback contract.</p>
+          <div class="sc-facts">
+            <div><span class="k">Goes to</span><span class="v">The buyback contract</span></div>
+            <div><span class="k">Schedule</span><span class="v"><span class="badge badge-open">TBD</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">It buys LOAN MEME</span><span class="sc-flow">open market</span></div>
+          <p>The buyback contract buys the token on the open market. No private deals.</p>
+          <div class="sc-facts">
+            <div><span class="k">Buys</span><span class="v">LOAN MEME</span></div>
+            <div><span class="k">Where</span><span class="v">Open market only</span></div>
+          </div>
+        </li>
+        <li class="sc-wide">
+          <div class="sc-head"><span class="sc-num">05</span><span class="sc-title">Every step is published</span><span class="sc-flow">on chain</span></div>
+          <p>Each step above goes out with its transaction hashes, so anyone can check it on chain.</p>
+        </li>
       </ol>
-      <div class="hint hint-info">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.2v4.3M10 6.6v.1"/></svg>
-        <div class="body">
+      <div class="hint hint-info">        <div class="body">
           <span class="htitle">Only earned money buys the token</span>
-          <p>Never treasury sales, never borrowed funds, never new emissions relabelled as revenue. Small revenue means a small buyback, and we publish the small number rather than dressing it up.</p>
-          <p>What happens to the tokens once bought — burn or hold — is <span class="badge badge-open">TBD</span>, and gets decided before routing goes live.</p>
+          <p>Never treasury sales, never borrowed money, never newly minted tokens called revenue. Small fees mean a small buyback, and we publish the small number instead of dressing it up.</p>
+          <p>What happens to the tokens once bought, burn or hold, is <span class="badge badge-open">TBD</span>, and gets decided before routing goes live.</p>
         </div>
       </div>
 
-      <h2 id="h-supply">Supply and distribution</h2>
-      <p>
-        <span class="badge badge-open">TBD until deploy.</span> This table is empty on
-        purpose. We are not publishing a supply schedule we have not frozen.
-      </p>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Bucket</th><th>Share</th><th>Unlock</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Total supply</td><td>—</td><td>—</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Liquidity</td><td>—</td><td>—</td><td><span class="badge badge-open">TBD</span></td></tr>
-            <tr><td class="k">Team</td><td>0 at TGE</td><td>Vested</td><td><span class="badge badge-open">TBD — rule stands unless this page says otherwise</span></td></tr>
-            <tr><td class="k">Treasury</td><td>—</td><td>—</td><td><span class="badge badge-open">TBD</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-warn">
-        <svg class="ico" viewBox="0 0 20 20"><path d="M10 3.5 18 16.5H2z"/><path d="M10 8.5v3.2M10 14.2v.1"/></svg>
-        <div class="body">
-          <span class="htitle">Working rule: team zero at TGE</span>
-          <p>
-            Any team allocation vests afterwards. This is the one commitment in the table
-            above that is not a placeholder — and if it changes, it changes here first,
-            before launch, in public.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-hygiene">Contract hygiene</h2>
-      <p>We hold our own token to the listing standard we apply to everyone else.</p>
-      <div class="checkgroup">
-        <div class="check">Mint authority revoked at launch.</div>
-        <div class="check">Freeze authority revoked at launch.</div>
-        <div class="check">Contract verified, with the source published.</div>
-        <div class="check">Liquidity position and any lock verifiable on chain.</div>
-        <div class="check">Every team and treasury wallet published on <a href="#contracts">Contracts</a>.</div>
-      </div>
-
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
+      <div class="hint hint-stop">        <div class="body">
           <span class="htitle">The token is a memecoin</span>
           <p>
-            It can go to zero. Buybacks are a mechanism, not a floor and not a promise of a
-            return. Holding it exposes you to none of the lending mechanics directly and to
-            all of the reputational consequences if the protocol goes wrong.
+            It can go to zero. Buybacks are a mechanism, not a price floor and not a promise
+            of a return. The token is not in any lending book, but if the protocol has a
+            bad day, the token will feel it in price anyway.
           </p>
         </div>
       </div>
     </article>
 
-    <!-- ═══════════════════ 9 · RISKS ═══════════════════ -->
-    <article class="page" id="page-risks" data-title="Risks" data-group="Before you use it">
-      <div class="cover cover-band" role="img" aria-label="Three warning markers on the ice, largest first, under an axis running from most likely to least likely">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="5 7" opacity=".75" fill="none">
-            <path d="M206 46 H 796"/>
-          </g>
-          <text x="206" y="34" class="bn-lbl">MOST LIKELY</text>
-          <text x="796" y="34" text-anchor="end" class="bn-lbl">LEAST</text>
-
-          <g>
-            <path d="M206 176 L 286 62 L 366 176 Z" fill="var(--rose-soft)" stroke="var(--rose-line)" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M286 104 v 34" stroke="var(--rose)" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="286" cy="154" r="4" fill="var(--rose)"/>
-          </g>
-          <g>
-            <path d="M414 176 L 480 84 L 546 176 Z" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M480 118 v 26" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="480" cy="158" r="3.5" fill="var(--gold)"/>
-          </g>
-          <g>
-            <path d="M598 176 L 650 104 L 702 176 Z" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M650 130 v 20" stroke="var(--ink-3)" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="650" cy="162" r="3" fill="var(--ink-3)"/>
-          </g>
-
-          <g transform="translate(880 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">READ THIS ONE TWICE</text>
-        </svg>
-      </div>
-
-      <h1>Risks</h1>
-      <p class="lede">
-        Read this before you deposit anything. If a risk here is missing, the page is
-        wrong — tell us.
-      </p>
-
-      <h2 id="h-borrower">If you borrow</h2>
-      <div class="rows">
-        <div><span class="k">Liquidation</span><span class="d">If the TWAP falls far enough, a liquidator repays part of your debt and takes your collateral at a 10–15% discount. No warning, no grace period, no appeal.</span></div>
-        <div><span class="k">Zero versus your entry</span><span class="d">The meme can go to zero, and it can do it from a price far below where you bought. Getting liquidated at $0.005 on a token you bought at $0.04 is a real outcome, and borrowing against it does not undo the first loss.</span></div>
-        <div><span class="k">Interest drift</span><span class="d">Your debt grows every block. A position you never touch moves toward liquidation on a flat chart.</span></div>
-        <div><span class="k">Rate spikes</span><span class="d">Borrow rates rise sharply when a book runs hot. What you pay is not fixed.</span></div>
-        <div><span class="k">League change</span><span class="d">If your ticker is demoted, the terms tighten. That can move your liquidation point against you on a position you already opened. See <a href="#leagues">Leagues</a>.</span></div>
-        <div><span class="k">Recursive borrowing</span><span class="d">Borrowing stables to buy more of the collateral you posted multiplies both directions. It is the fastest way to lose the position.</span></div>
-      </div>
-
-      <h2 id="h-lender">If you lend</h2>
-      <div class="rows">
-        <div><span class="k">Bad debt</span><span class="d">A meme can gap below the point where liquidation covers the debt. The shortfall lands on lenders in that book — junior first. You can lose principal.</span></div>
-        <div><span class="k">No guaranteed backstop</span><span class="d">A reserve may cover part of a small shortfall. There is no insurance fund that always pays, and we will not describe one.</span></div>
-        <div><span class="k">Illiquid exit</span><span class="d">At full utilisation there is nothing free to withdraw. You wait for repayments or new deposits. Your money is not available on demand.</span></div>
-        <div><span class="k">Rate collapse</span><span class="d">Borrowers repay, utilisation falls, and you earn close to nothing while capital sits idle.</span></div>
-        <div><span class="k">Stablecoin risk</span><span class="d">You hold the loan asset. If it depegs, that is your loss, and nothing in this protocol offsets it.</span></div>
-      </div>
-
-      <h2 id="h-shared">Risks either way</h2>
-      <div class="rows">
-        <div><span class="k">Oracle</span><span class="d">A TWAP lags. In a fast dump it reports a price above reality, delaying liquidation and making bad debt more likely. A TWAP is also not unmanipulable — it is expensive to manipulate, which is different.</span></div>
-        <div><span class="k">Empty pool</span><span class="d">If the canonical pool thins out, new borrows pause in that book. Liquidations still fire, into liquidity that may not be there.</span></div>
-        <div><span class="k">Smart contract failure</span><span class="d">A bug in the market, the collateral locker, the oracle adapter or the fee router can take everything, in any league, in any vault.</span></div>
-        <div><span class="k">Chain and bridge risk</span><span class="d">You inherit the risk of the chain we deploy on. A bridged asset carries the bridge's risk on top of its own.</span></div>
-        <div><span class="k">Key and governance risk</span><span class="d">Parameters can be changed by whoever holds the keys. The signer set, threshold and timelock are published on <a href="#contracts">Contracts</a> — read them and decide whether you accept them.</span></div>
-        <div><span class="k">Pre-deploy risk</span><span class="d">Nothing is live. Any address, app or "presale" claiming to be this protocol today is not.</span></div>
-      </div>
-
-      <h2 id="h-notwhat">What this is not</h2>
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Plainly</span>
-          <p>
-            Not a bank. Deposits are not insured by anyone. Not equity — the token is not a
-            share and carries no claim on assets or revenue. Not affiliated with, endorsed
-            by, or official to any exchange, brokerage or chain operator. Nothing here is
-            risk-free, nothing here is advice, and no price can be assumed to only go one
-            way.
-          </p>
-        </div>
-      </div>
-    </article>
-
-    <!-- ═══════════════════ 10 · CONTRACTS ═══════════════════ -->
-    <article class="page" id="page-contracts" data-title="Contracts" data-group="Before you use it">
-      <div class="cover cover-band" role="img" aria-label="Three empty dashed plaques where the core, oracle and token addresses will go, all still blank">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g transform="translate(178 88)">
-            <rect width="214" height="88" rx="12" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5" stroke-dasharray="9 9"/>
-            <rect x="32" y="30" width="150" height="10" rx="5" fill="var(--surface-3)"/>
-            <rect x="32" y="50" width="104" height="10" rx="5" fill="var(--surface-3)"/>
-            <text x="107" y="108" text-anchor="middle" class="bn-lbl">CORE</text>
-          </g>
-          <g transform="translate(438 88)">
-            <rect width="214" height="88" rx="12" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5" stroke-dasharray="9 9"/>
-            <rect x="32" y="30" width="150" height="10" rx="5" fill="var(--surface-3)"/>
-            <rect x="32" y="50" width="104" height="10" rx="5" fill="var(--surface-3)"/>
-            <text x="107" y="108" text-anchor="middle" class="bn-lbl">ORACLE</text>
-          </g>
-          <g transform="translate(698 88)">
-            <rect width="214" height="88" rx="12" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5" stroke-dasharray="9 9"/>
-            <rect x="32" y="30" width="150" height="10" rx="5" fill="var(--surface-3)"/>
-            <rect x="32" y="50" width="104" height="10" rx="5" fill="var(--surface-3)"/>
-            <text x="107" y="108" text-anchor="middle" class="bn-lbl">TOKEN</text>
-          </g>
-
-          <g transform="translate(462 32)">
-            <rect width="196" height="30" rx="15" fill="var(--gold-soft)" stroke="var(--gold-line)" stroke-width="2"/>
-            <text x="98" y="20" text-anchor="middle" class="bn-lbl" fill="var(--gold)">NOT DEPLOYED</text>
-          </g>
-
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">NOTHING TO PASTE YET</text>
-        </svg>
-      </div>
-
-      <h1>Contracts</h1>
-      <p class="lede">
-        Addresses go here when they exist. Until then this page is empty, and an empty
-        page is the correct answer.
-      </p>
-
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Nothing is deployed</span>
-          <p>
-            There are no contracts, no markets and no token address. Any address circulating
-            right now claiming to be Loan Meme is not ours. We will never publish an address
-            anywhere except this page.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-addresses">Addresses</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Contract</th><th>Chain</th><th>Address</th><th>Verified</th></tr></thead>
-          <tbody>
-            <tr><td class="k">LOAN MEME token</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Market factory</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Collateral locker</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Oracle adapter</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Fee router</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Buyback route</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Admin multisig</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="k">Timelock</td><td>—</td><td>—</td><td>—</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="h-verify">How to verify, once they exist</h2>
-      <ol class="steps">
-        <li><strong>Start from this page only.</strong> Not a DM, not a reply, not a search result. Bookmark it.</li>
-        <li><strong>Check the token.</strong> Mint authority revoked, freeze authority revoked, supply matches what <a href="#token">Token</a> states.</li>
-        <li><strong>Check the locker.</strong> Your collateral should sit in the locker for your market. Confirm the locker holds it and that no other role can move it.</li>
-        <li><strong>Check the market.</strong> Confirm it points at the collateral you expect, the loan asset you expect, and the oracle adapter listed here.</li>
-        <li><strong>Check the roles.</strong> Who can pause, who can change parameters, what is behind the timelock, and that nothing can move user funds.</li>
-        <li><strong>Check the router.</strong> Confirm fees go where <a href="#fees">Fees</a> says they go.</li>
-      </ol>
-
-      <h2 id="h-roles">Roles we will publish</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Role</th><th>What it can do</th><th>Control</th></tr></thead>
-          <tbody>
-            <tr><td class="k">Pause a book</td><td>Stop new borrows in one market</td><td>Immediate — the only fast power</td></tr>
-            <tr><td class="k">Set league parameters</td><td>LTV ceilings, thresholds, caps</td><td>Timelocked, announced first</td></tr>
-            <tr><td class="k">Set fee split</td><td>Lender / reserve / buyback shares</td><td>Timelocked, with a published reason</td></tr>
-            <tr><td class="k">List or delist a market</td><td>Add or retire a book</td><td>Against the published checklist only</td></tr>
-            <tr><td class="k">Move user funds</td><td class="is-us">Nothing. This role must not exist.</td><td>—</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-info">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.2v4.3M10 6.6v.1"/></svg>
-        <div class="body">
-          <span class="htitle">Keys get published before the first deposit</span>
-          <p>
-            Signer set, threshold and timelock duration are
-            <span class="badge badge-open">TBD</span>. They land on this page before anyone
-            can deposit, not after — if they are not here, do not deposit.
-          </p>
-        </div>
-      </div>
-    </article>
-
-    <!-- ═══════════════════ 11 · FAQ ═══════════════════ -->
-    <article class="page" id="page-faq" data-title="FAQ" data-group="Reference">
-      <div class="cover cover-band" role="img" aria-label="A question bubble and a shorter answer bubble sitting on the ice">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <g transform="translate(178 58)">
-            <rect width="256" height="84" rx="16" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5"/>
-            <path d="M46 82 l 0 26 l 28 -26" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2.5" stroke-linejoin="round"/>
-            <text x="34" y="56" font-size="38" font-weight="600" fill="var(--accent)">?</text>
-            <rect x="70" y="28" width="152" height="10" rx="5" fill="var(--surface-3)"/>
-            <rect x="70" y="50" width="112" height="10" rx="5" fill="var(--surface-3)"/>
-          </g>
-
-          <g transform="translate(500 92)">
-            <rect width="300" height="80" rx="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-            <path d="M254 78 l 0 26 l -28 -26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M30 42 l 13 13 l 24 -26" fill="none" stroke="var(--accent)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="88" y="30" width="176" height="10" rx="5" fill="var(--accent)" opacity=".35"/>
-            <rect x="88" y="50" width="118" height="10" rx="5" fill="var(--accent)" opacity=".25"/>
-          </g>
-
-          <g transform="translate(886 112)"><use href="#bn-yeti"/></g>
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">SHORT ANSWERS</text>
-        </svg>
-      </div>
-
-      <h1>FAQ</h1>
-      <p class="lede">Short answers. Longer ones are linked.</p>
-
-      <details class="exp" open>
-        <summary>Is this just a meme?</summary>
-        <div class="exp-body">
-          <p>It is a meme, plus a market. The meme is the brand and the token. The market is real isolated lending against memecoins, and it is where the fees come from. Both are true at once, and we do not pretend either one away.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I borrow 70% against a two-day-old ticker?</summary>
-        <div class="exp-body">
-          <p>No. A new ticker with a thin book is T3, which is around 30% max LTV. 70% is not a day-one number for anything here. See <a href="#leagues">Leagues and rank</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>If my meme rugs, does every lender eat it?</summary>
-        <div class="exp-body">
-          <p>No. That market's lenders do — junior before senior. Lenders in other books lose nothing. That is what isolated means, and it is the reason the protocol is built this way.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Is the Yeti the protocol?</summary>
-        <div class="exp-body">
-          <p>No. The Yeti is the face. It is in the art and the videos. It holds no key, has no vote and appears in no formula. The protocol is the lending market.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What do I actually deposit, and what do I get out?</summary>
-        <div class="exp-body">
-          <p>Borrowers deposit the meme and take out stables. Lenders deposit stables and earn interest. Memes are never lent out — they go in as collateral only.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What price is used to liquidate me?</summary>
-        <div class="exp-body">
-          <p>A TWAP of the canonical pool, not the last tick. One wick does not liquidate you. It also does not save you if the price genuinely stays down. See <a href="#oracle">Oracle and listing</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Do I need to hold LOAN MEME to lend or borrow?</summary>
-        <div class="exp-body">
-          <p>No. The token gates nothing. It receives buybacks funded by protocol fees; it is not a toll on using the market.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I use LOAN MEME as collateral?</summary>
-        <div class="exp-body">
-          <p>Not at launch. A protocol accepting its own token as collateral in its own market is the standard way this category blows up.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>How does a ticker get listed?</summary>
-        <div class="exp-body">
-          <p>It has to pass the whole checklist: mint and freeze authority revoked, a nominated canonical pool with minimum liquidity, minimum age for its league, standard token behaviour, and a borrow cap sized to real depth. All of it, not most of it. See <a href="#oracle">the listing checklist</a>.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Can I pay to get a higher LTV?</summary>
-        <div class="exp-body">
-          <p>No. There is no paid tier and no discretionary whitelist. Rank comes from measurable properties of the token. A borrower's wallet history can add up to +5 LTV points, never more.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Which chains are live?</summary>
-        <div class="exp-body">
-          <p>None. Memes from Robinhood Chain, Base and BSC live in the Loan Meme universe, but a market only exists where we have deployed, and we have not deployed. The chain table on <a href="#oracle">Oracle and listing</a> stays empty until that changes.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>What is the APY?</summary>
-        <div class="exp-body">
-          <p>There isn't one, because there is no live market. We publish realised rates for a stated period once markets exist. We do not publish projections, and we do not annualise a good week.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Are you affiliated with Robinhood, or any exchange?</summary>
-        <div class="exp-body">
-          <p>No. Not official, not endorsed, not partnered. Tokens that originate on any chain may end up listed as collateral; that is not a relationship with anyone.</p>
-        </div>
-      </details>
-      <details class="exp">
-        <summary>Is there a token address yet?</summary>
-        <div class="exp-body">
-          <p>No. Anything circulating now is not ours. Addresses will only ever appear on <a href="#contracts">Contracts</a>.</p>
-        </div>
-      </details>
-    </article>
-
-    <!-- ═══════════════════ 12 · ROADMAP ═══════════════════ -->
-    <article class="page" id="page-roadmap" data-title="Roadmap of the mechanism" data-group="Reference">
-      <div class="cover cover-band" role="img" aria-label="A phase track from T0 to T3 with every milestone still open, and a marker sitting before T0">
-        <svg viewBox="0 0 1120 230" preserveAspectRatio="xMidYMid slice">
-          <use href="#bn-field"/>
-          <path d="M232 132 H 872" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M142 132 H 232" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7" fill="none"/>
-
-          <g>
-            <circle cx="142" cy="132" r="9" fill="var(--accent)"/>
-            <text x="142" y="106" text-anchor="middle" class="bn-lbl" fill="var(--accent)">PRE-T0</text>
-          </g>
-
-          <g>
-            <circle cx="232" cy="132" r="14" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="3"/>
-            <text x="232" y="106" text-anchor="middle" class="bn-key">T0</text>
-            <text x="232" y="168" text-anchor="middle" class="bn-lbl">FIRST BOOKS</text>
-          </g>
-          <g>
-            <circle cx="445" cy="132" r="14" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="3"/>
-            <text x="445" y="106" text-anchor="middle" class="bn-key">T1</text>
-            <text x="445" y="168" text-anchor="middle" class="bn-lbl">LEAGUES LIVE</text>
-          </g>
-          <g>
-            <circle cx="658" cy="132" r="14" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="3"/>
-            <text x="658" y="106" text-anchor="middle" class="bn-key">T2</text>
-            <text x="658" y="168" text-anchor="middle" class="bn-lbl">BUYBACK ON</text>
-          </g>
-          <g>
-            <circle cx="872" cy="132" r="14" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="3"/>
-            <text x="872" y="106" text-anchor="middle" class="bn-key">T3</text>
-            <text x="872" y="168" text-anchor="middle" class="bn-lbl">MORE CHAINS</text>
-          </g>
-
-          <text x="1076" y="216" text-anchor="end" class="bn-cap">NONE OF IT SHIPPED</text>
-        </svg>
-      </div>
-
-      <h1>Roadmap of the mechanism</h1>
-      <p class="lede">
-        What gets built, in what order, and what does not get built at all.
-      </p>
-
-      <h2 id="h-phases">Phases</h2>
-      <div class="scroll-x">
-        <table>
-          <thead><tr><th>Phase</th><th>What ships</th><th>Done when</th></tr></thead>
-          <tbody>
-            <tr>
-              <td class="k">T0</td>
-              <td>First isolated markets. Tiny caps. A handful of tickers. Manual, conservative parameters.</td>
-              <td>Real borrows, real repayments, and one full liquidation cycle observed on a live book.</td>
-            </tr>
-            <tr>
-              <td class="k">T1</td>
-              <td>Leagues live. Listing rules published and applied mechanically rather than by hand.</td>
-              <td>A ticker gets promoted and another gets demoted, both on published criteria.</td>
-            </tr>
-            <tr>
-              <td class="k">T2</td>
-              <td>Buyback routing on. Fee split frozen and published. Every sweep and purchase verifiable.</td>
-              <td>Fees earned on live markets have bought the token on the open market, with hashes.</td>
-            </tr>
-            <tr>
-              <td class="k">T3</td>
-              <td>More chains.</td>
-              <td class="is-us">Only after the first chain has survived a real dump — not before.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="hint hint-info">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.2v4.3M10 6.6v.1"/></svg>
-        <div class="body">
-          <span class="htitle">Current phase: pre-T0 <span class="badge badge-open">nothing deployed</span></span>
-          <p>
-            Phases do not have dates. A phase ends when its condition is met, and stating a
-            date we cannot control is the same as making it up.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-never-ship">Never ship</h2>
-      <div class="hint hint-stop">
-        <svg class="ico" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
-        <div class="body">
-          <span class="htitle">Three things that are off the table permanently</span>
-          <p>
-            <strong>A shared pool.</strong> Not as a v2, not opt-in, not for T1 only.<br>
-            <strong>70% LTV on day one.</strong> Not for any league, for any ticker, for anyone.<br>
-            <strong>A discretionary whitelist that overrides rank.</strong> If someone can hand out terms by hand, the league table is decoration.
-          </p>
-          <p>
-            These are not "current thinking". They are the constraints the protocol is for.
-            If any of them ships, the reason to use this instead of a generic lending
-            market is gone.
-          </p>
-        </div>
-      </div>
-
-      <h2 id="h-maybe">Wanted, not promised</h2>
-      <p>
-        Anything in this list that has not shipped is described in these docs as not
-        shipped. It never gets written as if it exists.
-      </p>
-      <ul class="plain">
-        <li><strong>Pre-liquidation.</strong> A softer unwind before full liquidation. Ships only if it can be built safely. See <a href="#liquidations">Liquidations</a>.</li>
-        <li><strong>Senior and junior vaults.</strong> Ships only if the loss waterfall is airtight. See <a href="#lenders">Lenders</a>.</li>
-        <li><strong>Wallet score.</strong> Capped at +5 LTV points forever, whenever it arrives.</li>
-        <li><strong>A public dashboard</strong> for fees earned, tokens bought and float, so the buyback claim is checkable rather than asserted.</li>
-      </ul>
-    </article>
-
+    <p class="lastup" id="lastup">Last updated: 11 September 2026</p>
     <div class="pagenav" id="pagenav"></div>
 
     <footer class="sitefoot">
       <span>Loan Meme docs</span>
       <span>Status: not deployed</span>
       <span>Nothing here is financial advice</span>
+      <span class="fkeys">Press <kbd>/</kbd> to search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> to change page</span>
     </footer>
 
   </main>
@@ -3016,6 +1814,18 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
     m.el.insertBefore(c, m.el.firstChild);
   });
 
+  /* ── Table labels: each cell carries its header, so rows can stack as cards on phones ── */
+  [].slice.call(document.querySelectorAll('.scroll-x table')).forEach(function (t) {
+    var heads = [].slice.call(t.querySelectorAll('thead th')).map(function (th) { return th.textContent.trim(); });
+    [].slice.call(t.querySelectorAll('tbody tr')).forEach(function (tr) {
+      var cells = [].slice.call(tr.children);
+      cells.forEach(function (td, i) { if (heads[i]) td.setAttribute('data-label', heads[i]); });
+      if (cells[0] && cells[0].classList.contains('tag') && cells[0].textContent.trim().length <= 2) {
+        tr.classList.add('row-tag');
+      }
+    });
+  });
+
   /* ── Search index ────────────────────────────────────────────── */
   var index = meta.map(function (m) {
     var heads = [].slice.call(m.el.querySelectorAll('h2, h3, summary'))
@@ -3028,6 +1838,7 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
   function closeMenu() {
     sidenav.classList.remove('open');
     menubtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
     if (scrim) { scrim.remove(); scrim = null; }
   }
 
@@ -3049,16 +1860,24 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
     return hs;
   }
 
+  var navPrev = null, navNext = null;
+  var PVARW = '<svg class="arw pv-arw" viewBox="0 0 16 16"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg>';
+  var NXARW = '<svg class="arw nx-arw" viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5"/></svg>';
+
   function buildPageNav(m) {
     pagenav.innerHTML = '';
     var prev = meta[m.index - 1], next = meta[m.index + 1];
+    navPrev = prev ? prev.id : null;
+    navNext = next ? next.id : null;
     if (prev) {
       pagenav.insertAdjacentHTML('beforeend',
-        '<a href="#' + prev.id + '"><span class="dir">Previous</span><span class="ttl">' + prev.title + '</span></a>');
+        '<a class="pv" href="#' + prev.id + '"><span class="dir">' + PVARW + 'Previous</span>' +
+        '<span class="ttl">' + prev.title + '</span></a>');
     }
     if (next) {
       pagenav.insertAdjacentHTML('beforeend',
-        '<a class="nx" href="#' + next.id + '"><span class="dir">Next</span><span class="ttl">' + next.title + '</span></a>');
+        '<a class="nx" href="#' + next.id + '"><span class="dir">Next' + NXARW + '</span>' +
+        '<span class="ttl">' + next.title + '</span></a>');
     }
   }
 
@@ -3118,6 +1937,7 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
   menubtn.addEventListener('click', function () {
     var open = sidenav.classList.toggle('open');
     menubtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('menu-open', open);
     if (open) {
       scrim = document.createElement('div');
       scrim.className = 'scrim';
@@ -3125,6 +1945,11 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
       document.body.appendChild(scrim);
     } else if (scrim) { scrim.remove(); scrim = null; }
   });
+  /* the drawer only exists below 1000px, so growing the window past it closes it */
+  var wide = window.matchMedia('(min-width: 1000px)');
+  function onWide() { if (wide.matches) closeMenu(); }
+  if (wide.addEventListener) wide.addEventListener('change', onWide);
+  else if (wide.addListener) wide.addListener(onWide);
 
   /* ── Theme ───────────────────────────────────────────────────── */
   var root = document.documentElement;
@@ -3171,7 +1996,7 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
       a.href = '#' + r.id;
       a.innerHTML = '<span class="grp">' + r.group + '</span>' + r.label;
       if (i === sel) a.className = 'sel';
-      a.addEventListener('click', function () { q.value = ''; box.hidden = true; });
+      a.addEventListener('click', function () { q.value = ''; closeSearch(); });
       box.appendChild(a);
     });
     box.hidden = false;
@@ -3205,10 +2030,28 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
     render(out);
   }
 
+  /* below 860px the field is hidden behind an icon; opening it swaps out the rest of the bar */
+  var bar = document.querySelector('.topbar');
+  var searchbtn = document.getElementById('searchbtn');
+  var searchclose = document.getElementById('searchclose');
+  function openSearch() {
+    bar.classList.add('searching');
+    searchbtn.setAttribute('aria-expanded', 'true');
+    closeMenu();
+    q.focus(); q.select();
+  }
+  function closeSearch() {
+    bar.classList.remove('searching');
+    searchbtn.setAttribute('aria-expanded', 'false');
+    box.hidden = true;
+  }
+  searchbtn.addEventListener('click', openSearch);
+  searchclose.addEventListener('click', function () { q.value = ''; closeSearch(); searchbtn.focus(); });
+
   q.addEventListener('input', function () { search(q.value); });
   q.addEventListener('keydown', function (e) {
     var items = [].slice.call(box.querySelectorAll('a'));
-    if (e.key === 'Escape') { box.hidden = true; q.blur(); return; }
+    if (e.key === 'Escape') { closeSearch(); q.blur(); return; }
     if (!items.length || box.hidden) return;
     if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, items.length - 1); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); }
@@ -3220,12 +2063,70 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
   document.addEventListener('click', function (e) {
     if (e.target && e.target.closest && !e.target.closest('.search')) box.hidden = true;
   });
+  /* ── Keyboard shortcuts ──────────────────────────────────────── */
   document.addEventListener('keydown', function (e) {
     var ae = document.activeElement;
-    if (e.key === '/' && ae !== q && !(ae && /^(INPUT|TEXTAREA)$/.test(ae.tagName))) {
-      e.preventDefault(); q.focus();
+    var typing = ae && (/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName) || ae.isContentEditable);
+
+    if (e.key === 'Escape' && sidenav.classList.contains('open')) { closeMenu(); menubtn.focus(); return; }
+    if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault(); openSearch(); return;
     }
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+    if (e.key === '/' && !typing) { e.preventDefault(); openSearch(); return; }
+    if (typing) return;
+    if (e.target && e.target.closest && e.target.closest('.scroll-x')) return;
+
+    if (e.key === 'ArrowLeft' && navPrev) { e.preventDefault(); location.hash = '#' + navPrev; }
+    else if (e.key === 'ArrowRight' && navNext) { e.preventDefault(); location.hash = '#' + navNext; }
   });
+})();
+
+/* ── Full-size view for finished images the screen has shrunk ─────── */
+(function () {
+  var imgs = [].slice.call(document.querySelectorAll('.fig-art img, .cover-art img'));
+  var layer = null, opener = null;
+  var X = '<svg viewBox="0 0 20 20"><path d="M5 5l10 10M15 5 5 15"/></svg>';
+
+  function shrunk(img) {
+    var w = img.getBoundingClientRect().width;
+    return img.naturalWidth > 0 && w > 0 && w < img.naturalWidth * 0.7;
+  }
+  function markAll() { imgs.forEach(function (img) { img.classList.toggle('zoomable', shrunk(img)); }); }
+
+  function close() {
+    if (!layer) return;
+    layer.remove(); layer = null;
+    document.body.classList.remove('no-scroll');
+    if (opener) opener.focus();
+  }
+  function open(img) {
+    opener = img;
+    layer = document.createElement('div');
+    layer.className = 'zoom';
+    layer.setAttribute('role', 'dialog');
+    layer.setAttribute('aria-modal', 'true');
+    layer.setAttribute('aria-label', img.alt || 'Image');
+    layer.innerHTML = '<button class="iconbtn" aria-label="Close image">' + X + '</button>';
+    var big = new Image();
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt;
+    layer.appendChild(big);
+    layer.addEventListener('click', function (e) { if (e.target !== big) close(); });
+    document.body.appendChild(layer);
+    document.body.classList.add('no-scroll');
+    layer.querySelector('button').focus();
+  }
+
+  imgs.forEach(function (img) {
+    img.addEventListener('load', markAll);
+    img.addEventListener('click', function () { if (shrunk(img)) open(img); });
+  });
+  window.addEventListener('resize', markAll);
+  window.addEventListener('hashchange', function () { setTimeout(markAll, 60); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  markAll();
 })();
 
 /* ── Top bar lifts off the page once you scroll ────────────────────── */
@@ -3238,122 +2139,6 @@ HF &lt; 1  →  the position can be liquidated by anyone</code></pre>
     if (!ticking) { ticking = true; requestAnimationFrame(apply); }
   }, { passive: true });
   apply();
-})();
-
-/* ══ Pudgy layer — marquee, twinkles, pop-in reveals, squish feedback ══
-   Additive: nothing above depends on any of this. */
-(function () {
-  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ── Sparkle glyph ──────────────────────────────────────────────── */
-  function spark(cls, css) {
-    var s = document.createElement('span');
-    s.className = 'pg-spark ' + cls;
-    s.setAttribute('aria-hidden', 'true');
-    s.style.cssText = css;
-    s.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0c.7 6.4 4.9 10.6 12 12-7.1 1.4-11.3 5.6-12 12-.7-6.4-4.9-10.6-12-12C7.1 10.6 11.3 6.4 12 0z"/></svg>';
-    return s;
-  }
-
-  /* ── Marquee band under the landing hero ────────────────────────── */
-  var start = document.getElementById('start') || document.getElementById('page-start');
-  var hero = start && start.querySelector('.hero');
-  if (hero) {
-    var lines = ['Park the ticker', 'Walk out with cash', 'Isolated books',
-                 'Ranked LTVs', 'Revenue buys the meme', 'Nothing is deployed yet'];
-    function seq() {
-      var d = document.createElement('div');
-      d.className = 'pg-ticker-seq';
-      d.innerHTML = lines.map(function (t) {
-        return '<b>' + t + '</b><i>&#10022;</i>';
-      }).join('');
-      return d;
-    }
-    var tick = document.createElement('div');
-    tick.className = 'pg-ticker';
-    tick.setAttribute('aria-hidden', 'true');
-    var win = document.createElement('div');
-    win.className = 'pg-ticker-win';
-    var track = document.createElement('div');
-    track.className = 'pg-ticker-track';
-    track.appendChild(seq());
-    track.appendChild(seq());          /* second copy makes -50% seamless */
-    win.appendChild(track);
-    tick.appendChild(win);
-    hero.parentNode.insertBefore(tick, hero.nextSibling);
-
-    /* Twinkles around the title, in the whitespace the headline leaves */
-    var tl = hero.querySelector('.titleline');
-    if (tl) {
-      tl.style.position = 'relative';
-      var sparks = document.createElement('div');
-      sparks.className = 'pg-sparks';
-      sparks.appendChild(spark('s2', 'right:4%;top:-14px;animation-delay:0s'));
-      sparks.appendChild(spark('s1', 'right:19%;top:20px;animation-delay:.9s'));
-      sparks.appendChild(spark('s3', 'right:-2px;top:34px;animation-delay:1.7s'));
-      tl.appendChild(sparks);
-    }
-  }
-
-  /* ── Cover tilts toward the pointer ─────────────────────────────── */
-  if (!calm && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-    [].slice.call(document.querySelectorAll('.cover')).forEach(function (c) {
-      c.addEventListener('mousemove', function (e) {
-        var r = c.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - .5;
-        var y = (e.clientY - r.top) / r.height - .5;
-        c.style.transform = 'perspective(900px) rotateY(' + (x * 4).toFixed(2) + 'deg) rotateX(' +
-                            (-y * 3).toFixed(2) + 'deg) translateY(-3px)';
-      });
-      c.addEventListener('mouseleave', function () { c.style.transform = ''; });
-    });
-  }
-
-  /* ── Theme button gives a wobble when pressed ───────────────────── */
-  var tb = document.getElementById('themebtn');
-  if (tb) {
-    tb.addEventListener('click', function () {
-      tb.classList.remove('spun');
-      void tb.offsetWidth;
-      tb.classList.add('spun');
-    });
-  }
-
-  /* ── Pop-in on scroll ───────────────────────────────────────────── */
-  var SEL = '.cover, .pg-ticker, .cards > *, ol.stepcards > li, .panel, .hint, ' +
-            'details.exp, figure.fig, .pull, .rows, .gloss, .scroll-x, ' +
-            '.checkboard > section, .copyblock, .swatches, .checkgroup, ' +
-            'ol.steps, ol.riskrank > li, .page > h2';
-
-  var targets = [].slice.call(document.querySelectorAll('article.page ' + SEL));
-  if (!targets.length || !('IntersectionObserver' in window)) return;
-
-  targets.forEach(function (el) {
-    el.classList.add('pg-rev');
-    var i = 0, p = el.previousElementSibling;
-    while (p && i < 5) { if (p.classList.contains('pg-rev')) i++; p = p.previousElementSibling; }
-    el.style.setProperty('--rd', (i * 65) + 'ms');
-  });
-
-  if (calm) {
-    targets.forEach(function (el) { el.classList.add('in'); });
-    return;
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
-  targets.forEach(function (el) { io.observe(el); });
-
-  /* Re-arm the pop when you move to another page in the docs */
-  window.addEventListener('hashchange', function () {
-    setTimeout(function () {
-      targets.forEach(function (el) {
-        var pg = el.closest('article.page');
-        if (pg && !pg.classList.contains('on')) el.classList.remove('in');
-      });
-    }, 0);
-  });
 })();
 </script>
 </body>
