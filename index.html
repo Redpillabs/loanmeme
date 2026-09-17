@@ -46,24 +46,24 @@
     --ring:        rgba(14, 124, 144, .16);
     --art:         url("https://i.imgur.com/OBqEt5N.png");
     --sky:
-      radial-gradient(42% 48% at 10% 20%, rgba(255, 204, 178, .60), transparent 70%),
-      radial-gradient(40% 42% at 90% 4%, rgba(150, 222, 250, .60), transparent 72%),
-      radial-gradient(56% 32% at 50% 70%, rgba(255, 255, 255, .85), transparent 72%),
-      radial-gradient(40% 34% at 82% 78%, rgba(206, 182, 244, .40), transparent 70%),
-      linear-gradient(180deg, #9FC7EA 0%, #C6DFF3 40%, #E6E5F5 72%, #F3E6F0 100%);
-    --haze:
-      radial-gradient(30% 22% at 50% 30%, rgba(255, 255, 255, .45), transparent 70%);
+      radial-gradient(40% 44% at 6% 8%, rgba(255, 220, 192, .70), transparent 70%),
+      radial-gradient(46% 40% at 94% 10%, rgba(178, 218, 248, .55), transparent 72%),
+      radial-gradient(64% 38% at 50% 66%, rgba(255, 255, 255, .85), transparent 72%),
+      linear-gradient(180deg, #93BCE4 0%, #BCD5EE 36%, #DCE7F4 66%, #EEEEF6 100%);
+    --air:
+      linear-gradient(180deg, rgba(228, 238, 250, .32), rgba(228, 238, 250, 0) 42%),
+      linear-gradient(0deg, rgba(248, 251, 255, .72), rgba(248, 251, 255, 0) 16%),
+      radial-gradient(140% 110% at 50% 30%, transparent 60%, rgba(46, 76, 128, .12));
     --stars:       0;
     --art-filter:  saturate(1.04);
     --art-tint:    transparent;
-    --ice-top:     #F4FBFF;
-    --ice-mid:     #D2EAF6;
-    --ice-low:     #A9D2EC;
-    --ice-shine:   rgba(255, 255, 255, .95);
-    --ice-crack:   rgba(255, 255, 255, .85);
-    --ice-seam:    rgba(74, 138, 190, .22);
-    --ice-rim:     rgba(255, 255, 255, .95);
-    --frost:       rgba(236, 246, 252, .70);
+    --field-far:   #E2EAF6;
+    --field-far-2: #D3DFF1;
+    --field-near:  #F8FAFF;
+    --field-near-2: #C3D3EE;
+    --flake:       rgba(255, 255, 255, .98);
+    --flake-edge:  rgba(84, 116, 178, .62);
+    --flake-scale: 1.35;
     --glass:       rgba(244, 251, 255, .72);
     --glass-sheen:
       radial-gradient(70% 40% at 0% 0%, rgba(255, 255, 255, .75), transparent 70%),
@@ -111,25 +111,25 @@
       --wash-2:      rgba(245, 204, 70, .05);
       --ring:        rgba(95, 198, 216, .22);
       --sky:
-        radial-gradient(46% 20% at 28% 12%, rgba(80, 232, 200, .26), transparent 70%),
-        radial-gradient(42% 22% at 62% 7%, rgba(150, 118, 255, .32), transparent 70%),
-        radial-gradient(34% 36% at 92% 24%, rgba(95, 198, 216, .16), transparent 72%),
-        radial-gradient(56% 30% at 50% 72%, rgba(104, 150, 255, .30), transparent 72%),
-        linear-gradient(180deg, #040814 0%, #0A1431 42%, #162050 74%, #242A60 100%);
-      --haze:
-        radial-gradient(60% 14% at 40% 16%, rgba(94, 234, 212, .16), transparent 70%),
-        radial-gradient(50% 12% at 70% 22%, rgba(168, 140, 255, .14), transparent 70%);
+        radial-gradient(24% 28% at 86% 10%, rgba(200, 220, 255, .20), transparent 70%),
+        radial-gradient(50% 18% at 28% 9%, rgba(80, 232, 200, .20), transparent 70%),
+        radial-gradient(42% 20% at 58% 5%, rgba(150, 118, 255, .24), transparent 70%),
+        radial-gradient(62% 36% at 50% 70%, rgba(96, 140, 240, .26), transparent 72%),
+        linear-gradient(180deg, #030713 0%, #081230 40%, #121C46 72%, #1C2456 100%);
+      --air:
+        linear-gradient(180deg, rgba(3, 7, 20, .30), rgba(3, 7, 20, 0) 40%),
+        linear-gradient(0deg, rgba(120, 150, 232, .20), rgba(120, 150, 232, 0) 16%),
+        radial-gradient(140% 110% at 50% 30%, transparent 55%, rgba(0, 2, 12, .50));
       --stars:       1;
       --art-filter:  brightness(.92) saturate(.9) drop-shadow(0 0 22px rgba(120, 190, 255, .16));
       --art-tint:    linear-gradient(180deg, #7383D6 0%, #4452A0 100%);
-      --ice-top:     #2B4A86;
-      --ice-mid:     #16295A;
-      --ice-low:     #0B1633;
-      --ice-shine:   rgba(150, 205, 255, .42);
-      --ice-crack:   rgba(170, 225, 255, .30);
-      --ice-seam:    rgba(0, 0, 0, .30);
-      --ice-rim:     rgba(140, 215, 255, .55);
-      --frost:       rgba(10, 20, 48, .55);
+      --field-far:   #2A3A78;
+      --field-far-2: #1B2860;
+      --field-near:  #3A4892;
+      --field-near-2: #18235A;
+      --flake:       rgba(230, 240, 255, .92);
+      --flake-edge:  rgba(150, 190, 255, .22);
+      --flake-scale: 1;
       --glass:       rgba(9, 20, 42, .74);
       --glass-sheen:
         radial-gradient(70% 40% at 0% 0%, rgba(120, 205, 255, .10), transparent 70%),
@@ -174,25 +174,25 @@
     --wash-2:      rgba(245, 204, 70, .05);
     --ring:        rgba(95, 198, 216, .22);
     --sky:
-      radial-gradient(46% 20% at 28% 12%, rgba(80, 232, 200, .26), transparent 70%),
-      radial-gradient(42% 22% at 62% 7%, rgba(150, 118, 255, .32), transparent 70%),
-      radial-gradient(34% 36% at 92% 24%, rgba(95, 198, 216, .16), transparent 72%),
-      radial-gradient(56% 30% at 50% 72%, rgba(104, 150, 255, .30), transparent 72%),
-      linear-gradient(180deg, #040814 0%, #0A1431 42%, #162050 74%, #242A60 100%);
-    --haze:
-      radial-gradient(60% 14% at 40% 16%, rgba(94, 234, 212, .16), transparent 70%),
-      radial-gradient(50% 12% at 70% 22%, rgba(168, 140, 255, .14), transparent 70%);
+      radial-gradient(24% 28% at 86% 10%, rgba(200, 220, 255, .20), transparent 70%),
+      radial-gradient(50% 18% at 28% 9%, rgba(80, 232, 200, .20), transparent 70%),
+      radial-gradient(42% 20% at 58% 5%, rgba(150, 118, 255, .24), transparent 70%),
+      radial-gradient(62% 36% at 50% 70%, rgba(96, 140, 240, .26), transparent 72%),
+      linear-gradient(180deg, #030713 0%, #081230 40%, #121C46 72%, #1C2456 100%);
+    --air:
+      linear-gradient(180deg, rgba(3, 7, 20, .30), rgba(3, 7, 20, 0) 40%),
+      linear-gradient(0deg, rgba(120, 150, 232, .20), rgba(120, 150, 232, 0) 16%),
+      radial-gradient(140% 110% at 50% 30%, transparent 55%, rgba(0, 2, 12, .50));
     --stars:       1;
     --art-filter:  brightness(.92) saturate(.9) drop-shadow(0 0 22px rgba(120, 190, 255, .16));
     --art-tint:    linear-gradient(180deg, #7383D6 0%, #4452A0 100%);
-    --ice-top:     #2B4A86;
-    --ice-mid:     #16295A;
-    --ice-low:     #0B1633;
-    --ice-shine:   rgba(150, 205, 255, .42);
-    --ice-crack:   rgba(170, 225, 255, .30);
-    --ice-seam:    rgba(0, 0, 0, .30);
-    --ice-rim:     rgba(140, 215, 255, .55);
-    --frost:       rgba(10, 20, 48, .55);
+    --field-far:   #2A3A78;
+    --field-far-2: #1B2860;
+    --field-near:  #3A4892;
+    --field-near-2: #18235A;
+    --flake:       rgba(230, 240, 255, .92);
+    --flake-edge:  rgba(150, 190, 255, .22);
+    --flake-scale: 1;
     --glass:       rgba(9, 20, 42, .74);
     --glass-sheen:
       radial-gradient(70% 40% at 0% 0%, rgba(120, 205, 255, .10), transparent 70%),
@@ -219,7 +219,7 @@
     -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
   }
 
-  /* ══ Scene: snowy cliffs over a frozen lake, fixed behind every page ══ */
+  /* ══ Scene: snowy cliffs in light snowfall, fixed behind every page ══ */
   .scene {
     /* each cliff is pinned to its own screen edge, sized so the two halves never overlap */
     --art-w: clamp(85vw, 175vh, 125vw);
@@ -242,20 +242,16 @@
     -webkit-mask-image: linear-gradient(#000 30%, transparent);
     mask-image: linear-gradient(#000 30%, transparent);
   }
-  .scene::after { content: ""; position: absolute; inset: 0; background: var(--haze); }
 
-  .scene-ice {
-    position: absolute; left: 0; bottom: 0; width: 100%; height: calc(var(--art-h) * .4);
-    -webkit-mask-image: linear-gradient(transparent, #000 14%);
-    mask-image: linear-gradient(transparent, #000 14%);
+  /* snowfield in the valley behind the cliffs, edges softened like distant drifts */
+  .scene-field {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: calc(var(--art-h) * .34);
+    filter: blur(1.5px);
   }
-  .ice-top { stop-color: var(--ice-top); }
-  .ice-mid { stop-color: var(--ice-mid); }
-  .ice-low { stop-color: var(--ice-low); }
-  .ice-shine { stop-color: var(--ice-shine); }
-  .ice-rim { stroke: var(--ice-rim); }
-  .ice-crack { fill: none; stroke: var(--ice-crack); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-  .ice-seam { fill: none; stroke: var(--ice-seam); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+  .st-field-far { stop-color: var(--field-far); }
+  .st-field-far-2 { stop-color: var(--field-far-2); }
+  .st-field-near { stop-color: var(--field-near); }
+  .st-field-near-2 { stop-color: var(--field-near-2); }
 
   .scene-art {
     position: absolute; bottom: 0; width: 50%; height: 100%;
@@ -274,10 +270,27 @@
   .scene-art-l::after { -webkit-mask-position: left bottom; mask-position: left bottom; }
   .scene-art-r::after { -webkit-mask-position: right bottom; mask-position: right bottom; }
 
-  .scene-frost {
-    position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--art-h) * .12);
-    background: linear-gradient(0deg, var(--frost), transparent);
+  /* cold air: haze up high, ground mist down low, darker corners */
+  .scene-air { position: absolute; inset: 0; background: var(--air); }
+
+  /* A few flakes, only in the open margins beside the content: behind the frosted panels they
+     would be invisible and would keep the blur re-rendering. The script sizes the lanes. */
+  .snowfall { position: absolute; inset: 0; }
+  .snow-lane { position: absolute; top: 0; bottom: 0; left: 0; width: var(--lane-l, 0px); }
+  .snow-lane + .snow-lane { left: auto; right: 0; width: var(--lane-r, 0px); }
+  .flake {
+    position: absolute; top: -12px; left: var(--x);
+    width: calc(var(--s) * var(--flake-scale)); height: calc(var(--s) * var(--flake-scale)); border-radius: 50%;
+    background: radial-gradient(closest-side, var(--flake) 45%, var(--flake-edge) 75%, transparent);
+    opacity: var(--o);
+    animation: flake-fall var(--fall) linear var(--delay) infinite, flake-sway var(--sway) ease-in-out var(--delay) infinite alternate;
   }
+  @keyframes flake-fall { to { translate: 0 calc(100vh + 24px); } }
+  @keyframes flake-sway {
+    from { transform: translateX(calc(var(--amp) * -1)); }
+    to   { transform: translateX(var(--amp)); }
+  }
+  @media (max-width: 999px) { .snowfall { display: none; } }
 
   ::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: var(--ink); }
 
@@ -1121,6 +1134,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .snowfall { display: none; }
   }
   html { scroll-behavior: smooth; }
   @media print {
@@ -1134,28 +1148,18 @@
 <body>
 
 <div class="scene" aria-hidden="true">
-  <svg class="scene-ice" viewBox="0 0 1600 400" preserveAspectRatio="none">
+  <svg class="scene-field" viewBox="0 0 1600 340" preserveAspectRatio="none">
     <defs>
-      <linearGradient id="ice-body" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" class="ice-top"/>
-        <stop offset=".35" class="ice-mid"/>
-        <stop offset="1" class="ice-low"/>
-      </linearGradient>
-      <radialGradient id="ice-glint" cx=".5" cy=".12" r=".5" gradientTransform="matrix(1 0 0 .45 0 .07)">
-        <stop offset="0" class="ice-shine"/>
-        <stop offset="1" class="ice-shine" stop-opacity="0"/>
-      </radialGradient>
+      <linearGradient id="field-far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-field-far"/><stop offset="1" class="st-field-far-2"/></linearGradient>
+      <linearGradient id="field-near" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-field-near"/><stop offset="1" class="st-field-near-2"/></linearGradient>
     </defs>
-    <rect width="1600" height="400" fill="url(#ice-body)"/>
-    <rect width="1600" height="400" fill="url(#ice-glint)"/>
-    <path class="ice-rim" d="M0 1.5H1600" stroke-width="3" vector-effect="non-scaling-stroke" opacity=".8"/>
-    <path class="ice-seam" vector-effect="non-scaling-stroke" d="M644 62L704 122L694 192L764 262L744 400M704 122L804 152L884 132M764 262L864 302L964 292L1044 400M884 132L964 202L944 262"/>
-    <path class="ice-crack" vector-effect="non-scaling-stroke" d="M642 58L702 118L692 188L762 258L742 398M702 118L802 148L882 128M762 258L862 298L962 288L1042 398M882 128L962 198L942 258M540 150L610 210L580 300L620 400M1060 170L1000 240L1060 320L1030 400"/>
-    <path class="ice-crack" vector-effect="non-scaling-stroke" opacity=".5" d="M380 250L470 290L520 360M1180 260L1110 300L1150 380M820 40L850 80L830 110"/>
+    <path fill="url(#field-far)" d="M0 70C140 52 260 38 400 46C560 55 660 30 820 34C980 38 1080 62 1240 56C1380 50 1500 40 1600 48V340H0Z"/>
+    <path fill="url(#field-near)" d="M0 176C160 146 300 130 460 142C620 154 720 122 880 120C1040 118 1140 150 1300 154C1440 157 1530 140 1600 136V340H0Z"/>
   </svg>
   <div class="scene-art scene-art-l"></div>
   <div class="scene-art scene-art-r"></div>
-  <div class="scene-frost"></div>
+  <div class="scene-air"></div>
+  <div class="snowfall"><div class="snow-lane"></div><div class="snow-lane"></div></div>
 </div>
 
 <a class="brand" href="#start" style="position:absolute;left:-9999px">Skip to content</a>
@@ -2321,6 +2325,45 @@ HF &lt; 1  →  liquidatable</code></pre>
     if (!ticking) { ticking = true; requestAnimationFrame(apply); }
   }, { passive: true });
   apply();
+})();
+/* ── Snowfall: a few flakes beside the content, animated by the compositor ── */
+(function () {
+  var scene = document.querySelector('.scene');
+  var main = document.getElementById('main');
+  var lanes = scene ? scene.querySelectorAll('.snow-lane') : [];
+  if (!main || lanes.length !== 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function margins() {
+    var r = main.getBoundingClientRect();
+    return { left: Math.max(0, r.left), right: Math.max(0, window.innerWidth - r.right) };
+  }
+  function sizeLanes() {
+    var m = margins();
+    scene.style.setProperty('--lane-l', m.left + 'px');
+    scene.style.setProperty('--lane-r', m.right + 'px');
+  }
+  sizeLanes();
+  var resizeTimer = 0;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(sizeLanes, 150); });
+
+  // light snow: about one flake per 52,000 px² of screen, capped
+  var m = margins();
+  var count = Math.round(Math.min(40, Math.max(12, window.innerWidth * window.innerHeight / 52000)));
+  for (var i = 0; i < count; i++) {
+    var depth = Math.random();                  // 0 far away, 1 close: closer flakes are bigger, brighter and faster
+    var fall = 30 - depth * 16;
+    var flake = document.createElement('span');
+    flake.className = 'flake';
+    flake.style.cssText =
+      '--x:' + (Math.random() * 100).toFixed(1) + '%;' +
+      '--s:' + (2.5 + depth * 4).toFixed(1) + 'px;' +
+      '--o:' + (0.45 + depth * 0.5).toFixed(2) + ';' +
+      '--fall:' + fall.toFixed(1) + 's;' +
+      '--sway:' + (3 + Math.random() * 3).toFixed(1) + 's;' +
+      '--amp:' + Math.round(6 + depth * 16) + 'px;' +
+      '--delay:' + (-Math.random() * fall).toFixed(1) + 's';
+    lanes[Math.random() * (m.left + m.right) < m.left ? 0 : 1].appendChild(flake);
+  }
 })();
 </script>
 
