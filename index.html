@@ -7,7 +7,7 @@
 <meta name="description" content="Loan Meme, isolated lending against memecoins. Park the ticker, walk out with cash. Protocol documentation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400..600&display=swap">
 <link rel="preload" as="image" href="https://i.imgur.com/OBqEt5N.png">
 
 <style>
@@ -75,6 +75,8 @@
     --topbar-h:    calc(var(--topbar-base) + env(safe-area-inset-top, 0px));
     --gutter:      20px;
     --frame:       1440px;
+    --font-sans:   Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono:   "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     color-scheme: light;
   }
 
@@ -211,7 +213,7 @@
     margin: 0;
     background: var(--ground);
     color: var(--ink);
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     font-size: 15.5px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
@@ -317,7 +319,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     text-wrap: balance;
     margin: 0;
     letter-spacing: -.018em;
@@ -325,10 +327,10 @@
 
   p { margin: 0; max-width: 70ch; }
 
-  .mono { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .mono { font-family: var(--font-mono); }
 
   code {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-mono);
     font-size: .88em;
     background: color-mix(in srgb, var(--accent-soft) 46%, var(--surface-2));
     border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
@@ -339,7 +341,7 @@
   }
 
   .eyebrow {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -367,9 +369,9 @@
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: inherit; }
   .brand svg { display: block; width: 34px; height: 34px; transition: transform .22s cubic-bezier(.2,.8,.3,1); }
   .brand:hover svg { transform: rotate(-5deg) scale(1.07); }
-  .brand-name { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -.02em; }
+  .brand-name { font-family: var(--font-sans); font-weight: 700; font-size: 16px; letter-spacing: -.02em; }
   .brand-sub {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .12em;
+    font-family: var(--font-sans); font-size: 11px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--ink-3);
     padding-left: 11px; border-left: 1px solid var(--line-strong);
   }
@@ -379,7 +381,7 @@
 
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .06em;
+    font-family: var(--font-sans); font-size: 11px; letter-spacing: .06em;
     padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-strong);
     background: color-mix(in srgb, var(--surface) 70%, transparent);
     color: var(--ink-2); white-space: nowrap;
@@ -407,7 +409,7 @@
     width: 100%; height: 35px; padding: 0 34px 0 32px;
     border: 1px solid var(--line); border-radius: 9px;
     background: var(--surface); color: var(--ink);
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 13.5px;
+    font-family: var(--font-sans); font-size: 13.5px;
     transition: border-color .15s ease, box-shadow .15s ease;
   }
   .search input::placeholder { color: var(--ink-3); }
@@ -418,7 +420,7 @@
     fill: none; stroke: var(--ink-3); stroke-width: 1.8; pointer-events: none;
   }
   kbd {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px;
+    font-family: var(--font-mono); font-size: 10.5px;
     line-height: 1; display: inline-block; min-width: 17px; text-align: center;
     padding: 3px 5px; border-radius: 5px; color: var(--ink-3);
     background: var(--surface-2); border: 1px solid var(--line-strong); border-bottom-width: 2px;
@@ -439,7 +441,7 @@
   }
   .results a:hover, .results a.sel { background: var(--surface-2); }
   .results a .grp {
-    display: block; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px;
+    display: block; font-family: var(--font-sans); font-size: 10.5px;
     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1px;
   }
   .results .empty { padding: 12px 10px; font-size: 13.5px; color: var(--ink-3); }
@@ -487,7 +489,7 @@
 
   .navgroup { margin-bottom: 20px; }
   .navgroup > .glabel {
-    display: block; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px;
+    display: block; font-family: var(--font-sans); font-size: 10.5px;
     letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
     padding: 0 0 8px 11px;
   }
@@ -531,7 +533,7 @@
 
   .crumbs {
     display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px;
+    font-family: var(--font-sans); font-size: 11px;
     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
     margin-bottom: 14px;
   }
@@ -541,7 +543,7 @@
 
   .page h1 {
     font-size: clamp(30px, 4.6vw, 42px); font-weight: 700;
-    line-height: 1.06; letter-spacing: -.032em;
+    line-height: 1.08; letter-spacing: -.026em;
   }
   .page > .lede {
     font-size: clamp(16.5px, 2vw, 18.5px); line-height: 1.55;
@@ -575,7 +577,7 @@
   .cover-art { aspect-ratio: auto; }
   .cover-art img { height: auto; }
   .cover-band text {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     font-weight: 500;
   }
   .bn-cap { font-size: 17px; font-weight: 700; letter-spacing: 2.2px; fill: var(--accent-ink); }
@@ -593,7 +595,7 @@
   .hero .titleline {
     display: flex; align-items: center; gap: 14px; margin: 22px 0 0;
   }
-  .hero h1 { font-size: clamp(34px, 5.8vw, 54px); letter-spacing: -.038em; margin: 0; }
+  .hero h1 { font-size: clamp(34px, 5.8vw, 54px); letter-spacing: -.032em; margin: 0; }
   .hero .lede {
     font-size: clamp(17px, 2.1vw, 20px); line-height: 1.45; color: var(--ink-2);
     margin-top: 14px; max-width: 44ch;
@@ -632,7 +634,7 @@
   ol.steps > li::before {
     content: counter(s, decimal-leading-zero);
     position: absolute; left: 0; top: 2px; width: 26px;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; color: var(--accent);
+    font-family: var(--font-mono); font-size: 11px; color: var(--accent);
     border: 1px solid var(--line-strong); border-radius: 4px; height: 22px;
     display: grid; place-items: center; font-variant-numeric: tabular-nums;
   }
@@ -656,16 +658,16 @@
   ol.stepcards > li:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
   .sc-head { display: flex; align-items: baseline; gap: 10px; }
   .sc-num {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px; letter-spacing: .08em;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em;
     color: var(--accent); border: 1px solid var(--line-strong); border-radius: 4px;
     padding: 2px 6px; font-variant-numeric: tabular-nums; flex: none;
   }
   .sc-title {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 16px;
+    font-family: var(--font-sans); font-weight: 600; font-size: 16px;
     color: var(--ink); letter-spacing: -.014em;
   }
   .sc-flow {
-    margin-left: auto; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px;
+    margin-left: auto; font-family: var(--font-sans); font-size: 10.5px;
     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
     white-space: nowrap; flex: none;
   }
@@ -677,7 +679,7 @@
   }
   .sc-facts > div { background: var(--surface-2); padding: 8px 11px 9px; display: flex; flex-direction: column; gap: 1px; }
   .sc-facts .k {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 9.5px; letter-spacing: .12em;
+    font-family: var(--font-sans); font-size: 9.5px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--ink-3);
   }
   .sc-facts .v { font-size: 13.3px; line-height: 1.4; color: var(--ink); }
@@ -687,7 +689,7 @@
   /* Ranked list. Order carries meaning, so it stays a single column */
   .rankaxis {
     display: flex; align-items: center; gap: 12px;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10px; letter-spacing: .14em;
+    font-family: var(--font-sans); font-size: 10px; letter-spacing: .14em;
     text-transform: uppercase; color: var(--ink-3); max-width: 74ch;
   }
   .rankaxis::after { content: ""; flex: 1; height: 1px; background: var(--line); }
@@ -707,14 +709,14 @@
   }
   ol.riskrank > li:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
   .rr-num {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; color: var(--ink-3);
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
     border: 1px solid var(--line-strong); border-radius: 5px; height: 24px;
     display: grid; place-items: center; font-variant-numeric: tabular-nums;
   }
   .rr-body { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
   .rr-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .rr-title {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15.5px;
+    font-family: var(--font-sans); font-weight: 600; font-size: 15.5px;
     color: var(--ink); letter-spacing: -.012em;
   }
   .rr-head .badge { margin-left: auto; }
@@ -727,7 +729,7 @@
     font-variant-numeric: tabular-nums;
   }
   thead th {
-    text-align: left; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 400;
+    text-align: left; font-family: var(--font-sans); font-weight: 400;
     font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
     padding: 0 16px 9px 0; border-bottom: 1px solid var(--line-strong); white-space: nowrap;
   }
@@ -740,12 +742,12 @@
   tbody tr:last-child td { border-bottom: none; }
   td.is-us, td.k { color: var(--ink); font-weight: 500; }
   td.tag {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 12.3px; color: var(--ink-3); white-space: nowrap;
+    font-family: var(--font-sans); font-size: 12.3px; color: var(--ink-3); white-space: nowrap;
   }
 
   /* Status badges */
   .badge {
-    display: inline; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: .92em;
+    display: inline; font-family: var(--font-sans); font-size: .92em;
     font-weight: 600; color: var(--ink-3);
   }
   .badge-ok   { color: var(--moss); }
@@ -765,7 +767,7 @@
   .hint .body { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
   .hint p { font-size: 14.6px; color: var(--ink-2); max-width: none; }
   .hint strong { color: var(--ink); font-weight: 600; }
-  .hint .htitle { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 14.5px; color: var(--ink); }
+  .hint .htitle { font-family: var(--font-sans); font-weight: 600; font-size: 14.5px; color: var(--ink); }
   .hint-info { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface)); }
   .hint-warn { border-left-color: var(--gold-line); background: color-mix(in srgb, var(--gold-soft) 42%, var(--surface)); }
   .hint-ok   { border-left-color: var(--moss-line); background: color-mix(in srgb, var(--moss-soft) 42%, var(--surface)); }
@@ -783,7 +785,7 @@
   details.exp > summary {
     list-style: none; cursor: pointer; padding: 13px 16px 13px 40px;
     position: relative; font-weight: 600; font-size: 14.8px; color: var(--ink);
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: -.01em;
+    font-family: var(--font-sans); letter-spacing: -.01em;
   }
   details.exp > summary::-webkit-details-marker { display: none; }
   details.exp > summary::before {
@@ -818,10 +820,10 @@
   a.card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
   a.card:hover::after { opacity: 1; }
   a.card:active { transform: translateY(0); }
-  .card .ct { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15.5px; color: var(--ink); letter-spacing: -.012em; }
+  .card .ct { font-family: var(--font-sans); font-weight: 600; font-size: 15.5px; color: var(--ink); letter-spacing: -.012em; }
   .card .cd { font-size: 13.8px; line-height: 1.55; color: var(--ink-3); }
   .card .cnum {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px; letter-spacing: .12em;
+    font-family: var(--font-sans); font-size: 10.5px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--accent);
   }
 
@@ -844,11 +846,11 @@
   /* Pull quote */
   .pull {
     border-left: 2px solid var(--accent); padding: 4px 0 4px 22px;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: clamp(19px, 2.6vw, 23px);
+    font-family: var(--font-sans); font-size: clamp(19px, 2.6vw, 23px);
     line-height: 1.34; letter-spacing: -.02em; color: var(--ink); max-width: 36ch;
   }
   .pull small {
-    display: block; margin-top: 10px; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: block; margin-top: 10px; font-family: var(--font-sans);
     font-size: 14px; font-weight: 400; letter-spacing: 0; line-height: 1.6; color: var(--ink-3);
   }
 
@@ -859,13 +861,13 @@
     padding: 13px 0; border-bottom: 1px solid var(--line);
   }
   @media (min-width: 620px) { .rows > div { grid-template-columns: 190px 1fr; gap: 20px; align-items: baseline; } }
-  .rows .k { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 12.5px; color: var(--ink); }
+  .rows .k { font-family: var(--font-sans); font-size: 12.5px; color: var(--ink); }
   .rows .d { color: var(--ink-2); font-size: 14.5px; }
 
   /* Glossary */
   .gloss { display: flex; flex-direction: column; border-top: 1px solid var(--line); max-width: 76ch; }
   .gloss > div { padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .gloss .t { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .gloss .t { font-family: var(--font-sans); font-weight: 600; font-size: 15px; color: var(--ink); }
   .gloss .d { font-size: 14.4px; color: var(--ink-2); margin-top: 3px; max-width: 70ch; }
 
   /* Checklist */
@@ -905,7 +907,7 @@
   figure.fig svg, figure.fig img { display: block; width: 100%; height: auto; }
   figure.fig .fig-stage.fig-art { padding: 0; }
   figure.fig figcaption {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     font-size: 12px; line-height: 1.5; color: var(--ink-3); padding: 11px 16px 13px;
   }
   figure.fig figcaption b {
@@ -914,7 +916,7 @@
   }
   /* Type inside a figure, matched to .bn-lbl / .bn-key on the banners */
   figure.fig text {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
     font-weight: 500;
   }
   .fg-key  { font-size: 14px; font-weight: 600; fill: var(--ink); }
@@ -932,7 +934,7 @@
     margin: 0; border: 1px solid var(--line); border-radius: 10px;
     background: linear-gradient(var(--surface-2), color-mix(in srgb, var(--surface-2) 60%, var(--surface)));
     padding: 16px 18px; overflow-x: auto; font-size: 13px; line-height: 1.62;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink-2);
+    font-family: var(--font-mono); color: var(--ink-2);
   }
   pre code { background: none; border: none; padding: 0; font-size: inherit; color: inherit; }
 
@@ -943,7 +945,7 @@
   }
   .copyblock + .copyblock { margin-top: 10px; }
   .copyblock .lbl {
-    display: block; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px;
+    display: block; font-family: var(--font-sans); font-size: 10.5px;
     letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 7px;
   }
 
@@ -953,7 +955,7 @@
   .sw .chipc { height: 46px; }
   .sw .swm { padding: 8px 10px 10px; }
   .sw .swn { font-size: 12.8px; font-weight: 600; color: var(--ink); }
-  .sw .swv { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; color: var(--ink-3); }
+  .sw .swv { font-family: var(--font-sans); font-size: 11px; color: var(--ink-3); }
 
   /* Page footer nav (prev / next) */
   .pagenav {
@@ -976,10 +978,10 @@
   .pagenav a:hover .ttl { color: var(--accent-ink); }
   .pagenav .ttl { transition: color .16s ease; }
   .pagenav .dir {
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 10.5px; letter-spacing: .12em;
+    font-family: var(--font-sans); font-size: 10.5px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--ink-3);
   }
-  .pagenav .ttl { font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .pagenav .ttl { font-family: var(--font-sans); font-weight: 600; font-size: 15px; color: var(--ink); }
   .pagenav .dir { display: flex; align-items: center; gap: 6px; }
   .pagenav .nx .dir { justify-content: flex-end; }
   .pagenav .arw {
@@ -993,7 +995,7 @@
   .pagenav .nx { text-align: right; }
 
   .lastup {
-    margin-top: 26px; font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px;
+    margin-top: 26px; font-family: var(--font-sans); font-size: 11px;
     letter-spacing: .06em; color: var(--ink-3);
   }
 
@@ -1025,7 +1027,7 @@
   footer.sitefoot {
     margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line);
     display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center;
-    font-family: Fredoka, ui-rounded, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .06em; color: var(--ink-3);
+    font-family: var(--font-sans); font-size: 11px; letter-spacing: .06em; color: var(--ink-3);
   }
 
   /* ══ Responsive ═══════════════════════════════════════════════════════ */
@@ -1300,7 +1302,7 @@
             back when you repay.
           </p>
           <p>
-            <strong>Nothing is deployed yet</strong> — no contracts, no markets, no token
+            <strong>Nothing is deployed yet</strong>, no contracts, no markets, no token
             address. Anything circulating today that claims to be LOAN MEME is not ours.
           </p>
         </div>
@@ -1313,7 +1315,7 @@
           <ul class="plain">
             <li>One book per meme, with its own lenders, borrow cap and LTV ceiling (LTV is the share of your meme's value you can borrow). One meme dying doesn't touch the next book.</li>
             <li>The Yeti is the face. The protocol holds the collateral, sets the LTV and runs the liquidations.</li>
-            <li>The first serious meme that runs a meme-lending market.</li>
+            <li>The first serious meme that runs a meme lending market.</li>
           </ul>
         </div>
         <div class="panel">
@@ -1443,7 +1445,7 @@
 HF ≥ 1  →  fine
 HF &lt; 1  →  liquidatable</code></pre>
       <ul class="plain">
-        <li>Collateral value uses the <strong>TWAP</strong>, not the last trade. A one-block wick does not liquidate you, and it does not save you either.</li>
+        <li>Collateral value uses the <strong>TWAP</strong>, not the last trade. A one block wick does not liquidate you, and it does not save you either.</li>
         <li>Your debt grows with interest, so a loan you never touch drifts toward liquidation even at a flat price.</li>
         <li>The liquidation threshold comes from the league. If the ticker drops a league, the tighter threshold applies to your open loan once the change takes effect. <span class="badge badge-open">Notice period TBD</span></li>
         <li>You raise HF two ways: repay some debt, or add more of the same meme.</li>
@@ -1453,7 +1455,7 @@ HF &lt; 1  →  liquidatable</code></pre>
       <ul class="plain">
         <li>Borrow memes. Memes only go in as collateral. What comes out is stables.</li>
         <li>Borrow against a ticker that is not listed. See <a href="#oracle">listing checklist</a>.</li>
-        <li>Borrow 70% against a two-day-old ticker. New tickers start in T3, the lowest limit. A good wallet score adds +5 LTV points at most, never +20.</li>
+        <li>Borrow 70% against a two day old ticker. New tickers start in T3, the lowest limit. A good wallet score adds +5 LTV points at most, never +20.</li>
         <li>Get a higher LTV because of who is promoting the token. Rank is set on the token. See <a href="#leagues">Leagues</a>.</li>
         <li>Open a new borrow while the ticker's pool is too thin. That book pauses new borrows until the pool recovers. Repaying still works. See the <a href="#oracle">pause rule</a>.</li>
         <li>Use MEME_A to back a borrow in the MEME_B book. Every book stands alone.</li>
@@ -1464,7 +1466,7 @@ HF &lt; 1  →  liquidatable</code></pre>
           <span class="htitle">You can lose the deposited meme</span>
           <p>
             If the price falls far enough, or interest piles up, anyone can liquidate you.
-            They repay part of your debt and take that much of your meme, plus a 10–15%
+            They repay part of your debt and take that much of your meme, plus a 10 to 15%
             bonus <span class="badge badge-open">TBD</span>. You keep the stables you
             borrowed. The meme they took does not come back, even if the price recovers an
             hour later. There is no warning, no grace period and no appeal.
@@ -1476,7 +1478,7 @@ HF &lt; 1  →  liquidatable</code></pre>
     <!-- ═══════════════════ 3 · LEAGUES ═══════════════════ -->
     <article class="page" id="page-leagues" data-title="Leagues and rank" data-group="How it works">
       <div class="cover cover-art">
-        <img src="https://i.imgur.com/lzzREzr.jpg" alt="The Yeti beside a three-step podium: T3 lowest, T2 in the middle, T1 highest, each with a rising vial" width="1024" height="465" loading="lazy">
+        <img src="https://i.imgur.com/lzzREzr.jpg" alt="The Yeti beside a three step podium: T3 lowest, T2 in the middle, T1 highest, each with a rising vial" width="1024" height="465" loading="lazy">
       </div>
 
       <h1>Leagues and rank</h1>
@@ -1487,7 +1489,7 @@ HF &lt; 1  →  liquidatable</code></pre>
       <p>
         LTV is the share of your meme's value you can borrow. Every listed meme sits in a
         league, and the league sets two numbers for its book: the max LTV, and the
-        liquidation threshold, the level where your loan can be liquidated. A two-day-old
+        liquidation threshold, the level where your loan can be liquidated. A two day old
         ticker with a thin pool does not get the terms of one that has survived a year
         with real depth.
       </p>
@@ -1496,7 +1498,7 @@ HF &lt; 1  →  liquidatable</code></pre>
       <h2 id="h-table">The three leagues</h2>
       <p>
         <span class="badge badge-open">TBD</span>, the ranges below are the working
-        shape, not signed-off parameters. Final values land here before the first market
+        shape, not signed off parameters. Final values land here before the first market
         opens.
       </p>
       <div class="scroll-x">
@@ -1511,12 +1513,12 @@ HF &lt; 1  →  liquidatable</code></pre>
             <tr>
               <td class="k">T2</td>
               <td>Has age, has real volume, LP locked.</td>
-              <td>~45–50%</td><td>~58%</td><td>Medium</td>
+              <td>~45 to 50%</td><td>~58%</td><td>Medium</td>
             </tr>
             <tr>
               <td class="k">T1</td>
               <td>Survivor. Deep book, mint authority dead.</td>
-              <td class="is-us">~55–60%</td><td>~65%</td><td>Larger</td>
+              <td class="is-us">~55 to 60%</td><td>~65%</td><td>Larger</td>
             </tr>
           </tbody>
         </table>
@@ -1603,7 +1605,7 @@ HF &lt; 1  →  liquidatable</code></pre>
             <tr><td class="tag">Lends into</td><td>T1 books only</td><td>T2 and T3 books</td></tr>
             <tr><td class="tag">Losses</td><td>A T1 book going bad. Rarer, not impossible.</td><td class="is-us">Takes the first loss. New and thin books are where memes die.</td></tr>
             <tr><td class="tag">Rate</td><td>Expected lower</td><td>Expected higher</td></tr>
-            <tr><td class="tag">Who it is for</td><td>You want interest on stables and accept smart-contract risk and the odd bad T1 book.</td><td>You accept being first in line when a thin meme book goes bad, and that you can lose part of your deposit.</td></tr>
+            <tr><td class="tag">Who it is for</td><td>You want interest on stables and accept smart contract risk and the odd bad T1 book.</td><td>You accept being first in line when a thin meme book goes bad, and that you can lose part of your deposit.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1688,7 +1690,7 @@ HF &lt; 1  →  liquidatable</code></pre>
           <div class="rr-num">04</div>
           <div class="rr-body">
             <div class="rr-head">
-              <span class="rr-title">Smart-contract failure</span>
+              <span class="rr-title">Smart contract failure</span>
               <span class="badge badge-risk">Deposit</span>
             </div>
             <p>A bug in the market, the locker that holds the memes, the price feed or the fee router. Unlikely, and by far the worst: it can take everything, and it does not care which vault you are in or which league the book was.</p>
@@ -1749,16 +1751,16 @@ HF &lt; 1  →  liquidatable</code></pre>
         bonus.
       </p>
       <p>
-        So every book prices its meme with a TWAP, a time-weighted average price: the
+        So every book prices its meme with a TWAP, a time weighted average price: the
         average price in the pool over a set window. To move a TWAP you have to hold the
         price away from the market for the whole window, which costs real money and gives
         everyone else time to trade against you.
       </p>
       <div class="rows">
         <div><span class="k">Source</span><span class="d">The canonical pool: the one main pool for that token on the chain where the book lives, named at listing.</span></div>
-        <div><span class="k">Method</span><span class="d">Time-weighted average price over a fixed window. <span class="badge badge-open">Window length TBD</span></span></div>
+        <div><span class="k">Method</span><span class="d">Time weighted average price over a fixed window. <span class="badge badge-open">Window length TBD</span></span></div>
         <div><span class="k">Not used</span><span class="d">The last tick. Prices from other pools or exchanges. Any price we cannot rebuild from chain data.</span></div>
-        <div><span class="k">Trade-off</span><span class="d">A TWAP lags. In a fast dump it shows a price higher than the real one, which delays liquidation and makes bad debt more likely. That is the cost of a price that is expensive to manipulate, and it is one reason the LTVs are low.</span></div>
+        <div><span class="k">Tradeoff</span><span class="d">A TWAP lags. In a fast dump it shows a price higher than the real one, which delays liquidation and makes bad debt more likely. That is the cost of a price that is expensive to manipulate, and it is one reason the LTVs are low.</span></div>
       </div>
 
       <h2 id="h-listing">Listing checklist</h2>
@@ -1798,7 +1800,7 @@ HF &lt; 1  →  liquidatable</code></pre>
         <table>
           <thead><tr><th>Chain</th><th>Markets live</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td class="k">-</td><td>None</td><td><span class="badge badge-open">Nothing deployed yet</span></td></tr>
+            <tr><td class="k">No chain yet</td><td>None</td><td><span class="badge badge-open">Nothing deployed yet</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -1854,11 +1856,11 @@ HF &lt; 1  →  liquidatable</code></pre>
           <p>In return, the liquidator takes your meme: the value they repaid, plus the bonus. That meme does not come back to you.</p>
           <div class="sc-facts">
             <div><span class="k">They take</span><span class="v">Repaid value + bonus</span></div>
-            <div><span class="k">Bonus</span><span class="v">10–15% <span class="badge badge-open">TBD</span></span></div>
+            <div><span class="k">Bonus</span><span class="v">10 to 15% <span class="badge badge-open">TBD</span></span></div>
           </div>
         </li>
         <li>
-          <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Loan re-checked</span><span class="sc-flow">stop or repeat</span></div>
+          <div class="sc-head"><span class="sc-num">04</span><span class="sc-title">Loan rechecked</span><span class="sc-flow">stop or repeat</span></div>
           <p>If your health factor is back at 1 or above, it stops there. If not, the loan can be liquidated again, straight away.</p>
           <div class="sc-facts">
             <div><span class="k">HF 1 or above</span><span class="v">It stops</span></div>
