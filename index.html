@@ -74,6 +74,7 @@
     --topbar-base: 60px;
     --topbar-h:    calc(var(--topbar-base) + env(safe-area-inset-top, 0px));
     --gutter:      20px;
+    --frame:       1440px;
     color-scheme: light;
   }
 
@@ -350,7 +351,9 @@
     position: sticky; top: 0; z-index: 60;
     display: flex; align-items: center; gap: 14px;
     height: var(--topbar-h);
-    padding: env(safe-area-inset-top, 0px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
+    padding: env(safe-area-inset-top, 0px)
+      max(var(--gutter), env(safe-area-inset-right, 0px), calc((100% - var(--frame)) / 2 + var(--gutter))) 0
+      max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--frame)) / 2 + var(--gutter)));
     background: color-mix(in srgb, var(--ground) 85%, transparent);
     backdrop-filter: blur(16px) saturate(165%);
     -webkit-backdrop-filter: blur(16px) saturate(165%);
@@ -444,7 +447,7 @@
   /* ══ Shell ════════════════════════════════════════════════════════════ */
   .layout {
     display: grid; grid-template-columns: 1fr; gap: 0;
-    max-width: 1440px; margin: 0 auto;
+    max-width: var(--frame); margin: 0 auto;
     padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
   }
   @media (min-width: 1000px) { .layout { grid-template-columns: 252px minmax(0, 1fr); gap: 44px; } }
@@ -1047,6 +1050,7 @@
     .iconbtn svg { width: 18px; height: 18px; }
     .navlist a { padding-top: 9px; padding-bottom: 9px; }
     .results a { padding-top: 11px; padding-bottom: 11px; }
+    .sc-facts .k { font-size: 10.5px; }   /* the smallest labels, readable on handheld screens */
   }
 
   /* Small phones: tighter gutters, compact top bar */
@@ -1065,6 +1069,7 @@
   /* Phones held sideways: a shorter bar leaves room to read */
   @media (orientation: landscape) and (max-height: 500px) {
     :root { --topbar-base: 52px; }
+    main { margin-top: 10px; padding-top: 22px; }
   }
 
   /* Phones: tables become one card per row, labelled from the header (data-label is set in the script) */
@@ -1090,7 +1095,7 @@
     }
     .scroll-x tbody td[data-label]::before {
       content: attr(data-label); display: block; margin-bottom: 1px;
-      font-size: 10px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+      font-size: 10.5px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
     }
     .scroll-x tbody td:first-child::before { content: none; }
     /* a one-letter row tag sits beside the row's name instead of taking a line of its own */
