@@ -940,9 +940,9 @@
   .fg-num  { font-size: 11px; font-weight: 600; letter-spacing: .6px; }
   .fg-note { font-size: 11.5px; fill: var(--ink-2); }
   @media (max-width: 640px) {
-    figure.fig .fig-stage { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 16px 14px 14px; }
+    figure.fig .fig-stage, .hfn-art { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 16px 14px 14px; }
     /* drawn diagrams keep a readable width and scroll; finished images fit the screen and open full size on tap */
-    figure.fig svg { min-width: 540px; }
+    figure.fig svg, .hfn-art svg { min-width: 540px; }
   }
 
   /* Code block */
@@ -1193,8 +1193,6 @@
     display: block; width: 11px; height: 11px;
     fill: none; stroke: currentColor; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round;
   }
-  .mk-lg { width: 36px; height: 36px; box-shadow: 0 0 0 5px color-mix(in srgb, var(--tone) 16%, transparent); }
-  .mk-lg svg { width: 18px; height: 18px; stroke-width: 2.8; }
 
   /* Icon tile, with its mark pinned to the corner */
   .itile {
@@ -1257,7 +1255,6 @@
 
   /* ── Illustrated notes: a small drawing over each point ─────────── */
   .hfnotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: 1fr; }
-  @container (min-width: 600px) { .hfnotes { grid-template-columns: 1fr 1fr; } }
   .hfnotes > li {
     display: flex; flex-direction: column; min-width: 0; overflow: hidden;
     border: 1px solid var(--line); border-radius: 13px; background: var(--surface);
@@ -1272,7 +1269,7 @@
       var(--surface);
   }
   .hfn-art svg { display: block; width: 100%; height: auto; }
-  .hfnotes p { padding: 13px 16px 15px; font-size: 14.3px; line-height: 1.6; color: var(--ink-2); max-width: none; }
+  .hfnotes p { padding: 13px 18px 15px; font-size: 14.3px; line-height: 1.6; color: var(--ink-2); max-width: 74ch; }
   .hfnotes p strong { color: var(--ink); font-weight: 600; }
 
   .mini text       { font-family: var(--font-sans); font-size: 10.5px; font-weight: 500; fill: var(--ink-3); }
@@ -1315,20 +1312,16 @@
   }
 
   /* ── Token hub: the coin in the middle, what it does around it ──── */
-  /* Section label: mark and words ride in one chip, and a rule carries the
-     eye across the four roles below it */
-  .does-head { display: flex; align-items: center; gap: 12px; }
-  .does-head .does-chip {
-    display: inline-flex; align-items: center; gap: 8px; flex: none;
-    padding: 5px 14px 5px 5px; border-radius: 999px;
-    background: color-mix(in srgb, var(--moss-soft) 72%, var(--surface));
-    border: 1px solid var(--moss-line);
+  /* Section label: a colour bar sets the key, the rule carries the eye across
+     the four roles below. The tick is left to the tiles, which each carry one. */
+  .does-head { display: flex; align-items: center; gap: 11px; }
+  .does-head::before {
+    content: ""; flex: none; width: 3px; height: 15px;
+    border-radius: 2px; background: var(--moss);
   }
-  .does-head .mk-lg { width: 24px; height: 24px; box-shadow: none; }
-  .does-head .mk-lg svg { width: 13px; height: 13px; stroke-width: 3; }
   .does-head .eyebrow { color: var(--moss); font-weight: 700; }
   .does-head::after {
-    content: ""; flex: 1; height: 1px;
+    content: ""; flex: 1; height: 1px; margin-left: 3px;
     background: linear-gradient(90deg, var(--moss-line), transparent);
   }
   .page > .does-head + .cq { margin-top: 14px; }
@@ -1707,74 +1700,74 @@
         <ul class="hfnotes">
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The last trade jitters around a smooth TWAP line. A one-block wick dips below the liquidation level and a one-block spike jumps above it; the TWAP barely moves either time.">
-              <path class="ln-mute" d="M12 18H26"/><text x="30" y="22">last trade</text>
-              <path class="ln-acc" d="M92 18H106"/><text x="110" y="22" class="tx-acc">TWAP</text>
-              <path class="base" d="M12 104H268"/>
-              <path class="dash-rose" d="M12 80H268"/>
-              <text x="12" y="74" class="tx-rose">liquidation level</text>
-              <path class="ln-mute" d="M12 40 24 52 36 42 48 54 60 44 72 56 84 46 96 43 101 50 104 92 107 48 118 58 130 46 142 60 154 48 166 62 178 50 188 56 192 28 196 58 208 64 220 52 232 66 244 54 256 68 268 56"/>
-              <path class="ln-acc" d="M12 48C70 48 130 52 190 54S250 58 268 59"/>
-              <circle class="dot-rose" cx="104" cy="92" r="3.6"/>
-              <circle class="dot-acc" cx="192" cy="28" r="3.6"/>
-              <text x="186" y="36" text-anchor="end">spike: not saved</text>
-              <text x="112" y="97">one-block wick: not liquidated</text>
+            <svg class="mini" viewBox="0 0 592 128" role="img" aria-label="The last trade jitters around a smooth TWAP line. A one-block wick dips below the liquidation level and a one-block spike jumps above it; the TWAP barely moves either time.">
+              <path class="ln-mute" d="M14 14H32"/><text x="37" y="18">last trade</text>
+              <path class="ln-acc" d="M104 14H122"/><text x="127" y="18" class="tx-acc">TWAP</text>
+              <path class="base" d="M14 100H578"/>
+              <path class="dash-rose" d="M14 76H578"/>
+              <text x="14" y="70" class="tx-rose">liquidation level</text>
+              <path class="ln-mute" d="M14 44 38 52 62 42 86 54 110 44 134 56 158 46 178 42 186 50 190 88 194 46 218 58 242 46 266 60 290 48 314 62 338 50 362 58 386 48 396 54 400 30 404 56 428 62 452 52 476 64 500 54 524 66 548 56 578 62"/>
+              <path class="ln-acc" d="M14 47C140 47 270 52 400 55S520 59 578 60"/>
+              <circle class="dot-rose" cx="190" cy="88" r="4"/>
+              <circle class="dot-acc" cx="400" cy="30" r="4"/>
+              <text x="392" y="34" text-anchor="end">one-block spike: not saved</text>
+              <text x="202" y="92">one-block wick: not liquidated</text>
+              <text x="578" y="118" text-anchor="end">time &#8594;</text>
             </svg>
             </div>
             <p><strong>Collateral value uses the TWAP, not the last trade.</strong> A one block wick does not liquidate you, and it does not save you either.</p>
           </li>
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The league threshold steps down when the ticker is demoted, so the room between it and your unchanged debt shrinks.">
-              <path class="ln-gold" d="M12 18H26"/><text x="30" y="22" class="tx-gold">league threshold</text>
-              <path class="ln-rose" d="M150 18H164"/><text x="168" y="22" class="tx-rose">your debt</text>
-              <rect class="zone" x="12" y="44" width="138" height="36"/>
-              <rect class="zone" x="150" y="62" width="118" height="18"/>
-              <path class="ln-gold" d="M12 44H150V62H268"/>
-              <path class="ln-rose" d="M12 80H268"/>
-              <path class="dash-mute" d="M150 34V104"/>
-              <path class="base" d="M12 104H268"/>
-              <text x="81" y="66" text-anchor="middle" class="tx-moss">room</text>
-              <text x="209" y="74" text-anchor="middle" class="tx-moss">less room</text>
-              <text x="146" y="117" text-anchor="end">demotion takes effect</text>
-              <text x="268" y="117" text-anchor="end">time &#8594;</text>
+            <svg class="mini" viewBox="0 0 592 128" role="img" aria-label="The league threshold steps down when the ticker is demoted, so the room between it and your unchanged debt shrinks.">
+              <path class="ln-gold" d="M14 14H32"/><text x="37" y="18" class="tx-gold">league threshold</text>
+              <path class="ln-rose" d="M170 14H188"/><text x="193" y="18" class="tx-rose">your debt</text>
+              <rect class="zone" x="14" y="40" width="286" height="36"/>
+              <rect class="zone" x="300" y="58" width="278" height="18"/>
+              <path class="ln-gold" d="M14 40H300V58H578"/>
+              <path class="ln-rose" d="M14 76H578"/>
+              <path class="dash-mute" d="M300 30V100"/>
+              <path class="base" d="M14 100H578"/>
+              <text x="157" y="62" text-anchor="middle" class="tx-moss">room</text>
+              <text x="439" y="71" text-anchor="middle" class="tx-moss">less room</text>
+              <text x="294" y="118" text-anchor="end">demotion takes effect</text>
+              <text x="578" y="118" text-anchor="end">time &#8594;</text>
             </svg>
             </div>
             <p><strong>The liquidation threshold comes from the league.</strong> If the ticker drops a league, the tighter threshold applies to your open loan once the change takes effect. <span class="badge badge-open">Notice period TBD</span></p>
           </li>
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="With the price flat, collateral times threshold is a flat line while debt climbs with interest until it crosses, putting the health factor below one.">
-              <path class="ln-acc" d="M12 18H26"/><text x="30" y="22" class="tx-acc">collateral &#215; threshold</text>
-              <path class="ln-rose" d="M166 18H180"/><text x="184" y="22" class="tx-rose">debt</text>
-              <path class="base" d="M12 104H268"/>
-              <path class="ln-acc" d="M12 52H268"/>
-              <path class="ln-rose" d="M12 96C104 93 172 82 216 64 240 54 254 44 262 36"/>
-              <circle class="dot-rose" cx="241" cy="52" r="4"/>
-              <text x="233" y="44" text-anchor="end" class="tx-rose">HF &lt; 1</text>
-              <text x="268" y="117" text-anchor="end">time &#8594;</text>
+            <svg class="mini" viewBox="0 0 592 128" role="img" aria-label="With the price flat, collateral times threshold is a flat line while debt climbs with interest until it crosses, putting the health factor below one.">
+              <path class="ln-acc" d="M14 14H32"/><text x="37" y="18" class="tx-acc">collateral &#215; threshold</text>
+              <path class="ln-rose" d="M186 14H204"/><text x="209" y="18" class="tx-rose">debt</text>
+              <path class="base" d="M14 100H578"/>
+              <path class="ln-acc" d="M14 48H578"/>
+              <path class="ln-rose" d="M14 92C110 90 224 86 300 80 400 70 470 58 566 30"/>
+              <circle class="dot-rose" cx="499" cy="48" r="4.5"/>
+              <text x="489" y="40" text-anchor="end" class="tx-rose">HF &lt; 1</text>
+              <text x="578" y="118" text-anchor="end">time &#8594;</text>
             </svg>
             </div>
             <p><strong>Your debt grows with interest,</strong> so a loan you never touch drifts toward liquidation even at a flat price.</p>
           </li>
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="Two bars, collateral and debt, with the debt height carried across as a dashed guide. One arrow adds to the collateral bar, another takes from the debt bar; either move raises the health factor.">
+            <svg class="mini" viewBox="0 0 592 128" role="img" aria-label="Two horizontal bars from the same origin: collateral runs longer than debt. An arrow extends the collateral bar and another pushes the debt bar back; either move raises the health factor.">
               <defs>
                 <marker id="hfn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                   <path d="M0 0 L10 5 L0 10 Z" fill="var(--moss)"/>
                 </marker>
               </defs>
-              <path class="base" d="M12 104H268"/>
-              <path class="dash-mute" d="M44 68H176"/>
-              <path class="bar-moss" d="M44 47a3 3 0 0 1 3-3h50a3 3 0 0 1 3 3v57H44z"/>
-              <path class="bar-rose" d="M176 71a3 3 0 0 1 3-3h50a3 3 0 0 1 3 3v33h-56z"/>
-              <path class="ln-moss" d="M72 38V18" marker-end="url(#hfn-arrow)"/>
-              <text x="82" y="26" class="tx-moss">add the same meme</text>
-              <path class="ln-moss" d="M204 26V64" marker-end="url(#hfn-arrow)"/>
-              <text x="214" y="34" class="tx-moss">repay</text>
-              <text x="72" y="117" text-anchor="middle">collateral</text>
-              <text x="204" y="117" text-anchor="middle">debt</text>
+              <path class="base" d="M120 26V106"/>
+              <path class="bar-moss" d="M120 38h296a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H120z"/>
+              <path class="bar-rose" d="M120 76h170a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H120z"/>
+              <text x="110" y="55" text-anchor="end">collateral</text>
+              <text x="110" y="93" text-anchor="end">debt</text>
+              <path class="ln-moss" d="M432 53H512" marker-end="url(#hfn-arrow)"/>
+              <text x="432" y="38" class="tx-moss">add the same meme</text>
+              <path class="ln-moss" d="M376 91H310" marker-end="url(#hfn-arrow)"/>
+              <text x="386" y="95" class="tx-moss">repay</text>
             </svg>
             </div>
             <p><strong>You raise HF two ways:</strong> repay some debt, or add more of the same meme.</p>
@@ -2225,7 +2218,7 @@
       </p>
 
       <h2 id="h-does">What the token does</h2>
-      <p class="does-head t-yes"><span class="does-chip"><span class="mk mk-lg" aria-hidden="true"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span><span class="eyebrow">It does</span></span></p>
+      <p class="does-head"><span class="eyebrow">It does</span></p>
       <div class="cq">
         <div class="tokhub">
           <svg class="tok-spokes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 50 L25 25 M50 50 L75 25 M50 50 L25 75 M50 50 L75 75"/></svg>
@@ -2241,7 +2234,8 @@
             <circle cx="80" cy="85" r="60" fill="#8E6210"/>
             <circle cx="80" cy="80" r="60" fill="url(#coin-face)" stroke="#8E6210" stroke-width="1.6"/>
             <circle cx="80" cy="80" r="49" fill="none" stroke="#A8761A" stroke-width="1.3" stroke-dasharray="1.5 3.4"/>
-            <text x="80" y="89" text-anchor="middle" style="font-family:var(--font-sans);font-size:25px;font-weight:800;letter-spacing:.4px;fill:#5A3E08">$LOAN</text>
+            <image href="https://i.imgur.com/TswBXnf.png" x="39.33" y="38.95" width="79.76" height="78.87"
+                   preserveAspectRatio="xMidYMid meet"/>
           </svg>
           <ul class="tok-roles">
             <li class="t-yes"><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.4 20.8V3.4"/><path d="M5.4 4.6h12.4l-2.3 3.7 2.3 3.7H5.4z"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span></span><p><strong>Carry the brand.</strong> It is the thing people hold and post, with the Yeti as its face.</p></li>
