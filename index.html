@@ -1195,7 +1195,6 @@
   }
   .mk-lg { width: 36px; height: 36px; box-shadow: 0 0 0 5px color-mix(in srgb, var(--tone) 16%, transparent); }
   .mk-lg svg { width: 18px; height: 18px; stroke-width: 2.8; }
-  .mk-lg .ic { width: 19px; height: 19px; stroke-width: 2; }
 
   /* Icon tile, with its mark pinned to the corner */
   .itile {
@@ -1211,72 +1210,6 @@
     width: 19px; height: 19px; box-shadow: 0 0 0 2.5px var(--surface);
   }
   .itile .mk svg { width: 10px; height: 10px; }
-
-  /* ── Verdict board: green column against red column ─────────────── */
-  .verdict { display: grid; gap: 16px; grid-template-columns: 1fr; }
-  @container (min-width: 600px) { .verdict { grid-template-columns: 1fr 1fr; } }
-  .vd {
-    display: flex; flex-direction: column; min-width: 0; overflow: hidden;
-    border: 1px solid var(--line); border-top: 3px solid var(--tone);
-    border-radius: 14px; background: var(--surface); box-shadow: var(--shadow);
-  }
-  .vd-head {
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; gap: 14px;
-    padding: 15px 18px 14px; border-bottom: 1px solid var(--line);
-    background: linear-gradient(180deg,
-      color-mix(in srgb, var(--tone-soft) 78%, var(--surface)),
-      color-mix(in srgb, var(--tone-soft) 16%, var(--surface)));
-  }
-  /* the head's mark once more, large and faint, as a watermark */
-  .vd-head .wm {
-    position: absolute; right: -12px; top: -16px; width: 96px; height: 96px;
-    color: var(--tone); opacity: .09; stroke-width: 2.2; pointer-events: none;
-  }
-  .vd-hg { position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .vd-title {
-    font-family: var(--font-sans); font-weight: 700; font-size: 17px;
-    letter-spacing: -.015em; line-height: 1.25; color: var(--ink);
-  }
-  .vd-sub { font-size: 12.8px; line-height: 1.45; color: var(--ink-3); }
-  .vd-sub b { color: var(--tone); font-weight: 600; }
-
-  /* Stay-out pair: the head names what is at stake as a chip, and the card's
-     own motif replaces the generic watermark */
-  .stakes .vd-hg { gap: 5px; align-items: flex-start; }
-  .stakes .vd-sub {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 3px 10px 3px 8px; border-radius: 999px;
-    font-size: 11.8px; line-height: 1.35;
-    background: color-mix(in srgb, var(--tone-soft) 72%, var(--surface));
-    border: 1px solid var(--tone-line);
-  }
-  .stakes .vd-sub::before {
-    content: ""; flex: none; width: 5px; height: 5px;
-    border-radius: 50%; background: var(--tone);
-  }
-  .stakes .vd-list > li { align-items: center; }
-  .stakes .vd-head .wm { right: -8px; top: -14px; width: 92px; height: 92px; opacity: .085; }
-  /* Both cards share one row track set, so the heads and every condition
-     line up across the pair. Without subgrid each card keeps its own flow. */
-  @supports (grid-template-rows: subgrid) {
-    @container (min-width: 600px) {
-      .stakes { grid-template-rows: auto auto auto; }
-      .stakes .vd { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
-      .stakes .vd-list { display: grid; grid-template-rows: subgrid; grid-row: span 2; }
-    }
-  }
-  .vd-list {
-    list-style: none; margin: 0; padding: 4px 0 6px;
-    display: flex; flex-direction: column; flex: 1;
-  }
-  .vd-list > li {
-    display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 17px;
-    align-items: start; padding: 14px 18px 15px;
-  }
-  .vd-list > li + li { border-top: 1px dashed var(--line); }
-  .vd-list p { font-size: 14.4px; line-height: 1.6; color: var(--ink-2); max-width: none; padding-top: 1px; }
-  .vd-list p strong { color: var(--ink); font-weight: 600; }
 
   /* ── Health factor, drawn as the fraction it is ─────────────────── */
   .hfeq {
@@ -1425,8 +1358,7 @@
   }
 
   @media (max-width: 480px) {
-    .vd-list > li, .nogrid > li, .tok-roles > li { gap: 15px; }
-    .vd-head, .vd-list > li { padding-left: 16px; padding-right: 16px; }
+    .nogrid > li, .tok-roles > li { gap: 15px; }
     .hfeq-top { justify-content: flex-start; padding: 20px 16px 18px; }
     .tok { font-size: 13.4px; }
   }
@@ -1597,36 +1529,12 @@
       </figure>
 
       <h2 id="h-stayout">Who should stay out</h2>
-      <p>
-        Borrowers can lose the posted meme, permanently. Lenders can lose part of their
-        deposit. Stay out if:
-      </p>
-      <div class="cq">
-        <div class="verdict stakes">
-          <section class="vd t-no" aria-label="If you borrow">
-            <div class="vd-head">
-              <svg class="ic wm" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".2" d="M4.4 12.8a2.6 2.6 0 0 1 2.6-2.6h10a2.6 2.6 0 0 1 2.6 2.6V18a2.6 2.6 0 0 1-2.6 2.6H7A2.6 2.6 0 0 1 4.4 18z"/><path d="M8 10.2V7.6a4 4 0 0 1 8 0v2.6"/><circle cx="12" cy="15.4" r="1.6"/></svg>
-              <span class="mk mk-lg" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".2" d="M4.4 12.8a2.6 2.6 0 0 1 2.6-2.6h10a2.6 2.6 0 0 1 2.6 2.6V18a2.6 2.6 0 0 1-2.6 2.6H7A2.6 2.6 0 0 1 4.4 18z"/><path d="M8 10.2V7.6a4 4 0 0 1 8 0v2.6"/><circle cx="12" cy="15.4" r="1.6"/></svg></span>
-              <span class="vd-hg"><span class="vd-title">If you borrow</span><span class="vd-sub">At stake: <b>the posted meme</b></span></span>
-            </div>
-            <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6v10.4a2.6 2.6 0 0 1-2.6 2.6H5.8a2.6 2.6 0 0 1-2.6-2.6z"/><path fill="currentColor" fill-opacity=".18" stroke="none" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6V10H3.2z"/><path d="M3.2 10h17.6"/><path d="M8.2 3.2v3.6M15.8 3.2v3.6"/><circle cx="15.2" cy="15.4" r="2.6" fill="currentColor" fill-opacity=".22" style="stroke-width:1.2"/><path style="stroke-width:1.2" d="M6.4 13.9h3.6M6.4 17.2h3.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You need the meme back on a fixed date.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".11" stroke="none" d="M3.4 11.4h17.2v8.6H3.4z"/><path style="stroke-width:1.35;stroke-dasharray:2.4 2.4" d="M3.4 11.4h17.2"/><path d="M12 4.6v14.6M7.2 14.6 12 19.4 16.8 14.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You cannot survive being liquidated at a bad price.</p></li>
-            </ul>
-          </section>
-          <section class="vd t-no" aria-label="If you lend">
-            <div class="vd-head">
-              <svg class="ic wm" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" stroke="none" d="M5.2 6.4h13.6v11.2c0 1.44-3.05 2.6-6.8 2.6s-6.8-1.16-6.8-2.6z"/><ellipse cx="12" cy="6.4" rx="6.8" ry="2.6"/><path d="M5.2 6.4v11.2c0 1.44 3.05 2.6 6.8 2.6s6.8-1.16 6.8-2.6V6.4"/><path d="M5.2 12c0 1.44 3.05 2.6 6.8 2.6s6.8-1.16 6.8-2.6"/></svg>
-              <span class="mk mk-lg" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" stroke="none" d="M5.2 6.4h13.6v11.2c0 1.44-3.05 2.6-6.8 2.6s-6.8-1.16-6.8-2.6z"/><ellipse cx="12" cy="6.4" rx="6.8" ry="2.6"/><path d="M5.2 6.4v11.2c0 1.44 3.05 2.6 6.8 2.6s6.8-1.16 6.8-2.6V6.4"/><path d="M5.2 12c0 1.44 3.05 2.6 6.8 2.6s6.8-1.16 6.8-2.6"/></svg></span>
-              <span class="vd-hg"><span class="vd-title">If you lend</span><span class="vd-sub">At stake: <b>part of your deposit</b></span></span>
-            </div>
-            <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" stroke="none" d="M2.8 10.4h11.2v6.6c0 1.25-2.5 2.3-5.6 2.3s-5.6-1.05-5.6-2.3z"/><ellipse cx="8.4" cy="10.4" rx="5.6" ry="2.3"/><path d="M2.8 10.4v6.6c0 1.25 2.5 2.3 5.6 2.3s5.6-1.05 5.6-2.3v-6.6"/><circle cx="17.4" cy="15.6" r="4.6" fill="currentColor" fill-opacity=".2"/><path style="stroke-width:1.2" d="M17.4 13.2v2.4l1.8 1.1"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You are lending money you need next month.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".08" style="stroke-dasharray:2.6 2.6" d="M12 3.2 5.2 6v5.4c0 4.5 2.9 7.7 6.8 9.4 3.9-1.7 6.8-4.9 6.8-9.4V6z"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You expect a backstop that always pays. There is none.</p></li>
-            </ul>
-          </section>
+      <figure class="fig">
+        <div class="fig-stage fig-art">
+          <img src="https://i.imgur.com/b1Cz9uB.jpg" alt="Borrowers can lose the posted meme, permanently. Lenders can lose part of their deposit. Stay out if: you borrow, with the posted meme at stake, and you need the meme back on a fixed date, or you cannot survive being liquidated at a bad price; you lend, with part of your deposit at stake, and you are lending money you need next month, or you expect a backstop that always pays. There is none." width="1024" height="572" loading="lazy">
         </div>
-      </div>
+        <figcaption><b>Videos</b> the Yeti drops a bag (the meme) at the ice window and walks out with a brick (the loan). If they ever disagree with these docs, the docs are right.</figcaption>
+      </figure>
 
       <div class="cards c3 foot">
         <a class="card" href="#loan">
