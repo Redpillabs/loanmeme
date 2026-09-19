@@ -1257,6 +1257,15 @@
   }
   .stakes .vd-list > li { align-items: center; }
   .stakes .vd-head .wm { right: -8px; top: -14px; width: 92px; height: 92px; opacity: .085; }
+  /* Both cards share one row track set, so the heads and every condition
+     line up across the pair. Without subgrid each card keeps its own flow. */
+  @supports (grid-template-rows: subgrid) {
+    @container (min-width: 600px) {
+      .stakes { grid-template-rows: auto auto auto; }
+      .stakes .vd { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
+      .stakes .vd-list { display: grid; grid-template-rows: subgrid; grid-row: span 2; }
+    }
+  }
   .vd-list {
     list-style: none; margin: 0; padding: 4px 0 6px;
     display: flex; flex-direction: column; flex: 1;
@@ -1349,13 +1358,8 @@
   .mini .zone      { fill: var(--moss); opacity: .15; }
   .mini .dot-rose  { fill: var(--rose); stroke: var(--surface); stroke-width: 2; }
   .mini .dot-acc   { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
-  .mini .beam      { fill: none; stroke: var(--ink-2); stroke-width: 3; stroke-linecap: round; }
-  .mini .string    { fill: none; stroke: var(--ink-3); stroke-width: 1; }
-  .mini .pan       { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-linecap: round; }
-  .mini .fulcrum   { fill: var(--surface-3); stroke: var(--line-strong); stroke-width: 1.2; stroke-linejoin: round; }
-  .mini .pivot     { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.6; }
-  .mini .obj       { fill: color-mix(in srgb, var(--gold-soft) 80%, var(--surface)); stroke: var(--gold); stroke-width: 1.3; stroke-linejoin: round; }
-  .mini .obj-r     { fill: color-mix(in srgb, var(--rose-soft) 80%, var(--surface)); stroke: var(--rose); stroke-width: 1.3; }
+  .mini .bar-moss  { fill: var(--moss-soft); stroke: var(--moss); stroke-width: 1.6; stroke-linejoin: round; }
+  .mini .bar-rose  { fill: var(--rose-soft); stroke: var(--rose); stroke-width: 1.6; stroke-linejoin: round; }
 
   /* ── Blocked moves: one tile per thing you cannot do ────────────── */
   .nogrid { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: 1fr; }
@@ -1585,34 +1589,12 @@
       </div>
 
       <h2 id="h-what">What it is, what it is not</h2>
-      <div class="cq">
-        <div class="verdict">
-          <section class="vd t-yes" aria-label="It is">
-            <div class="vd-head">
-              <svg class="ic wm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 12.6 9.8 17.2 18.8 7"/></svg>
-              <span class="mk mk-lg" aria-hidden="true"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span>
-              <span class="vd-hg"><span class="vd-title">It is</span><span class="vd-sub">What you are actually getting</span></span>
-            </div>
-            <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M3.4 19.1V9.95 a1.05 1.05 0 0 1 1.05 -1.05 h1.9 a1.05 1.05 0 0 1 1.05 1.05 V19.1 z"/><path fill="currentColor" fill-opacity=".13" d="M10 19.1V7.75 a1.05 1.05 0 0 1 1.05 -1.05 h1.9 a1.05 1.05 0 0 1 1.05 1.05 V19.1 z"/><path fill="currentColor" fill-opacity=".13" d="M16.6 19.1V8.95 a1.05 1.05 0 0 1 1.05 -1.05 h1.9 a1.05 1.05 0 0 1 1.05 1.05 V19.1 z"/><path style="stroke-width:1.2" d="M3.4 11.4h4M10 9.2h4M16.6 10.4h4M3.4 16.3h4M10 16.3h4M16.6 16.3h4"/><path d="M2.6 19.9h18.8"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span></span><p><strong>One book per meme</strong>, with its own lenders, borrow cap and LTV ceiling (LTV is the share of your meme's value you can borrow). One meme dying doesn't touch the next book.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M18.66 9.84L21.19 10.05A9.4 9.4 0 0 1 21.19 13.95L18.66 14.16A7 7 0 0 1 17.20 16.68L17.20 16.68L18.29 18.99A9.4 9.4 0 0 1 14.90 20.94L13.46 18.85A7 7 0 0 1 10.54 18.85L10.54 18.85L9.10 20.94A9.4 9.4 0 0 1 5.71 18.99L6.80 16.68A7 7 0 0 1 5.34 14.16L5.34 14.16L2.81 13.95A9.4 9.4 0 0 1 2.81 10.05L5.34 9.84A7 7 0 0 1 6.80 7.32L6.80 7.32L5.71 5.01A9.4 9.4 0 0 1 9.10 3.06L10.54 5.15A7 7 0 0 1 13.46 5.15L13.46 5.15L14.90 3.06A9.4 9.4 0 0 1 18.29 5.01L17.20 7.32A7 7 0 0 1 18.66 9.84Z"/><circle cx="12" cy="12" r="3.1"/><circle cx="12" cy="12" r="1.05" fill="currentColor" stroke="none"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span></span><p><strong>The Yeti is the face.</strong> The protocol holds the collateral, sets the LTV and runs the liquidations.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M2.8 19.9 9.4 9.6l3.5 5.7 2.5-3.9 5.4 8.5z"/><path style="stroke-width:1.2" d="M7.45 12.35 8.4 13.1 9.35 12.4 10.3 13.15 11.2 12.3"/><path d="M9.4 9.6V2.9"/><path fill="currentColor" fill-opacity=".2" d="M9.4 3.5 14.8 5.3 9.4 7.1z"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.5 3.6"/></svg></span></span><p><strong>The first serious meme</strong> that runs a meme lending market.</p></li>
-            </ul>
-          </section>
-          <section class="vd t-no" aria-label="It is not">
-            <div class="vd-head">
-              <svg class="ic wm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 6.2 17.8 17.8M17.8 6.2 6.2 17.8"/></svg>
-              <span class="mk mk-lg" aria-hidden="true"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span>
-              <span class="vd-hg"><span class="vd-title">It is not</span><span class="vd-sub">What nobody should read into it</span></span>
-            </div>
-            <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M12 4.5 21.3 10.3H2.7z"/><path d="M6.6 12.4v5.2M12 12.4v5.2M17.4 12.4v5.2"/><path style="stroke-width:1.2" d="M5.4 12.4h2.4M10.8 12.4h2.4M16.2 12.4h2.4M5.4 17.6h2.4M10.8 17.6h2.4M16.2 17.6h2.4"/><path d="M2.7 20.3h18.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p><strong>Not a bank or equity:</strong> deposits are not insured, and the token is not a share.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M4.6 5.4a1.8 1.8 0 0 1 1.8-1.8h9a1.8 1.8 0 0 1 1.8 1.8v9.2H4.6z"/><path style="stroke-width:1.2" d="M7.4 7.6h7M7.4 10.3h7M7.4 13h4.2"/><circle cx="16.4" cy="15.4" r="3.3" fill="currentColor" fill-opacity=".2"/><path style="stroke-width:1.2" d="M14.5 18.1 13.7 21.2 16.4 19.7 19.1 21.2 18.3 18.1"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p><strong>Not official anything:</strong> no exchange, brokerage or chain endorses or partners with it.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".2" d="M12 12.6c0-3.3 2.2-5.4 5.7-5.4 0 3.3-2.2 5.4-5.7 5.4z"/><path fill="currentColor" fill-opacity=".2" d="M12 13.2c0-2.9-2-4.7-5.1-4.7 0 2.9 2 4.7 5.1 4.7z"/><path style="stroke-width:1.2" d="M12 12.6c1.3-1.6 2.9-2.5 4.6-2.8M12 13.2c-1.1-1.3-2.4-2.1-3.9-2.4"/><path d="M12 13.2v1.4"/><rect x="4.9" y="14.6" width="14.2" height="2.3" rx=".8" fill="currentColor" fill-opacity=".13"/><path fill="currentColor" fill-opacity=".13" d="M6.4 16.9h11.2l-1.2 4.1H7.6z"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p><strong>Not a yield farm or advice:</strong> memes are collateral only, and everything here can lose money.</p></li>
-            </ul>
-          </section>
+      <figure class="fig">
+        <div class="fig-stage fig-art">
+          <img src="https://i.imgur.com/VbDPT0x.jpg" alt="Two boards either side of the Yeti. It is: one book per meme, with its own lenders, cap and LTV; the Yeti is the face, the protocol runs the liquidations; the first serious meme running a lending market. It is not: a bank or equity; official anything; a yield farm or advice." width="1024" height="572" loading="lazy">
         </div>
-      </div>
+        <figcaption>LTV is the share of your meme's value you can borrow, and one meme dying doesn't touch the next book. Deposits are not insured, the token is not a share, no exchange, brokerage or chain endorses or partners with it, and everything here can lose money.</figcaption>
+      </figure>
 
       <h2 id="h-stayout">Who should stay out</h2>
       <p>
@@ -1628,8 +1610,8 @@
               <span class="vd-hg"><span class="vd-title">If you borrow</span><span class="vd-sub">At stake: <b>the posted meme</b></span></span>
             </div>
             <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6v10.4a2.6 2.6 0 0 1-2.6 2.6H5.8a2.6 2.6 0 0 1-2.6-2.6z"/><path fill="currentColor" fill-opacity=".18" stroke="none" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6V10H3.2z"/><path d="M3.2 10h17.6"/><path d="M8.2 3.2v3.6M15.8 3.2v3.6"/><path fill="currentColor" fill-opacity=".28" style="stroke-width:1.2" d="M13.1 13h3.8v3.8h-3.8z"/><path style="stroke-width:1.2" d="M6.5 14.2h3.4M6.5 17.4h3.4"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You need the meme back on a fixed date.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" stroke="none" d="M4.8 8.2 9.4 12.8 12.4 9.8 19 16.4v3H4.8z"/><path d="M3.4 3.6v16h17.2"/><path d="M4.8 8.2 9.4 12.8 12.4 9.8 19 16.4"/><path style="stroke-width:1.2" d="M19 12.9v3.6h-3.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You cannot survive being liquidated at a bad price.</p></li>
+            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6v10.4a2.6 2.6 0 0 1-2.6 2.6H5.8a2.6 2.6 0 0 1-2.6-2.6z"/><path fill="currentColor" fill-opacity=".18" stroke="none" d="M3.2 7.6a2.6 2.6 0 0 1 2.6-2.6h12.4a2.6 2.6 0 0 1 2.6 2.6V10H3.2z"/><path d="M3.2 10h17.6"/><path d="M8.2 3.2v3.6M15.8 3.2v3.6"/><circle cx="15.2" cy="15.4" r="2.6" fill="currentColor" fill-opacity=".22" style="stroke-width:1.2"/><path style="stroke-width:1.2" d="M6.4 13.9h3.6M6.4 17.2h3.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You need the meme back on a fixed date.</p></li>
+            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".11" stroke="none" d="M3.4 11.4h17.2v8.6H3.4z"/><path style="stroke-width:1.35;stroke-dasharray:2.4 2.4" d="M3.4 11.4h17.2"/><path d="M12 4.6v14.6M7.2 14.6 12 19.4 16.8 14.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You cannot survive being liquidated at a bad price.</p></li>
             </ul>
           </section>
           <section class="vd t-no" aria-label="If you lend">
@@ -1639,8 +1621,8 @@
               <span class="vd-hg"><span class="vd-title">If you lend</span><span class="vd-sub">At stake: <b>part of your deposit</b></span></span>
             </div>
             <ul class="vd-list">
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M7.6 3.6v2.2c0 2.7 4.4 3.6 4.4 6.2s-4.4 3.5-4.4 6.2v2.2h8.8v-2.2c0-2.7-4.4-3.6-4.4-6.2s4.4-3.5 4.4-6.2V3.6z"/><path d="M6.6 3.6h10.8M6.6 20.4h10.8"/><path fill="currentColor" fill-opacity=".32" stroke="none" d="M9.1 5.9h5.8c-.3 2-2.9 3-2.9 4.5 0-1.5-2.6-2.5-2.9-4.5z"/><path fill="currentColor" fill-opacity=".32" stroke="none" d="M9.5 18.1h5c-.3-1.8-2.5-2.5-2.5-3.9 0 1.4-2.2 2.1-2.5 3.9z"/><path style="stroke-width:1.2" d="M12 12.4v1.8"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You are lending money you need next month.</p></li>
-            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" d="M12 3.2 5.2 6v5.4c0 4.5 2.9 7.7 6.8 9.4 3.9-1.7 6.8-4.9 6.8-9.4V6z"/><path style="stroke-width:1.2" d="M12 5.9 7.4 7.8v3.6c0 3.3 1.9 5.7 4.6 7 2.7-1.3 4.6-3.7 4.6-7V7.8z"/><path d="M8.4 8.4 15.6 15.6"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You expect a backstop that always pays. There is none.</p></li>
+            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".13" stroke="none" d="M2.8 10.4h11.2v6.6c0 1.25-2.5 2.3-5.6 2.3s-5.6-1.05-5.6-2.3z"/><ellipse cx="8.4" cy="10.4" rx="5.6" ry="2.3"/><path d="M2.8 10.4v6.6c0 1.25 2.5 2.3 5.6 2.3s5.6-1.05 5.6-2.3v-6.6"/><circle cx="17.4" cy="15.6" r="4.6" fill="currentColor" fill-opacity=".2"/><path style="stroke-width:1.2" d="M17.4 13.2v2.4l1.8 1.1"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You are lending money you need next month.</p></li>
+            <li><span class="itile" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-opacity=".08" style="stroke-dasharray:2.6 2.6" d="M12 3.2 5.2 6v5.4c0 4.5 2.9 7.7 6.8 9.4 3.9-1.7 6.8-4.9 6.8-9.4V6z"/></svg><span class="mk"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"/></svg></span></span><p>You expect a backstop that always pays. There is none.</p></li>
             </ul>
           </section>
         </div>
@@ -1748,49 +1730,53 @@
       </div>
       <figure class="fig">
         <div class="fig-stage">
-          <svg viewBox="0 0 720 258" role="img" aria-labelledby="hf-gauge-title">
-            <title id="hf-gauge-title">A gauge of the health factor. A hard line marks 1.0. Left of it the loan is liquidatable by anyone; right of it the loan is fine. A marker labelled "you" sits on the safe side. Repaying debt and adding more of the same meme push it further right. Interest accruing and the TWAP price falling push it left, toward liquidation.</title>
+          <svg viewBox="0 0 720 306" role="img" aria-labelledby="hf-gauge-title">
+            <title id="hf-gauge-title">A scale of the health factor. A hard line marks 1.0: left of it the loan is liquidatable by anyone, right of it the loan is fine. A marker labelled "you" sits on the safe side. Repaying debt and adding more of the same meme push you right, away from the line. Interest accruing and the TWAP price falling push you left, toward it.</title>
             <defs>
-              <marker id="hf-arrow-safe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <marker id="hf-arrow-safe" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.4" markerHeight="6.4" orient="auto">
                 <path d="M0 0 L10 5 L0 10 Z" fill="var(--moss)"/>
               </marker>
-              <marker id="hf-arrow-risk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <marker id="hf-arrow-risk" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.4" markerHeight="6.4" orient="auto">
                 <path d="M0 0 L10 5 L0 10 Z" fill="var(--rose)"/>
               </marker>
             </defs>
 
-            <!-- the column the four forces act on -->
-            <path d="M470 34 V 110 M470 174 V 246" fill="none"
+            <!-- the column your position sits on, broken where the scale runs -->
+            <path d="M500 22 V 108 M500 222 V 300" fill="none"
                   stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="3 4" opacity=".55"/>
 
             <!-- what raises the health factor -->
-            <path d="M470 44 H 596" fill="none" stroke="var(--moss)" stroke-width="2" marker-end="url(#hf-arrow-safe)"/>
-            <text x="458" y="49" text-anchor="end" style="font-size:13px;fill:var(--ink-2)">repay debt</text>
-            <path d="M470 76 H 596" fill="none" stroke="var(--moss)" stroke-width="2" marker-end="url(#hf-arrow-safe)"/>
-            <text x="458" y="81" text-anchor="end" style="font-size:13px;fill:var(--ink-2)">add more of the same meme</text>
+            <text x="486" y="32" text-anchor="end" class="fg-lbl" style="fill:var(--moss)">RAISES HF</text>
+            <path d="M500 60 H 664" fill="none" stroke="var(--moss)" stroke-width="2" marker-end="url(#hf-arrow-safe)"/>
+            <text x="486" y="64" text-anchor="end" class="fg-note">repay debt</text>
+            <path d="M500 92 H 664" fill="none" stroke="var(--moss)" stroke-width="2" marker-end="url(#hf-arrow-safe)"/>
+            <text x="486" y="96" text-anchor="end" class="fg-note">add more of the same meme</text>
 
-            <!-- the two zones -->
-            <rect x="60" y="110" width="220" height="64" fill="var(--rose-soft)" stroke="var(--rose-line)" stroke-width="1.5"/>
-            <rect x="280" y="110" width="380" height="64" fill="var(--moss-soft)" stroke="var(--moss-line)" stroke-width="1.5"/>
-            <text x="170" y="137" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--rose)">HF &lt; 1</text>
-            <text x="170" y="158" text-anchor="middle" style="font-size:12px;fill:var(--ink-2)">anyone can liquidate you</text>
-            <text x="366" y="137" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--moss)">HF &#8805; 1</text>
-            <text x="366" y="158" text-anchor="middle" style="font-size:12px;fill:var(--ink-2)">fine</text>
+            <!-- the scale: one band, two zones, meeting at the line -->
+            <path d="M300 116 H56 a8 8 0 0 0-8 8 v44 a8 8 0 0 0 8 8 h244 z"
+                  fill="var(--rose-soft)" stroke="var(--rose-line)" stroke-width="1.5"/>
+            <path d="M300 116 h364 a8 8 0 0 1 8 8 v44 a8 8 0 0 1-8 8 H300 z"
+                  fill="var(--moss-soft)" stroke="var(--moss-line)" stroke-width="1.5"/>
+            <text x="72" y="144" class="fg-key" style="fill:var(--rose)">HF &lt; 1</text>
+            <text x="72" y="164" class="fg-note">anyone can liquidate you</text>
+            <text x="318" y="144" class="fg-key" style="fill:var(--moss)">HF &#8805; 1</text>
+            <text x="318" y="164" class="fg-note">fine</text>
 
-            <!-- the hard line at 1.0 -->
-            <path d="M280 92 V 192" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
-            <text x="280" y="209" text-anchor="middle" style="font-size:12px;font-weight:600;fill:var(--ink)">1.0</text>
+            <!-- the hard line at 1.0, and where you are, read off the same edge -->
+            <path d="M300 116 V 190" fill="none" stroke="var(--ink)" stroke-width="2"/>
+            <rect x="278" y="190" width="44" height="26" rx="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+            <text x="300" y="208" text-anchor="middle" class="fg-num" style="fill:var(--ink)">1.0</text>
 
-            <!-- where you are -->
-            <path d="M470 110 V 124 M470 160 V 174" fill="none" stroke="var(--accent)" stroke-width="2"/>
-            <rect x="444" y="124" width="52" height="36" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-            <text x="470" y="148" text-anchor="middle" style="font-size:14px;font-weight:600;fill:var(--accent-ink)">you</text>
+            <path d="M500 176 V 190" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <rect x="468" y="190" width="64" height="26" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+            <text x="500" y="208" text-anchor="middle" class="fg-key" style="fill:var(--accent-ink)">you</text>
 
             <!-- what lowers it -->
-            <path d="M470 206 H 344" fill="none" stroke="var(--rose)" stroke-width="2" marker-end="url(#hf-arrow-risk)"/>
-            <text x="482" y="211" style="font-size:13px;fill:var(--ink-2)">interest accrues</text>
-            <path d="M470 238 H 344" fill="none" stroke="var(--rose)" stroke-width="2" marker-end="url(#hf-arrow-risk)"/>
-            <text x="482" y="243" style="font-size:13px;fill:var(--ink-2)">TWAP price falls</text>
+            <text x="514" y="244" class="fg-lbl" style="fill:var(--rose)">LOWERS HF</text>
+            <path d="M500 270 H 330" fill="none" stroke="var(--rose)" stroke-width="2" marker-end="url(#hf-arrow-risk)"/>
+            <text x="514" y="274" class="fg-note">interest accrues</text>
+            <path d="M500 300 H 330" fill="none" stroke="var(--rose)" stroke-width="2" marker-end="url(#hf-arrow-risk)"/>
+            <text x="514" y="304" class="fg-note">TWAP price falls</text>
           </svg>
         </div>
         <figcaption><b>Fig. 2</b> The four things that move your health factor. Two of them are yours to control; the other two happen whether you are watching or not.</figcaption>
@@ -1799,80 +1785,74 @@
         <ul class="hfnotes">
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The last trade jumps around, with a one-block wick down through the liquidation level and another spike up. The TWAP line stays smooth and ignores both.">
-              <path class="base" d="M10 116H270"/>
-              <path class="dash-rose" d="M10 86H270"/>
-              <text x="12" y="100" class="tx-rose">liquidation level</text>
-              <path class="ln-mute" d="M10 52 L22 48 L34 55 L46 50 L58 56 L70 49 L82 54 L94 51 L103 55 L109 104 L115 54 L128 57 L140 52 L152 58 L164 54 L176 60 L188 56 L197 60 L203 14 L209 61 L222 58 L236 64 L248 60 L260 66 L270 63"/>
-              <path class="ln-acc" d="M10 52 C60 51 100 53 140 55 S220 60 270 63"/>
-              <circle class="dot-rose" cx="109" cy="104" r="3.5"/>
-              <circle class="dot-acc" cx="203" cy="14" r="3.5"/>
-              <text x="14" y="38">last trade</text>
-              <text x="118" y="114">one-block wick: not liquidated</text>
-              <text x="196" y="18" text-anchor="end">spike: not saved</text>
-              <text x="270" y="79" text-anchor="end" class="tx-acc">TWAP</text>
+            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The last trade jitters around a smooth TWAP line. A one-block wick dips below the liquidation level and a one-block spike jumps above it; the TWAP barely moves either time.">
+              <path class="ln-mute" d="M12 18H26"/><text x="30" y="22">last trade</text>
+              <path class="ln-acc" d="M92 18H106"/><text x="110" y="22" class="tx-acc">TWAP</text>
+              <path class="base" d="M12 104H268"/>
+              <path class="dash-rose" d="M12 80H268"/>
+              <text x="12" y="74" class="tx-rose">liquidation level</text>
+              <path class="ln-mute" d="M12 40 24 52 36 42 48 54 60 44 72 56 84 46 96 43 101 50 104 92 107 48 118 58 130 46 142 60 154 48 166 62 178 50 188 56 192 28 196 58 208 64 220 52 232 66 244 54 256 68 268 56"/>
+              <path class="ln-acc" d="M12 48C70 48 130 52 190 54S250 58 268 59"/>
+              <circle class="dot-rose" cx="104" cy="92" r="3.6"/>
+              <circle class="dot-acc" cx="192" cy="28" r="3.6"/>
+              <text x="186" y="36" text-anchor="end">spike: not saved</text>
+              <text x="112" y="97">one-block wick: not liquidated</text>
             </svg>
             </div>
             <p><strong>Collateral value uses the TWAP, not the last trade.</strong> A one block wick does not liquidate you, and it does not save you either.</p>
           </li>
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The price stays flat, so collateral value times threshold is a flat line. Debt starts well below it and curves upward with interest until it crosses the line, where the health factor drops below 1.">
-              <path class="base" d="M10 116H270"/>
-              <path class="ln-acc" d="M10 40H270"/>
-              <text x="10" y="30">collateral × threshold, price flat</text>
-              <path class="ln-rose" d="M10 96C90 92 170 78 270 26"/>
-              <circle class="dot-rose" cx="241" cy="40" r="4.5"/>
-              <text x="236" y="30" text-anchor="end" class="tx-rose">HF &lt; 1</text>
-              <text x="12" y="108" class="tx-rose">debt, growing with interest</text>
-              <text x="270" y="108" text-anchor="end">time →</text>
-            </svg>
-            </div>
-            <p><strong>Your debt grows with interest,</strong> so a loan you never touch drifts toward liquidation even at a flat price.</p>
-          </li>
-          <li>
-            <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="Your debt stays the same. Before a demotion the league's liquidation threshold sits well above it. Once the demotion takes effect the lower league's tighter threshold drops closer, and the room before liquidation shrinks.">
-              <rect class="zone" x="10" y="32" width="140" height="42"/>
-              <rect class="zone" x="150" y="56" width="120" height="18"/>
-              <path class="ln-gold" d="M10 32H150V56H270"/>
-              <path class="ln-rose" d="M10 74H270"/>
-              <path class="dash-mute" d="M150 14V102"/>
-              <text x="14" y="24" class="tx-gold">higher league threshold</text>
-              <text x="266" y="48" text-anchor="end" class="tx-gold">tighter</text>
-              <text x="80" y="57" text-anchor="middle" class="tx-moss">room</text>
-              <text x="210" y="69" text-anchor="middle" class="tx-moss">less room</text>
-              <text x="14" y="88" class="tx-rose">your open loan's debt</text>
-              <text x="156" y="112">demotion takes effect</text>
+            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="The league threshold steps down when the ticker is demoted, so the room between it and your unchanged debt shrinks.">
+              <path class="ln-gold" d="M12 18H26"/><text x="30" y="22" class="tx-gold">league threshold</text>
+              <path class="ln-rose" d="M150 18H164"/><text x="168" y="22" class="tx-rose">your debt</text>
+              <rect class="zone" x="12" y="44" width="138" height="36"/>
+              <rect class="zone" x="150" y="62" width="118" height="18"/>
+              <path class="ln-gold" d="M12 44H150V62H268"/>
+              <path class="ln-rose" d="M12 80H268"/>
+              <path class="dash-mute" d="M150 34V104"/>
+              <path class="base" d="M12 104H268"/>
+              <text x="81" y="66" text-anchor="middle" class="tx-moss">room</text>
+              <text x="209" y="74" text-anchor="middle" class="tx-moss">less room</text>
+              <text x="146" y="117" text-anchor="end">demotion takes effect</text>
+              <text x="268" y="117" text-anchor="end">time &#8594;</text>
             </svg>
             </div>
             <p><strong>The liquidation threshold comes from the league.</strong> If the ticker drops a league, the tighter threshold applies to your open loan once the change takes effect. <span class="badge badge-open">Notice period TBD</span></p>
           </li>
           <li>
             <div class="hfn-art">
-            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="A balance with collateral on one side and debt on the other. Adding more of the same meme weighs down the collateral side; repaying lifts debt off the other side. Both push the health factor up.">
+            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="With the price flat, collateral times threshold is a flat line while debt climbs with interest until it crosses, putting the health factor below one.">
+              <path class="ln-acc" d="M12 18H26"/><text x="30" y="22" class="tx-acc">collateral &#215; threshold</text>
+              <path class="ln-rose" d="M166 18H180"/><text x="184" y="22" class="tx-rose">debt</text>
+              <path class="base" d="M12 104H268"/>
+              <path class="ln-acc" d="M12 52H268"/>
+              <path class="ln-rose" d="M12 96C104 93 172 82 216 64 240 54 254 44 262 36"/>
+              <circle class="dot-rose" cx="241" cy="52" r="4"/>
+              <text x="233" y="44" text-anchor="end" class="tx-rose">HF &lt; 1</text>
+              <text x="268" y="117" text-anchor="end">time &#8594;</text>
+            </svg>
+            </div>
+            <p><strong>Your debt grows with interest,</strong> so a loan you never touch drifts toward liquidation even at a flat price.</p>
+          </li>
+          <li>
+            <div class="hfn-art">
+            <svg class="mini" viewBox="0 0 280 124" role="img" aria-label="Two bars, collateral and debt, with the debt height carried across as a dashed guide. One arrow adds to the collateral bar, another takes from the debt bar; either move raises the health factor.">
               <defs>
-                <marker id="hfn-up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <marker id="hfn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                   <path d="M0 0 L10 5 L0 10 Z" fill="var(--moss)"/>
                 </marker>
               </defs>
-              <path class="fulcrum" d="M140 57 L127 100 H153 Z"/>
-              <path class="base" d="M104 100H176"/>
-              <path class="beam" d="M62 66 L218 44"/>
-              <circle class="pivot" cx="140" cy="55" r="4"/>
-              <path class="string" d="M62 66 L46 90 M62 66 L78 90 M218 44 L202 68 M218 44 L234 68"/>
-              <path class="pan" d="M40 90 Q62 99 84 90"/>
-              <path class="pan" d="M196 68 Q218 77 240 68"/>
-              <path class="obj" d="M55 91 C51 91 50 86 51.5 82 C53 78 57 76 59 75 H65 C67 76 71 78 72.5 82 C74 86 73 91 69 91 Z"/>
-              <path class="obj" d="M59 75 L57.5 71.5 L62 72.8 L66.5 71.5 L65 75"/>
-              <ellipse class="obj-r" cx="218" cy="66" rx="10" ry="3.2"/>
-              <ellipse class="obj-r" cx="218" cy="61" rx="10" ry="3.2"/>
-              <path class="ln-moss" d="M62 20V58" marker-end="url(#hfn-up)"/>
-              <path class="ln-moss" d="M218 52V16" marker-end="url(#hfn-up)"/>
-              <text x="70" y="26" class="tx-moss">add the same meme</text>
-              <text x="226" y="24" class="tx-moss">repay</text>
-              <text x="62" y="112" text-anchor="middle">collateral</text>
-              <text x="218" y="90" text-anchor="middle">debt</text>
+              <path class="base" d="M12 104H268"/>
+              <path class="dash-mute" d="M44 68H176"/>
+              <path class="bar-moss" d="M44 47a3 3 0 0 1 3-3h50a3 3 0 0 1 3 3v57H44z"/>
+              <path class="bar-rose" d="M176 71a3 3 0 0 1 3-3h50a3 3 0 0 1 3 3v33h-56z"/>
+              <path class="ln-moss" d="M72 38V18" marker-end="url(#hfn-arrow)"/>
+              <text x="82" y="26" class="tx-moss">add the same meme</text>
+              <path class="ln-moss" d="M204 26V64" marker-end="url(#hfn-arrow)"/>
+              <text x="214" y="34" class="tx-moss">repay</text>
+              <text x="72" y="117" text-anchor="middle">collateral</text>
+              <text x="204" y="117" text-anchor="middle">debt</text>
             </svg>
             </div>
             <p><strong>You raise HF two ways:</strong> repay some debt, or add more of the same meme.</p>
